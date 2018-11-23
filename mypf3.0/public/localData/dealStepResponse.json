@@ -1,0 +1,223 @@
+{
+    "dealId": "1050",
+    "packages": [
+        {
+            "id": "10483",
+            "title": "Package",
+            "description": "",
+            "minimumPax": 1,
+            "maximumPax": 10,
+            "displayPrice": {
+                "currency": "HKD",
+                "discounted": 299,
+                "original": 300
+            },
+            "dates": [],
+            "dealItemTypes": [
+                {
+                    "id": 6539,
+                    "title": "Adult",
+                    "minQuantity": 0,
+                    "maxQuantity": -1,
+                    "prices": [
+                        {
+                            "dealItemPriceId": -1,
+                            "originalPrice": 300,
+                            "unitPrice": 299,
+                            "default": true,
+                            "priority": 0
+                        },
+                        {
+                            "dealItemPriceId": -1,
+                            "originalPrice": 300,
+                            "unitPrice": 299,
+                            "default": false,
+                            "priority": 990,
+                            "conditions": {
+                                "quantity": {
+                                    "minimum": "0",
+                                    "maximum": "0"
+                                }
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "id": "10483",
+            "title": "Package",
+            "description": "",
+            "minimumPax": 2,
+            "maximumPax": 10,
+            "displayPrice": {
+                "currency": "HKD",
+                "discounted": 299,
+                "original": 300
+            },
+            "dates": [],
+            "dealItemTypes": [
+                {
+                    "id": 6539,
+                    "title": "Adult",
+                    "minQuantity": 0,
+                    "maxQuantity": -1,
+                    "prices": [
+                        {
+                            "dealItemPriceId": -1,
+                            "originalPrice": 300,
+                            "unitPrice": 299,
+                            "default": true,
+                            "priority": 0
+                        },
+                        {
+                            "dealItemPriceId": -1,
+                            "originalPrice": 300,
+                            "unitPrice": 299,
+                            "default": false,
+                            "priority": 990,
+                            "conditions": {
+                                "quantity": {
+                                    "minimum": "0",
+                                    "maximum": "0"
+                                }
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ],
+    "promotions": [
+        {
+            "id": 49,
+            "type": "percentage",
+            "value": 20,
+            "title": "Regression QA-20%",
+            "message": "Regression QA-20%\r\nDisplayed Message"
+        }
+    ],
+    "paymentOptions": [
+        {
+            "type": "pos",
+            "value": "payment/hotel_email",
+            "isInRoomBilling": true,
+            "promotion": null,
+            "validations": [
+                {
+                    "id": "1",
+                    "hintText": "Room number or room name"
+                }
+            ],
+            "title": "Bill To Room"
+        },
+        {
+            "type": "credit_card",
+            "value": "stripe/cc",
+            "isInRoomBilling": false,
+            "promotion": null,
+            "validations": null,
+            "title": "",
+            "stripePublishableKey": "pk_test_U0WoM6jD84z72hr7rk4R5Wdc"
+        },
+        {
+            "type": "wechatpay",
+            "value": "payment/wechatpay/valoot",
+            "isInRoomBilling": false,
+            "promotion": null,
+            "validations": null,
+            "title": ""
+        },
+        {
+            "type": "union_pay",
+            "value": "payment/union_pay/ingenico",
+            "isInRoomBilling": false,
+            "promotion": null,
+            "validations": null,
+            "title": ""
+        }
+    ],
+    "questions": [
+        {
+            "name": "handy_question_Select a drink",
+            "title": "Please select a drink",
+            "type": "dropdown",
+            "placeholder": "placeholder",
+            "conditions": null,
+            "required": true,
+            "appliedToAll": false,
+            "choices": [
+                {
+                    "title": "Coffee",
+                    "value": "coffee"
+                },
+                {
+                    "title": "Tea",
+                    "value": "tea"
+                },
+                {
+                    "title": "Orange Juice",
+                    "value": "orangejuice"
+                },
+                {
+                    "title": "Bubble Tea",
+                    "value": "bubbletea"
+                },
+                {
+                    "title": "Coke",
+                    "value": "coke"
+                }
+            ],
+            "default": null
+        },
+        {
+            "name": "handy_question_Text Question",
+            "title": "Are you hungry?",
+            "type": "text",
+            "placeholder": "Please list out your favorite snacks here!",
+            "conditions": null,
+            "required": true,
+            "appliedToAll": false
+        }
+    ],
+    "faqUrl": "https://staging.handy.travel/deals/faq?locale=en_US",
+    "termsAndConditionsUrl": "https://staging.handy.travel/apis/dealterms/1050",
+    "abTest": {
+        "enable": false,
+        "type": "showAllUserInfo"
+    },
+    "abandonCart": {
+        "enable": true,
+        "options": [
+            {
+                "id": "1",
+                "type": "I can find it cheaper"
+            },
+            {
+                "id": "4",
+                "type": "Does not fit my schedule"
+            },
+            {
+                "id": "7",
+                "type": "I want to pay another way"
+            },
+            {
+                "id": "22",
+                "type": "I changed my mind"
+            },
+            {
+                "id": "19",
+                "type": "Experienced a problem"
+            }
+        ]
+    },
+    "purchaseDeal": {
+        "title": "Deal with Questions Test",
+        "merchantId": 23,
+        "merchantName": "Walk In Hong Kong"
+    },
+    "optIn": {
+        "isRender": true,
+        "url": null
+    }
+}
