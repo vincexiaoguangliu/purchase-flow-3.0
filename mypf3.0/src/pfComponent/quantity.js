@@ -20,15 +20,82 @@ const styles = theme => ({
 class Quantity extends Component {
     constructor(props) {
         super(props);
+        console.log(this.props.dealitemTypes);
         this.state = { number: 0 ,
                        discountprice: [],
-                       Quantity: []
+                       dealitemTypes: this.props.dealitemTypes,
+                       quantity: [], //当前数量
+                       unitPrice: [], //折扣价
+                       originalPrice: [], //原价
+                       dealItemPriceFalseArray: [], //default 为false的price 2维数组
+                       meetConditionPrices: [],
+                       transferTimaslotId: this.props.timeslotId,
+                       dealItemPrice: {} //初始default:true的price
                     };
-        // this.addQuantity = this.addQuantity.bind(this);
+        this.addQuantity = this.addQuantity.bind(this);
         this.submiteQuantity = this.submiteQuantity.bind(this);
         
     }
    
+    componentWillMount(){
+        for(let i = 0; i<this.state.dealitemTypes.length; i++){
+            //判断最低购买要求
+            if(this.state.dealitemTypes[i].minQuantity > 0){
+                this.state.quantity[i] = this.state.dealitemTypes[i].minQuantity;
+            }else{
+                this.state.quantity[i] = 0;
+            }
+
+            //查找default=true的price
+            let dealItemPrice = this.state.dealitemTypes[i].prices.find(function(ele){
+                return ele.default == true;
+            });
+            this.setState({dealItemPrice: dealItemPrice});
+            this.state.unitPrice[i] = dealItemPrice.unitPrice;
+            this.state.originalPrice[i] = dealItemPrice.originalPrice;
+
+            //查找default=false的price
+            let dealItemPriceFalse = this.state.dealitemTypes[i].prices.filter(function(ele){
+                return ele.default != true;
+            });              
+            this.state.dealItemPriceFalseArray[i] = dealItemPriceFalse;
+        }
+    }
+    addQuantity(currentQuantity,currentdiscountPrice,index,e){
+        for(let j=0; j<this.state.dealItemPriceFalseArray[index].length; j++){
+            if(this.state.dealItemPriceFalseArray[index][j].conditions.quantity && this.state.dealItemPriceFalseArray[index][j].conditions.timeslot){
+                if(((currentQuantity>=this.state.dealItemPriceFalseArray[index][j].conditions.quantity.minimum) && (currentQuantity<=this.state.dealItemPriceFalseArray[index][j].conditions.quantity.maximum)) && (this.state.transferTimaslotId == this.state.dealItemPriceFalseArray[index][j].conditions.timeslot.id)){
+                    this.state.meetConditionPrices.push(this.state.dealItemPriceFalseArray[index][j]);
+                }
+            }else if(this.state.dealItemPriceFalseArray[index][j].conditions.quantity){
+                if((currentQuantity>=this.state.dealItemPriceFalseArray[index][j].conditions.quantity.minimum) && (currentQuantity<=this.state.dealItemPriceFalseArray[index][j].conditions.quantity.maximum)){
+                    this.state.meetConditionPrices.push(this.state.dealItemPriceFalseArray[index][j]);
+                }
+            }else if(this.state.dealItemPriceFalseArray[index][j].conditions.timeslot){
+                if(this.state.transferTimaslotId == this.state.dealItemPriceFalseArray[index][j].conditions.timeslot.id){
+                    this.state.meetConditionPrices.push(this.state.dealItemPriceFalseArray[index][j]);
+                }
+            }
+        }
+        this.state.meetConditionPrices.sort(function(a,b){
+            return a.priority - b.priority;
+        })
+        console.log(this.state.meetConditionPrices);
+        console.log(this.state.unitPrice[index]);
+        if(this.state.meetConditionPrices.length>0){
+            if(this.state.meetConditionPrices[this.state.meetConditionPrices.length-1].unitPrice < this.state.unitPrice[index]){
+                console.log(this.state.meetConditionPrices[this.state.meetConditionPrices.length-1].unitPrice);                             
+                    let newdiscountprice = this.state.meetConditionPrices[this.state.meetConditionPrices.length-1].unitPrice;
+                    let temp1 = {...this.state.discountprice, [index]:newdiscountprice};             
+                    this.setState({discountprice: temp1});              
+            }
+        }
+       
+        let temp2 = {...this.state.quantity, [index]:currentQuantity+1};
+        this.setState({quantity: temp2});
+        this.state.meetConditionPrices = [];
+        
+    }
     submiteQuantity(data) {
         if (data > 0) {
             this.setState(
@@ -40,128 +107,32 @@ class Quantity extends Component {
     }
     
     //覆盖旧的折扣价 unitprice
-    coverdiscount(newdiscountprice, index, currentQuantity){
-        console.log(newdiscountprice);
-        let temp1 = {...this.state.discountprice, [index]:newdiscountprice};
-        let temp2 = {...this.state.Quantity, [index]:currentQuantity+1};
-        this.setState({discountprice: temp1, Quantity: temp2});
-        
-    };
-    //初始化quantity 调用render外函数 赋值到state里面去
-    startQuantity(quantity){
-        console.log(quantity);
-        
-        for(let i = 0; i<quantity.length; i++){
-            this.state.Quantity[i]=quantity[i]           
-        }       
-    }
-    render() {
-       
-        console.log(this.props.timeslotId);
-        const { classes } = this.props;
-        let transferTimaslotId = this.props.timeslotId;
-        let dealitemTypes = [];//接收父组件传递过来的dealitemTypes
-        let unitPrice = [];//折扣价
-        let originalPrice = [];//原价
-        let quantity = [];//当前数量
-        let maxQuantity = [];//数量上限
-        let dealItemPriceFalseArray = [];//default 为false的price 2维数组
-        let meetConditionPrices = []; //满足condition的所有price
-        
+   
+    render() {  
+        const { classes } = this.props;        
         let that = this;
-        function addQuantity(currentQuantity,currentdiscountPrice,index,e){
-
-            // console.log(index);
-            // console.log(currentQuantity);
-            // console.log(dealItemPriceFalseArray[index]); 
-            // console.log(currentdiscountPrice);
-            
-            for(let j=0; j<dealItemPriceFalseArray[index].length; j++){
-                if(dealItemPriceFalseArray[index][j].conditions.quantity && dealItemPriceFalseArray[index][j].conditions.timeslot){
-                    if(((currentQuantity>=dealItemPriceFalseArray[index][j].conditions.quantity.minimum) && (currentQuantity<=dealItemPriceFalseArray[index][j].conditions.quantity.maximum)) && (transferTimaslotId == dealItemPriceFalseArray[index][j].conditions.timeslot.id)){
-                        meetConditionPrices.push(dealItemPriceFalseArray[index][j]);
-                    }
-                }else if(dealItemPriceFalseArray[index][j].conditions.quantity){
-                    if((currentQuantity>=dealItemPriceFalseArray[index][j].conditions.quantity.minimum) && (currentQuantity<=dealItemPriceFalseArray[index][j].conditions.quantity.maximum)){
-                        meetConditionPrices.push(dealItemPriceFalseArray[index][j]);
-                    }
-                }else if(dealItemPriceFalseArray[index][j].conditions.timeslot){
-                    if(transferTimaslotId == dealItemPriceFalseArray[index][j].conditions.timeslot.id){
-                        meetConditionPrices.push(dealItemPriceFalseArray[index][j]);
-                    }
-                }
-            }
-            // console.log(meetConditionPrices);//为啥这里已完成priority的排序
-            meetConditionPrices.sort(function(a,b){
-                return a.priority - b.priority;
-            })
-            console.log(meetConditionPrices);
-            console.log(unitPrice[index]);
-            if(meetConditionPrices[meetConditionPrices.length-1].unitPrice < unitPrice[index]){
-                console.log(meetConditionPrices[meetConditionPrices.length-1].unitPrice);              
-                if(currentdiscountPrice > meetConditionPrices[meetConditionPrices.length-1].unitPrice){
-                    that.coverdiscount(meetConditionPrices[meetConditionPrices.length-1].unitPrice, index, currentQuantity);
-                }
-            }
-           
-            meetConditionPrices = [];
-
-           
-        }
-        if (this.props.dealitemTypes != undefined) {
-            // console.log(this.props.dealitemTypes);
-            dealitemTypes = this.props.dealitemTypes;
-            for(let i = 0; i<dealitemTypes.length; i++){
-                //判断最高购买要求
-                if(dealitemTypes[i].maxQuantity != -1){
-                    maxQuantity[i] = dealitemTypes[i].maxQuantity;
-                }
-                //判断最低购买要求
-                if(dealitemTypes[i].minQuantity > 0){
-                    quantity[i] = dealitemTypes[i].minQuantity;
-                }else{
-                    quantity[i] = 0;
-                }
-                //查找default=true的price
-                let dealItemPrice = dealitemTypes[i].prices.find(function(ele){
-                    return ele.default == true;
-                });
-                unitPrice[i] = dealItemPrice.unitPrice;
-                originalPrice[i] = dealItemPrice.originalPrice
-
-                //查找default=false的price
-                let dealItemPriceFalse = dealitemTypes[i].prices.filter(function(ele){
-                    return ele.default != true;
-                });              
-                dealItemPriceFalseArray[i] = dealItemPriceFalse;
-            }
-            
-                that.startQuantity(quantity);
-           
-            // console.log(dealItemPriceFalseArray);
-        }
-
+     
         return (
             <div className={classes.root}>
                 <div className='sectionHeader'>SELECT QUANTITY</div>
-                {dealitemTypes.map(function (ele, index) {
+                {this.state.dealitemTypes.map(function (ele, index) {
                     return (
                         <Grid container spacing={24} key={index}>
                             <Grid item xs={7}>
                                 <div className={classes.paper}>
                                     <div style={{ textAlign: 'left' }}>{ele.title}</div>
                                     <div style={{ textAlign: 'left', marginTop: 5 }}>
-                                        <span className='quantityInitialPrice'>HKD {unitPrice[index] > that.state.discountprice[index] ? that.state.discountprice[index] : unitPrice[index]}</span>
-                                        <span className='midDelete'>HKD {originalPrice[index]}</span>
+                                        <span className='quantityInitialPrice'>HKD {that.state.unitPrice[index]> that.state.discountprice[index] ? that.state.discountprice[index] : that.state.unitPrice[index]}</span>
+                                        <span className='midDelete'>HKD {that.state.originalPrice[index]}</span>
                                     </div>
                                     <div style={{ textAlign: 'left' }}>Buy 1 more to save HKD 58.00</div>
                                 </div>
                             </Grid>
                             <Grid item xs={5}>
                                 <div id='quantityRight' className={classes.paper}>
-                                    <span className='quantityNo'>{that.state.Quantity[index]}</span>
+                                    <span className='quantityNo'>{that.state.quantity[index]}</span>
                                     <div className='quantityjiajian'>
-                                        <span className='addStyle' onClick={(e) => addQuantity(that.state.Quantity[index],unitPrice[index],index,e)}>+</span>
+                                        <span className='addStyle' onClick={that.addQuantity.bind(this,that.state.quantity[index],that.state.unitPrice[index],index)}>+</span>
                                         <span className='sumbmitStyle'>-</span>
                                     </div>
                                 </div>
