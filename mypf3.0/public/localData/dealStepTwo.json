@@ -2393,7 +2393,7 @@
                             "id": 6538,
                             "title": "Child (Time cut-off)",
                             "minQuantity": 0,
-                            "maxQuantity": -1,
+                            "maxQuantity": 5,
                             "prices": [
                                 {
                                     "dealItemPriceId": -1,
@@ -2411,7 +2411,7 @@
                                     "conditions": {
                                         "quantity": {
                                             "minimum": "0",
-                                            "maximum": "0"
+                                            "maximum": "3"
                                         }
                                     }
                                 },
@@ -2424,7 +2424,7 @@
                                     "conditions": {
                                         "quantity": {
                                             "minimum": "0",
-                                            "maximum": "0"
+                                            "maximum": "5"
                                         },
                                         "timeslot": {
                                             "id": "13"
@@ -2466,8 +2466,8 @@
                                     "priority": 990,
                                     "conditions": {
                                         "quantity": {
-                                            "minimum": "0",
-                                            "maximum": "2"
+                                            "minimum": "3",
+                                            "maximum": "3"
                                         },
                                         "timeslot": {
                                             "id": "13"
