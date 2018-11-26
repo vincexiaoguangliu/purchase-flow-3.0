@@ -62,6 +62,7 @@ class App extends Component {
       quantityDisplay = true;
     }
     // console.log(this.state.timeslotId);
+    //父组件传select quantity  dealitemTypes；
     if(this.state.packages != undefined){  
        selectIdPackage = this.state.packages.find(function(ele){
         return ele.id == that.state.packageid;
