@@ -145,8 +145,9 @@ class Quantity extends Component {
         }
         
     }
-    addQuantity(currentQuantity,currentdiscountPrice,index,e){
-        this.getMeetConditionPricesByAdd(currentQuantity,index,currentdiscountPrice);
+    addQuantity(currentQuantity,index,e){
+        console.log(e.currentTarget.getAttribute('currentdiscountPrice')); //这里要用e获取当前的折扣价。
+        this.getMeetConditionPricesByAdd(currentQuantity,index,e.currentTarget.getAttribute('currentdiscountPrice'));
         console.log(this.state.meetConditionPrices);
         console.log(this.state.unitPrice[index]);
       
@@ -163,8 +164,8 @@ class Quantity extends Component {
         this.state.meetConditionPrices = [];
         
     }
-    minusQuantity(currentQuantity,currentdiscountPrice,index,e) {
-        this.getMeetConditionPricesByMinus(currentQuantity,index,currentdiscountPrice);
+    minusQuantity(currentQuantity,index,e) {
+        this.getMeetConditionPricesByMinus(currentQuantity,index,e.currentTarget.getAttribute('currentdiscountPrice'));
         console.log(this.state.meetConditionPrices);
         console.log(this.state.unitPrice[index]);      
         //数量减一操作
@@ -205,8 +206,8 @@ class Quantity extends Component {
                                 <div id='quantityRight' className={classes.paper}>
                                     <span className='quantityNo'>{that.state.quantity[index]}</span>
                                     <div className='quantityjiajian'>
-                                    <span className='sumbmitStyle' onClick={that.minusQuantity.bind(this,that.state.quantity[index],that.state.unitPrice[index],index)}>-</span>
-                                    <span className='addStyle' onClick={that.addQuantity.bind(this,that.state.quantity[index],that.state.unitPrice[index],index)}>+</span>                
+                                    <span className='sumbmitStyle' currentdiscountPrice={that.state.unitPrice[index]> that.state.discountprice[index] ? that.state.discountprice[index] : that.state.unitPrice[index]} onClick={that.minusQuantity.bind(this,that.state.quantity[index],index)}>-</span>
+                                    <span className='addStyle' currentdiscountPrice={that.state.unitPrice[index]> that.state.discountprice[index] ? that.state.discountprice[index] : that.state.unitPrice[index]} onClick={that.addQuantity.bind(this,that.state.quantity[index],index)}>+</span>                
                                     </div>
                                 </div>
                             </Grid>
