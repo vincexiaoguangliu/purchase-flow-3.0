@@ -2325,7 +2325,7 @@
                     ]
                 },
                 {
-                    "date": "2018-11-26T00:00:00+0800",
+                    "date": "2018-11-29T00:00:00+0800",
                     "timeslots": [
                         {
                             "id": 13,
@@ -2410,7 +2410,7 @@
                                     "priority": 990,
                                     "conditions": {
                                         "quantity": {
-                                            "minimum": "0",
+                                            "minimum": "1",
                                             "maximum": "3"
                                         }
                                     }
@@ -2418,12 +2418,12 @@
                                 {
                                     "dealItemPriceId": 108,
                                     "originalPrice": 200,
-                                    "unitPrice": 140,
+                                    "unitPrice": 47,
                                     "default": false,
                                     "priority": 14,
                                     "conditions": {
                                         "quantity": {
-                                            "minimum": "0",
+                                            "minimum": "2",
                                             "maximum": "5"
                                         },
                                         "timeslot": {
@@ -2611,7 +2611,49 @@
             "title": ""
         }
     ],
-    "questions": [],
+    "questions": [
+        {
+            "name": "handy_question_Select a drink",
+            "title": "Please select a drink",
+            "type": "dropdown",
+            "placeholder": "placeholder",
+            "conditions": null,
+            "required": true,
+            "appliedToAll": false,
+            "choices": [
+                {
+                    "title": "Coffee",
+                    "value": "coffee"
+                },
+                {
+                    "title": "Tea",
+                    "value": "tea"
+                },
+                {
+                    "title": "Orange Juice",
+                    "value": "orangejuice"
+                },
+                {
+                    "title": "Bubble Tea",
+                    "value": "bubbletea"
+                },
+                {
+                    "title": "Coke",
+                    "value": "coke"
+                }
+            ],
+            "default": null
+        },
+        {
+            "name": "handy_question_Text Question",
+            "title": "Are you hungry?",
+            "type": "text",
+            "placeholder": "Please list out your favorite snacks here!",
+            "conditions": null,
+            "required": true,
+            "appliedToAll": false
+        }
+    ],
     "faqUrl": "https://staging.handy.travel/deals/faq?locale=en_US",
     "termsAndConditionsUrl": "https://staging.handy.travel/apis/dealterms/1049",
     "abTest": {
