@@ -32,8 +32,10 @@ class App extends Component {
   componentDidMount(){
     fetch('../localData/dealStepTwo.json')
     .then(res => res.json())
-    .then( data => {this.setState({packages:data.packages})})
-    
+    .then( data => {this.setState({
+      packages: data.packages,
+      questions: data.questions,
+    })})
   }
 
   handlePackageid(packageid){
@@ -82,7 +84,6 @@ class App extends Component {
       }     
     }
     
-    
     return (
       <div>
         {/* <SelectPackage /> */}
@@ -90,9 +91,8 @@ class App extends Component {
         <DatePicker packages={selectIdPackage} onChangeHandledates={this.handleSelectedDate} onChangeTimeslotId={this.handleTimeslotId}/>
         {/* <SelectTime /> */}
         {quantityDisplay && <Quantity dealitemTypes={dealitemTypes} timeslotId={this.state.timeslotId}/>}
-        
         <Userdetails />
-        <QuestionList />
+        {this.state.questions && <QuestionList questions = { this.state.questions }/>}
         <Promotionlist />
         <Confirmation />
         <PaymentMethod />

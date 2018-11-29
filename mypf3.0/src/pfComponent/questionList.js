@@ -32,23 +32,40 @@ const styles = theme => ({
 });
 
 class QuestionList extends React.Component {
-    state = {
-        age: '',
-        name: 'hai',
-        // labelWidth: 0,
+    constructor(props) {
+        super(props)
+        this.state = {
+            age: '',
+            name: 'hai',
+            dropDownQuestions: [],
+            textQuestions: [],
+        };
+        // this.dropDownQuestions = [1,2]
+    }
+    
+    componentDidMount() {
+        this.formatQuestionList()
     };
 
-    // componentDidMount() {
-    //     this.setState({
-    //         labelWidth: ReactDOM.findDOMNode(this.InputLabelRef).offsetWidth,
-    //     });
-    // }
-
-    componentDidMount() {
-        this.forceUpdate();
+    formatQuestionList () {
+        // this.dropDownQuestions = this.props.questions.filter(item => item.type === 'dropdown')
+        this.setState({
+            dropDownQuestions: this.props.questions.filter(item => {
+                // 只展示有 title 的 question
+                if (item.title) {
+                    return item.type === 'dropdown'
+                }
+            }),
+            textQuestions: this.props.questions.filter(item => {
+                if (item.title) {
+                    return item.type === 'text'
+                }
+            }),
+        })
     }
 
     handleChange = name => event => {
+        // console.log(this.state.dropDownQuestions, 111, this.props.questions)
         this.setState({ [name]: event.target.value });
     };
 
@@ -59,32 +76,31 @@ class QuestionList extends React.Component {
         }
         return (
             <div className={classes.root}>
-                <FormControl className={classes.formControl} style={questionlWidth}>
-                    <InputLabel style={questionlWidth} shrink htmlFor="age-native-label-placeholder">
-                        Please Select a drink
-                    </InputLabel>
-                    {/* <div className='sectionHeader'>Please Select a drink</div> */}
-                    <NativeSelect
-                        value={this.state.age}
-                        onChange={this.handleChange('age')}
-                        input={<Input name="age" id="age-native-label-placeholder" />}
-                    >
-                        <option value="">Coffee</option>
-                        <option value={10}>Tea</option>
-                        <option value={20}>Orange Juice</option>
-                        <option value={30}>Bubble Tea</option>
-                        <option value={40}>Coke</option>
-                    </NativeSelect>
-                    {/* <FormHelperText>Label + placeholder</FormHelperText> */}
-                </FormControl>
-                <div className={classes.container} style={questionlWidth}>
+                {this.state.dropDownQuestions.map(question => (
                     <FormControl className={classes.formControl} style={questionlWidth}>
-                        <InputLabel htmlFor="component-simple">Are you hungry</InputLabel>
-                        <Input id="component-simple" placeholder="Please list out your favorite snacks here!" />
+                        <InputLabel style={questionlWidth} shrink htmlFor="age-native-label-placeholder">
+                            {question.title}
+                        </InputLabel>
+                        <NativeSelect
+                            value={this.state.age}
+                            onChange={this.handleChange('age')}
+                            input={<Input name="age" id="age-native-label-placeholder" />}
+                        >
+                            {question.choices.map(item => (
+                                <option value={item.value}>{item.title}</option>
+                            ))}
+                        </NativeSelect>
                     </FormControl>
-                </div>
+                ))}
+                {this.state.textQuestions.map(question => (
+                    <div className={classes.container} style={questionlWidth}>
+                        <FormControl className={classes.formControl} style={questionlWidth}>
+                            <InputLabel htmlFor="component-simple">{question.title}</InputLabel>
+                            <Input id="component-simple" placeholder={question.placeholder} />
+                        </FormControl>
+                    </div>
+                ))}
             </div>
-
         )
     }
 }
