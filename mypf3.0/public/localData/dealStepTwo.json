@@ -1,6 +1,7 @@
 {
     "dealId": "1049",
-    "packages": [{
+    "packages": [
+        {
             "id": "10481",
             "title": "All-day Package",
             "description": "",
@@ -1529,7 +1530,8 @@
                 "discounted": 49,
                 "original": 88
             },
-            "dates": [{
+            "dates": [
+                {
                     "date": "2018-11-15T00:00:00+0800",
                     "timeslots": [{
                             "id": 1642,
@@ -2225,7 +2227,7 @@
                     ]
                 },
                 {
-                    "date": "2018-11-28T00:00:00+0800",
+                    "date": "2018-11-30T00:00:00+0800",
                     "timeslots": [{
                             "id": 13,
                             "title": "9AM",
@@ -2503,11 +2505,15 @@
         }
     ],
     "questions": [{
-            "name": "handy_question_Select a drink",
+            "name": "handy_question_Select a drink111",
             "title": "Please select a drink",
             "type": "dropdown",
             "placeholder": "placeholder",
-            "conditions": null,
+            "conditions": {
+                "timeslot": {
+                    "id": "13"
+                }
+            },
             "required": true,
             "appliedToAll": false,
             "choices": [{
@@ -2533,7 +2539,7 @@
             ],
             "default": null
         },{
-            "name": "handy_question_Select a drink",
+            "name": "handy_question_Select a drink222",
             "title": "Please select a food",
             "type": "dropdown",
             "placeholder": "placeholder",
@@ -2551,7 +2557,7 @@
             ],
             "default": null
         },{
-            "name": "handy_question_Text Question",
+            "name": "handy_question_Text Question333",
             "title": "Are you want to drink?",
             "type": "text",
             "placeholder": "Please list out your favorite drinks here!",
@@ -2559,7 +2565,7 @@
             "required": true,
             "appliedToAll": false
         },{
-            "name": "handy_question_Text Question",
+            "name": "handy_question_Text Question444",
             "title": "Are you hungry?",
             "type": "text",
             "placeholder": "Please list out your favorite snacks here!",

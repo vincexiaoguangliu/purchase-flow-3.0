@@ -54,6 +54,15 @@ class App extends Component {
       timeslotId: id
     })
   }
+
+  // 获取 questionList answers
+  handleQuestionAnswers = (answers) => {
+    this.setState({
+      answers: answers
+    })
+    console.log(answers, 25555555555)
+  }
+
   render() {
     let that = this;
     let selectIdPackage;
@@ -92,7 +101,12 @@ class App extends Component {
         {/* <SelectTime /> */}
         {quantityDisplay && <Quantity dealitemTypes={dealitemTypes} timeslotId={this.state.timeslotId}/>}
         <Userdetails />
-        {this.state.questions && <QuestionList questions = { this.state.questions }/>}
+        {this.state.questions && this.state.timeslotId && this.state.packageid &&
+          <QuestionList 
+            questions={ this.state.questions } 
+            timeslotId={ this.state.timeslotId }
+            packageId={ this.state.packageid }
+            getQuestionListAnswers={this.handleQuestionAnswers}/>}
         <Promotionlist />
         <Confirmation />
         <PaymentMethod />

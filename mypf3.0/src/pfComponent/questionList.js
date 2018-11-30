@@ -35,39 +35,101 @@ class QuestionList extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            age: '',
-            name: 'hai',
             dropDownQuestions: [],
             textQuestions: [],
+            dropDownQuestionValue: [],
+            textQuestionValue: [],
         };
-        // this.dropDownQuestions = [1,2]
+        this.answers = {}
     }
-    
-    componentDidMount() {
-        this.formatQuestionList()
-    };
 
-    formatQuestionList () {
-        // this.dropDownQuestions = this.props.questions.filter(item => item.type === 'dropdown')
-        this.setState({
-            dropDownQuestions: this.props.questions.filter(item => {
-                // 只展示有 title 的 question
-                if (item.title) {
-                    return item.type === 'dropdown'
+    // 筛选需要展示的 question
+    getDisplayQuestionList (type) {
+        return this.props.questions.filter(item => {
+            // 只展示有 title 的 question
+            if (item.title) {
+                // 根据条件判断展示的 question
+                if (item.conditions === null) {
+                    return item.type === type
+                } else if (item.conditions.timeslot.id && item.conditions.packageId === undefined) {
+                    return item.type === type && this.props.timeslotId === item.conditions.timeslot.id
+                } else if (item.conditions.timeslot.id === undefined && item.conditions.packageId) {
+                    return item.type === type && this.props.packageId === item.conditions.packageId
+                } else {
+                    return item.type === type
+                        && this.props.packageId === item.conditions.packageId
+                        && this.props.timeslotId === item.conditions.timeslot.id
                 }
-            }),
-            textQuestions: this.props.questions.filter(item => {
-                if (item.title) {
-                    return item.type === 'text'
-                }
-            }),
+            }
         })
     }
 
-    handleChange = name => event => {
-        // console.log(this.state.dropDownQuestions, 111, this.props.questions)
-        this.setState({ [name]: event.target.value });
-    };
+    init () {
+        const dropDownQuestions = this.getDisplayQuestionList('dropdown')
+        const textQuestions = this.getDisplayQuestionList('text')
+        this.setState({
+            dropDownQuestions: dropDownQuestions,
+            textQuestions: textQuestions,
+        });
+        
+        // 初始化
+        dropDownQuestions.forEach((item) => {
+            // 初始化答案
+            this.answers[item.name] = {
+                description: item.choices[0].title,
+                name: item.name,
+                title: item.title,
+                value: ''
+            }
+        })
+        let tmpTextQuestions = []
+        textQuestions.forEach((item) => {
+            // 初始化答案
+            this.answers[item.name] = {
+                description: '',
+                name: item.name,
+                title: item.title,
+                value: ''
+            }
+            // 初始化 textQuestions input
+            tmpTextQuestions.push('')
+        })
+        this.setState({
+            textQuestionValue: tmpTextQuestions,
+        })
+
+        this.sendAnswersToParent(this.answers)
+    }
+
+    handleChange = (question, index, type) => event => {
+        if (type === 'dropdown') {
+            const dropDownQuestionValue = this.state.dropDownQuestionValue;
+            dropDownQuestionValue[index] = event.target.value;
+            this.setState({ dropDownQuestionValue: dropDownQuestionValue });
+
+            // 获取选中 option 的 label
+            let obj = {};
+            obj = question.choices.find(item => item.value === event.target.value);
+
+            this.answers[question.name].description = obj.title;
+            this.answers[question.name].value = event.target.value;
+        } else {
+            const textQuestionValue = this.state.textQuestionValue;
+            textQuestionValue[index] = event.target.value;
+            this.setState({ textQuestionValue: textQuestionValue });
+            this.answers[question.name].description = event.target.value;
+            this.answers[question.name].value = event.target.value;
+        }
+        this.sendAnswersToParent(this.answers)
+    }
+
+    sendAnswersToParent(answer) {
+        this.props.getQuestionListAnswers(answer)
+    }
+
+    componentDidMount() {
+        this.init()
+    }
 
     render() {
         const { classes } = this.props;
@@ -76,15 +138,15 @@ class QuestionList extends React.Component {
         }
         return (
             <div className={classes.root}>
-                {this.state.dropDownQuestions.map(question => (
+                {this.state.dropDownQuestions.map((question, index) => (
                     <FormControl className={classes.formControl} style={questionlWidth}>
                         <InputLabel style={questionlWidth} shrink htmlFor="age-native-label-placeholder">
                             {question.title}
                         </InputLabel>
                         <NativeSelect
-                            value={this.state.age}
-                            onChange={this.handleChange('age')}
-                            input={<Input name="age" id="age-native-label-placeholder" />}
+                            value={this.state.dropDownQuestionValue[index]}
+                            onChange={this.handleChange(question, index, 'dropdown')}
+                            input={<Input name={question.name} id="age-native-label-placeholder" />}
                         >
                             {question.choices.map(item => (
                                 <option value={item.value}>{item.title}</option>
@@ -92,11 +154,11 @@ class QuestionList extends React.Component {
                         </NativeSelect>
                     </FormControl>
                 ))}
-                {this.state.textQuestions.map(question => (
+                {this.state.textQuestions.map((question, index) => (
                     <div className={classes.container} style={questionlWidth}>
                         <FormControl className={classes.formControl} style={questionlWidth}>
                             <InputLabel htmlFor="component-simple">{question.title}</InputLabel>
-                            <Input id="component-simple" placeholder={question.placeholder} />
+                            <Input id="component-simple" value={this.state.textQuestionValue[index]} placeholder={question.placeholder} onChange={this.handleChange(question, index, 'text')}/>
                         </FormControl>
                     </div>
                 ))}
