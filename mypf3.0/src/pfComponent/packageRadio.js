@@ -40,10 +40,11 @@ class PackageRadio extends React.Component {
     radioChange(event){
         // console.log(event.target.id);
         this.props.onChangePackage(event.target.id);
-    }
-    handleChange = event => {
         this.setState({ value: event.target.value });
-    };
+    }
+    // handleChange = event => {
+    //     this.setState({ value: event.target.value });
+    // };
     
     render() {
         const { classes } = this.props;
@@ -96,12 +97,13 @@ class PackageRadio extends React.Component {
                             name="gender2"
                             className={classes.group}
                             value={this.state.value}
-                            onChange={this.handleChange}
+                            
                         >
                         {packageList.map((number) => (
                             <FormControlLabel
                                 key={number.id}
-                                value={number.title}                               
+                                value={number.title}
+                                control={<Radio id={number.id} onChange={this.radioChange} className='packageRadio' color="primary" />}                               
                                 label={<div className='packageRadioLabel'>
                                     <div className='packageRadioLabelHead'>{number.title}</div>
                                     {number.description.length > 0 && <AlertDialog description={number.description}/>}
@@ -117,8 +119,7 @@ class PackageRadio extends React.Component {
                                         </span>
                                     </div>
                                     {number.showExtral ? <div className='extraDiscount'>Buy more for extra discount</div> : ''}
-                                </div>}
-                                control={<Radio id={number.id} onChange={this.radioChange} className='packageRadio' color="primary" />}
+                                </div>}                  
                                 labelPlacement="start"
                                 style={{ position: 'relative',height:'90px'}}
                             />
