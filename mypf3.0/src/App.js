@@ -24,16 +24,18 @@ import PropTypes from 'prop-types';
 class App extends Component {
   constructor(props){
     super(props);
-    this.state = {};
+    this.state = {
+      // peopleandPrice: {}
+    };
     this.handlePackageid = this.handlePackageid.bind(this);
     this.handleSelectedDate = this.handleSelectedDate.bind(this);
     this.handleTimeslotId = this.handleTimeslotId.bind(this);
+    this.peopleandPrice = this.peopleandPrice.bind(this);
   }
   componentDidMount(){
     fetch('../localData/dealStepTwo.json')
     .then(res => res.json())
-    .then( data => {this.setState({packages:data.packages})})
-    
+    .then( data => {this.setState({packages:data.packages, promotionList: data.promotions})})
   }
 
   handlePackageid(packageid){
@@ -52,24 +54,34 @@ class App extends Component {
       timeslotId: id
     })
   }
+
+  //接收子传父的peopleandprice
+  peopleandPrice(pp){
+    console.log(pp);
+    // this.state.peopleandPrice = pp;
+    this.setState({peopleandPrice: pp});
+    console.log(this.state.peopleandPrice);
+  }
   render() {
     let that = this;
     let selectIdPackage;
     let dealitemTypes;
     let quantityDisplay;
+    let selectIdPackageDateLength; //通过判断date.length判断日期的显示
+    let promotionList = [];
     //判断quantity显现
     if(this.state.timeslotId){ 
       quantityDisplay = true;
     }
     // console.log(this.state.timeslotId);
-    //父组件传select quantity  dealitemTypes；
+    //父组件传select quantity子组件 dealitemTypes属性；
     if(this.state.packages != undefined){  
        selectIdPackage = this.state.packages.find(function(ele){
         return ele.id == that.state.packageid;
       })
       if(selectIdPackage != undefined){
         if(selectIdPackage.dates.length>0){
-          
+          selectIdPackageDateLength = selectIdPackage.dates.length;      
           for(let i =0; i<selectIdPackage.dates.length; i++){
             if(this.state.selectedDate == selectIdPackage.dates[i].date.substring(8,10)){
               console.log(selectIdPackage.dates[i].dealItemTypes);
@@ -77,23 +89,27 @@ class App extends Component {
             }
           }
         }else{
+          selectIdPackageDateLength = 0;
           dealitemTypes = selectIdPackage.dealItemTypes;
         }  
       }     
     }
     
+    if(this.state.promotionList != undefined){
+      promotionList = this.state.promotionList;
+    }
     
     return (
       <div>
         {/* <SelectPackage /> */}
         <PackageRadio packages={this.state.packages} onChangePackage={this.handlePackageid}/>
-        <DatePicker packages={selectIdPackage} onChangeHandledates={this.handleSelectedDate} onChangeTimeslotId={this.handleTimeslotId}/>
         {/* <SelectTime /> */}
-        {quantityDisplay && <Quantity dealitemTypes={dealitemTypes} timeslotId={this.state.timeslotId}/>}
-        
+        {selectIdPackageDateLength>0 && <DatePicker packages={selectIdPackage} onChangeHandledates={this.handleSelectedDate} onChangeTimeslotId={this.handleTimeslotId}/>}      
+        {quantityDisplay && <Quantity dealitemTypes={dealitemTypes} timeslotId={this.state.timeslotId} handlepeopleandPrice={this.peopleandPrice}/>}      
         <Userdetails />
+        
         <QuestionList />
-        <Promotionlist />
+        <Promotionlist promotionList={promotionList} peopleandprice={this.state.peopleandPrice}/>
         <Confirmation />
         <PaymentMethod />
         <BottomButton />

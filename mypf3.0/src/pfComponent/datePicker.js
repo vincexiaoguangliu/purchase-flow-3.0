@@ -104,16 +104,24 @@ class DatePicker extends React.Component {
                     </div>
                 </div>
                 {timeslotTittle.length>0 && <div className='sectionHeader'>SELECT TIME</div>}
-                
-                {
-                    timeslotTittle.map(function (ele, index) {
-                        return (
-                            <Button key={index} value={ele.id} variant="outlined" onClick={that.handleTimaslotId} className={classes.button}>
-                                {ele.title}
-                            </Button>
-                        )
-                    })
+                {timeslotTittle.length>0 && 
+                    <div style={{width:'100%', overflow:'hidden', height: 50}}>
+                        <div style={{width:'100%',height: 58, overflowX:'auto'}}>
+                            <div style={{width:915, overflow:'hidden', height:'100%'}}>
+                                {   
+                                    timeslotTittle.map(function (ele, index) {
+                                        return (                          
+                                            <Button key={index} value={ele.id} variant="outlined" onClick={that.handleTimaslotId} className={classes.button}>
+                                                {ele.title}
+                                            </Button>    
+                                        )
+                                    })                  
+                                }
+                            </div>
+                        </div>
+                    </div>
                 }
+                
             </div>
 
         );
