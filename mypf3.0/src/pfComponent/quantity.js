@@ -35,7 +35,11 @@ class Quantity extends Component {
                        isdiscountReminderDisplay: [],
                        numbermore: [],
                        morediscountprice: [],
-                       afterAddDiscount: [] //discountereminder函数需要下下步的折扣价   这里用来存储
+                       afterAddDiscount: [], //discountereminder函数需要下下步的折扣价   这里用来存储
+                       peopleandPrice: {
+                           number: [],
+                           price: []
+                       }
                     };
         this.addQuantity = this.addQuantity.bind(this);
         this.minusQuantity = this.minusQuantity.bind(this);
@@ -54,18 +58,21 @@ class Quantity extends Component {
             if(this.state.dealitemTypes[i].minQuantity > 0){
                 this.state.quantity[i] = this.state.dealitemTypes[i].minQuantity;
                 this.state.minQuantity[i] = this.state.dealitemTypes[i].minQuantity;
+                this.state.peopleandPrice.number[i] = this.state.dealitemTypes[i].minQuantity; //初始渲染时需要传到外面的票数 没有点击
             }else{
                 this.state.quantity[i] = 0;
                 this.state.minQuantity[i] = 0;
+                this.state.peopleandPrice.number[i] = 0; //初始渲染时需要传到外面的票数 没有点击
             }
 
             //查找default=true的price
             let dealItemPrice = this.state.dealitemTypes[i].prices.find(function(ele){
                 return ele.default == true;
             });
-            // this.setState({dealItemPrice: dealItemPrice});
+            // 这里的两个dealitemprice需要注意。
             this.state.dealItemPrice.push(dealItemPrice.unitPrice);
             this.state.unitPrice[i] = dealItemPrice.unitPrice;
+            this.state.peopleandPrice.price[i] = dealItemPrice.unitPrice; //初始渲染时需要传到外面的折扣价 没有点击
             this.state.originalPrice[i] = dealItemPrice.originalPrice;
 
             //查找default=false的price
@@ -79,6 +86,8 @@ class Quantity extends Component {
             this.displayDiscountedpriceReminder(this.state.quantity[i]+1, i, this.state.unitPrice[i]);
             
         }
+        console.log(this.state.peopleandPrice);
+        this.props.handlepeopleandPrice(this.state.peopleandPrice); //子传父传peopleandprice
     }
     //加1过程判断是否显示discountedpriceReminder
     displayDiscountedpriceReminder(currentQuantity, index, currentdiscountPrice){
@@ -140,11 +149,17 @@ class Quantity extends Component {
             if(this.state.meetConditionPrices[this.state.meetConditionPrices.length-1].unitPrice < currentdiscountPrice){
                 console.log(this.state.meetConditionPrices[this.state.meetConditionPrices.length-1].unitPrice);                             
                     let newdiscountprice = this.state.meetConditionPrices[this.state.meetConditionPrices.length-1].unitPrice;
+                    this.state.peopleandPrice.price[index] = newdiscountprice; //加操作后的新的折扣价存储起来传给父组件
+                    console.log(this.state.peopleandPrice);
                     this.state.afterAddDiscount[index] = newdiscountprice; //这里赋值传给discountreminder函数
                     let temp1 = {...this.state.discountprice, [index]:newdiscountprice};
                     //新的折扣季覆盖旧的uniteprice             
                     this.setState({discountprice: temp1});              
+            }else{
+                this.state.afterAddDiscount[index] = currentdiscountPrice; //加操作后的新的折扣价存储起来传给父组件 只是没有满足条件的折扣价
             }
+        }else{
+            this.state.afterAddDiscount[index] = currentdiscountPrice; //加操作后的新的折扣价存储起来传给父组件 筛选条件都没有
         }
     }
 
@@ -173,22 +188,31 @@ class Quantity extends Component {
             if(this.state.meetConditionPrices.length>0){
                 if(this.state.meetConditionPrices[this.state.meetConditionPrices.length-1].unitPrice < currentdiscountPrice){
                     console.log(this.state.meetConditionPrices[this.state.meetConditionPrices.length-1].unitPrice);
-                    this.state.afterAddDiscount[index] = newdiscountprice;                             
+                    this.state.afterAddDiscount[index] = newdiscountprice;   //这里赋值传给discountreminder函数                          
                         let newdiscountprice = this.state.meetConditionPrices[this.state.meetConditionPrices.length-1].unitPrice;
+                        this.state.peopleandPrice.price[index] = newdiscountprice; //减操作后的新的折扣价存储起来传给父组件
+                        console.log(this.state.peopleandPrice);
                         let temp1 = {...this.state.discountprice, [index]:newdiscountprice};
                         //新的折扣季覆盖旧的uniteprice             
                         this.setState({discountprice: temp1});              
+                }else{
+                    this.state.peopleandPrice.price[index] = currentdiscountPrice; //减操作后的新的折扣价存储起来传给父组件
+                    console.log(this.state.peopleandPrice);
                 }
             }else{
                 //无过滤的conditions放default 为true的折扣价
                 // let newdiscountprice = this.state.dealItemPrice.unitPrice;
                 // let temp2 = {...this.state.discountprice, [index]:newdiscountprice};
                 // this.setState({discountprice: temp2});  
+                this.state.peopleandPrice.price[index] = currentdiscountPrice; //减操作后的新的折扣价存储起来传给父组件
+                console.log(this.state.peopleandPrice);
             }
         }else{
             //减一操作到最小时还原成最小quantity时的折扣价。
             let newdiscountprice = this.state.dealItemPrice[index];
-            this.state.afterAddDiscount[index] = newdiscountprice;
+            this.state.peopleandPrice.price[index] = newdiscountprice; //减操作后的新的折扣价存储起来传给父组件
+            console.log(this.state.peopleandPrice);
+            this.state.afterAddDiscount[index] = newdiscountprice; //这里赋值传给discountreminder函数
             let temp3 = {...this.state.discountprice, [index]:newdiscountprice};
             this.setState({discountprice: temp3});
         }
@@ -203,11 +227,14 @@ class Quantity extends Component {
         //数量加一操作
         if(currentQuantity < this.state.maxQuantity[index]){
             let temp2 = {...this.state.quantity, [index]:currentQuantity+1};
-            this.setState({quantity: temp2});
+            this.setState({quantity: temp2}, function(){
+                this.state.peopleandPrice.number[index] = this.state.quantity[index]; //加操作后的新的票数存储起来传给父组件
+            });          
+            console.log(this.state.peopleandPrice);
         }else{
             return false;
         }
-              
+        this.props.handlepeopleandPrice(this.state.peopleandPrice); //子传父传peopleandprice
        
         
     }
@@ -219,12 +246,15 @@ class Quantity extends Component {
         //数量减一操作
         if(currentQuantity > this.state.minQuantity[index]){
             let temp3 = {...this.state.quantity, [index]:currentQuantity-1};
-            this.setState({quantity: temp3});
+            this.setState({quantity: temp3}, function(){
+                this.state.peopleandPrice.number[index] = this.state.quantity[index]; //减操作后的新的票数存储起来传给父组件
+            });
+            console.log(this.state.peopleandPrice);
         }else{
             return false;
         }
             
-        this.state.meetConditionPrices = [];
+        this.props.handlepeopleandPrice(this.state.peopleandPrice); //子传父传peopleandprice
         
     }
     
