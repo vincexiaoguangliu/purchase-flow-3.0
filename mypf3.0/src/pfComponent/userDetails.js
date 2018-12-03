@@ -24,7 +24,7 @@ class Userdetails extends Component {
         this.handleChange1 = this.handleChange1.bind(this);
         this.handleChange2 = this.handleChange2.bind(this);
         this.handleChange3 = this.handleChange3.bind(this);
-        this.userDetails = {}
+        this.userInfo = {}
     }
 
     handleChange1(e){
@@ -34,8 +34,8 @@ class Userdetails extends Component {
         }else{
             document.getElementById('1').style.border = 'none';
         }       
-        this.userDetails.firstName = e.target.value
-        this.sendUserDetailsToParent(this.userDetails)
+        this.userInfo.firstName = e.target.value
+        this.sendUserInfoToParent(this.userInfo)
     }
 
     handleChange2(e){
@@ -45,8 +45,8 @@ class Userdetails extends Component {
         }else{
             document.getElementById('2').style.border = 'none';
         }  
-        this.userDetails.lastName = e.target.value
-        this.sendUserDetailsToParent(this.userDetails)     
+        this.userInfo.lastName = e.target.value
+        this.sendUserInfoToParent(this.userInfo)     
     }
     handleChange3(e){
         this.setState({value3: e.target.value});
@@ -56,12 +56,12 @@ class Userdetails extends Component {
         }else{
             document.getElementById('3').style.border = 'none';
         }
-        this.userDetails.email = e.target.value
-        this.sendUserDetailsToParent(this.userDetails) 
+        this.userInfo.email = e.target.value
+        this.sendUserInfoToParent(this.userInfo) 
     }
 
-    sendUserDetailsToParent(userDetails) {
-      this.props.getUserDetails('userDetails', userDetails)
+    sendUserInfoToParent(userInfo) {
+      this.props.getUserInfo('userInfo', userInfo)
     }
     render(){
         const { classes } = this.props;

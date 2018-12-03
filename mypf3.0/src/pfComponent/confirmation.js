@@ -52,10 +52,10 @@ const styles = theme => ({
         <div className='sectionHeader'>YOUR BOOKING ORDER</div>
           <List component="nav">
             <div className='confirmName'>
-              {this.props.confirmInfo.userDetails.firstName} {this.props.confirmInfo.userDetails.lastName}
+              {this.props.confirmInfo.userInfo.firstName} {this.props.confirmInfo.userInfo.lastName}
             </div>
             <div className='confirmationMail'>
-              {this.props.confirmInfo.userDetails.email}
+              {this.props.confirmInfo.userInfo.email}
             </div>
             {
               this.state.questionList.map(question => (

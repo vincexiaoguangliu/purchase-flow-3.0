@@ -127,7 +127,7 @@ class App extends Component {
         {/* <SelectTime /> */}
         {selectIdPackageDateLength>0 && <DatePicker packages={selectIdPackage} onChangeHandledates={this.handleSelectedDate} onChangeTimeslotId={this.handleTimeslotId}/>}
         {quantityDisplay && <Quantity dealitemTypes={dealitemTypes} timeslotId={this.state.timeslotId} handlepeopleandPrice={this.peopleandPrice}/>}
-        <Userdetails getUserDetails={this.handleConfirmInfo}/>
+        <Userdetails getUserInfo={this.handleConfirmInfo}/>
         {this.state.questions && this.state.timeslotId && this.state.packageid &&
           <QuestionList
             questions={ this.state.questions }
