@@ -19,13 +19,29 @@ const styles = theme => ({
   });
 
   class Confirmation extends React.Component {
-    state = {
-      selectedIndex: 1,
-    };
+    constructor(props) {
+      super(props)
+      this.state = {
+        selectedIndex: 1,
+        questionList: []
+      }
+    }
   
     handleListItemClick = (event, index) => {
       this.setState({ selectedIndex: index });
     };
+
+    componentDidMount() {
+      if (this.props.confirmInfo.answers) {
+        let tmpQuestionList = []
+        Object.keys(this.props.confirmInfo.answers).forEach(key => {
+          tmpQuestionList.push(this.props.confirmInfo.answers[key])
+        })
+        this.setState({
+          questionList: tmpQuestionList
+        })
+      }
+    }
   
     render() {
       const { classes } = this.props;
@@ -36,17 +52,18 @@ const styles = theme => ({
         <div className='sectionHeader'>YOUR BOOKING ORDER</div>
           <List component="nav">
             <div className='confirmName'>
-                charles
+              {this.props.confirmInfo.userDetails.firstName} {this.props.confirmInfo.userDetails.lastName}
             </div>
             <div className='confirmationMail'>
-                111111111@qq.com
+              {this.props.confirmInfo.userDetails.email}
             </div>
-            <div className='confirmationQuestion1'>
-                Please Select a drink: Coffee
-            </div>
-            <div className='confirmationQuestion2'>
-                Are you hungry?: yes
-            </div>
+            {
+              this.state.questionList.map(question => (
+                <div className='confirmationQuestion1'>
+                  {question.title}: {question.description}
+                </div>
+              ))
+            }
           </List>
           <Divider />
           <List component="nav">

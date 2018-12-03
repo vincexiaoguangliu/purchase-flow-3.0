@@ -79,7 +79,7 @@ class QuestionList extends React.Component {
                 description: item.choices[0].title,
                 name: item.name,
                 title: item.title,
-                value: ''
+                value: item.choices[0].value
             }
         })
         let tmpTextQuestions = []
@@ -123,8 +123,8 @@ class QuestionList extends React.Component {
         this.sendAnswersToParent(this.answers)
     }
 
-    sendAnswersToParent(answer) {
-        this.props.getQuestionListAnswers(answer)
+    sendAnswersToParent(answers) {
+        this.props.getQuestionListAnswers('answers', answers)
     }
 
     componentDidMount() {

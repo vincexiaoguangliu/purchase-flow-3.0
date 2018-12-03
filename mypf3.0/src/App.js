@@ -25,6 +25,7 @@ class App extends Component {
   constructor(props){
     super(props);
     this.state = {
+      confirmInfo: {}
       // peopleandPrice: {}
     };
     this.handlePackageid = this.handlePackageid.bind(this);
@@ -60,11 +61,13 @@ class App extends Component {
   }
 
   // 获取 questionList answers
-  handleQuestionAnswers = (answers) => {
+  handleConfirmInfo = (key, value) => {
+    const tmpConfirmInfo = this.state.confirmInfo
+    tmpConfirmInfo[key] = value
     this.setState({
-      answers: answers
+      confirmInfo: tmpConfirmInfo,
+      isShowConfirmation: false
     })
-    console.log(answers, 25555555555)
   }
 
   //接收子传父的peopleandprice
@@ -73,6 +76,12 @@ class App extends Component {
     // this.state.peopleandPrice = pp;
     this.setState({peopleandPrice: pp});
     console.log(this.state.peopleandPrice);
+  }
+
+  testConfirm = () => {
+    this.setState({
+      isShowConfirmation: true
+    })
   }
   render() {
     let that = this;
@@ -116,18 +125,19 @@ class App extends Component {
         {/* <SelectPackage /> */}
         <PackageRadio packages={this.state.packages} onChangePackage={this.handlePackageid}/>
         {/* <SelectTime /> */}
-        {selectIdPackageDateLength>0 && <DatePicker packages={selectIdPackage} onChangeHandledates={this.handleSelectedDate} onChangeTimeslotId={this.handleTimeslotId}/>}      
+        {selectIdPackageDateLength>0 && <DatePicker packages={selectIdPackage} onChangeHandledates={this.handleSelectedDate} onChangeTimeslotId={this.handleTimeslotId}/>}
         {quantityDisplay && <Quantity dealitemTypes={dealitemTypes} timeslotId={this.state.timeslotId} handlepeopleandPrice={this.peopleandPrice}/>}
-        <Userdetails />
+        <Userdetails getUserDetails={this.handleConfirmInfo}/>
         {this.state.questions && this.state.timeslotId && this.state.packageid &&
-          <QuestionList 
-            questions={ this.state.questions } 
+          <QuestionList
+            questions={ this.state.questions }
             timeslotId={ this.state.timeslotId }
             packageId={ this.state.packageid }
-            getQuestionListAnswers={this.handleQuestionAnswers}/>
+            getQuestionListAnswers={this.handleConfirmInfo}/>
         }
         <Promotionlist promotionList={promotionList} peopleandprice={this.state.peopleandPrice}/>
-        <Confirmation />
+        <button onClick={this.testConfirm}>test confirm</button>
+        {this.state.isShowConfirmation && <Confirmation confirmInfo={this.state.confirmInfo}/>}
         <PaymentMethod />
         <BottomButton />
       </div>
