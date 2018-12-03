@@ -1240,284 +1240,39 @@
                 "discounted": 100,
                 "original": 100
             },
-            "dates": [{
-                    "date": "2018-11-17T00:00:00+0800",
-                    "timeslots": [{
-                            "id": 1634,
-                            "title": "9AM",
-                            "time": "09:00:00"
-                        },
-                        {
-                            "id": 1635,
-                            "title": "1PM",
-                            "time": "13:00:00"
-                        }
-                    ],
-                    "dealItemTypes": [{
-                            "id": 6536,
-                            "title": "Adult (Weekend)",
-                            "minQuantity": 2,
-                            "maxQuantity": -1,
-                            "prices": [{
-                                    "dealItemPriceId": -1,
-                                    "originalPrice": 100,
-                                    "unitPrice": 100,
-                                    "default": true,
-                                    "priority": 0
-                                },
-                                {
-                                    "dealItemPriceId": -1,
-                                    "originalPrice": 100,
-                                    "unitPrice": 100,
-                                    "default": false,
-                                    "priority": 990,
-                                    "conditions": {
-                                        "quantity": {
-                                            "minimum": "2",
-                                            "maximum": "0"
-                                        }
-                                    }
-                                }
-                            ]
-                        },
-                        {
-                            "id": 6891,
-                            "title": "Child (Weekend)",
-                            "minQuantity": 1,
-                            "maxQuantity": -1,
-                            "prices": [{
-                                    "dealItemPriceId": -1,
-                                    "originalPrice": 80,
-                                    "unitPrice": 70,
-                                    "default": true,
-                                    "priority": 0
-                                },
-                                {
-                                    "dealItemPriceId": -1,
-                                    "originalPrice": 80,
-                                    "unitPrice": 70,
-                                    "default": false,
-                                    "priority": 990,
-                                    "conditions": {
-                                        "quantity": {
-                                            "minimum": "1",
-                                            "maximum": "0"
-                                        }
-                                    }
-                                }
-                            ]
-                        }
-                    ]
-                },
+            "dates": [
+               
+            ],
+            "dealItemTypes": [
                 {
-                    "date": "2018-11-18T00:00:00+0800",
-                    "timeslots": [{
-                            "id": 1634,
-                            "title": "9AM",
-                            "time": "09:00:00"
+                    "id": 6539,
+                    "title": "Adult",
+                    "minQuantity": 0,
+                    "maxQuantity": -1,
+                    "prices": [
+                        {
+                            "dealItemPriceId": -1,
+                            "originalPrice": 300,
+                            "unitPrice": 299,
+                            "default": true,
+                            "priority": 0
                         },
                         {
-                            "id": 1635,
-                            "title": "1PM",
-                            "time": "13:00:00"
-                        }
-                    ],
-                    "dealItemTypes": [{
-                            "id": 6536,
-                            "title": "Adult (Weekend)",
-                            "minQuantity": 2,
-                            "maxQuantity": -1,
-                            "prices": [{
-                                    "dealItemPriceId": -1,
-                                    "originalPrice": 100,
-                                    "unitPrice": 100,
-                                    "default": true,
-                                    "priority": 0
-                                },
-                                {
-                                    "dealItemPriceId": -1,
-                                    "originalPrice": 100,
-                                    "unitPrice": 100,
-                                    "default": false,
-                                    "priority": 990,
-                                    "conditions": {
-                                        "quantity": {
-                                            "minimum": "2",
-                                            "maximum": "0"
-                                        }
-                                    }
+                            "dealItemPriceId": -1,
+                            "originalPrice": 300,
+                            "unitPrice": 299,
+                            "default": false,
+                            "priority": 990,
+                            "conditions": {
+                                "quantity": {
+                                    "minimum": "0",
+                                    "maximum": "0"
                                 }
-                            ]
-                        },
-                        {
-                            "id": 6891,
-                            "title": "Child (Weekend)",
-                            "minQuantity": 1,
-                            "maxQuantity": -1,
-                            "prices": [{
-                                    "dealItemPriceId": -1,
-                                    "originalPrice": 80,
-                                    "unitPrice": 70,
-                                    "default": true,
-                                    "priority": 0
-                                },
-                                {
-                                    "dealItemPriceId": -1,
-                                    "originalPrice": 80,
-                                    "unitPrice": 70,
-                                    "default": false,
-                                    "priority": 990,
-                                    "conditions": {
-                                        "quantity": {
-                                            "minimum": "1",
-                                            "maximum": "0"
-                                        }
-                                    }
-                                }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "date": "2018-11-24T00:00:00+0800",
-                    "timeslots": [{
-                            "id": 1634,
-                            "title": "9AM",
-                            "time": "09:00:00"
-                        },
-                        {
-                            "id": 1635,
-                            "title": "1PM",
-                            "time": "13:00:00"
-                        }
-                    ],
-                    "dealItemTypes": [{
-                            "id": 6536,
-                            "title": "Adult (Weekend)",
-                            "minQuantity": 2,
-                            "maxQuantity": -1,
-                            "prices": [{
-                                    "dealItemPriceId": -1,
-                                    "originalPrice": 100,
-                                    "unitPrice": 100,
-                                    "default": true,
-                                    "priority": 0
-                                },
-                                {
-                                    "dealItemPriceId": -1,
-                                    "originalPrice": 100,
-                                    "unitPrice": 100,
-                                    "default": false,
-                                    "priority": 990,
-                                    "conditions": {
-                                        "quantity": {
-                                            "minimum": "2",
-                                            "maximum": "0"
-                                        }
-                                    }
-                                }
-                            ]
-                        },
-                        {
-                            "id": 6891,
-                            "title": "Child (Weekend)",
-                            "minQuantity": 1,
-                            "maxQuantity": -1,
-                            "prices": [{
-                                    "dealItemPriceId": -1,
-                                    "originalPrice": 80,
-                                    "unitPrice": 70,
-                                    "default": true,
-                                    "priority": 0
-                                },
-                                {
-                                    "dealItemPriceId": -1,
-                                    "originalPrice": 80,
-                                    "unitPrice": 70,
-                                    "default": false,
-                                    "priority": 990,
-                                    "conditions": {
-                                        "quantity": {
-                                            "minimum": "1",
-                                            "maximum": "0"
-                                        }
-                                    }
-                                }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "date": "2018-11-25T00:00:00+0800",
-                    "timeslots": [{
-                            "id": 1634,
-                            "title": "9AM",
-                            "time": "09:00:00"
-                        },
-                        {
-                            "id": 1635,
-                            "title": "1PM",
-                            "time": "13:00:00"
-                        }
-                    ],
-                    "dealItemTypes": [{
-                            "id": 6536,
-                            "title": "Adult (Weekend)",
-                            "minQuantity": 2,
-                            "maxQuantity": -1,
-                            "prices": [{
-                                    "dealItemPriceId": -1,
-                                    "originalPrice": 100,
-                                    "unitPrice": 100,
-                                    "default": true,
-                                    "priority": 0
-                                },
-                                {
-                                    "dealItemPriceId": -1,
-                                    "originalPrice": 100,
-                                    "unitPrice": 100,
-                                    "default": false,
-                                    "priority": 990,
-                                    "conditions": {
-                                        "quantity": {
-                                            "minimum": "2",
-                                            "maximum": "0"
-                                        }
-                                    }
-                                }
-                            ]
-                        },
-                        {
-                            "id": 6891,
-                            "title": "Child (Weekend)",
-                            "minQuantity": 1,
-                            "maxQuantity": -1,
-                            "prices": [{
-                                    "dealItemPriceId": -1,
-                                    "originalPrice": 80,
-                                    "unitPrice": 70,
-                                    "default": true,
-                                    "priority": 0
-                                },
-                                {
-                                    "dealItemPriceId": -1,
-                                    "originalPrice": 80,
-                                    "unitPrice": 70,
-                                    "default": false,
-                                    "priority": 990,
-                                    "conditions": {
-                                        "quantity": {
-                                            "minimum": "1",
-                                            "maximum": "0"
-                                        }
-                                    }
-                                }
-                            ]
+                            }
                         }
                     ]
                 }
-            ],
-            "dealItemTypes": []
+            ]
         },
         {
             "id": "10482",
@@ -2470,7 +2225,30 @@
             "dealItemTypes": []
         }
     ],
-    "promotions": [],
+    "promotions": [{
+        "id": 52,
+        "type": "percentage",
+        "value": 10,
+        "title": "10% OFF UPON $200 OR ABOVE",
+        "message": "Enjoy 10% off upon purchase of $200 or above",
+        "conditions": {
+        "price_total": {
+            "minimum": "200"
+            }
+        }
+    },
+    {
+        "id": 53,
+        "type": "percentage",
+        "value": 11,
+        "title": "30% OFF UPON $200 OR ABOVE",
+        "message": "Enjoy 20% off upon purchase of $200 or above",
+        "conditions": {
+        "price_total": {
+            "minimum": "200"
+            }
+        }
+    }],
     "paymentOptions": [{
             "type": "custom",
             "value": "payment/hotel_email",
