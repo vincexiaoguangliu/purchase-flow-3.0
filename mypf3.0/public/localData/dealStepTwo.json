@@ -12,11 +12,9 @@
                 "discounted": 90.001,
                 "original": 100.112
             },
-            "dates": [
-                {
+            "dates": [{
                     "date": "2018-11-13T00:00:00+0800",
-                    "timeslots": [
-                        {
+                    "timeslots": [{
                             "id": 1641,
                             "title": "3PM",
                             "time": "15:00:00"
@@ -47,41 +45,37 @@
                             "time": "22:00:00"
                         }
                     ],
-                    "dealItemTypes": [
-                        {
-                            "id": 6537,
-                            "title": "Adult (All-day)",
-                            "minQuantity": 0,
-                            "maxQuantity": -1,
-                            "prices": [
-                                {
-                                    "dealItemPriceId": -1,
-                                    "originalPrice": 100,
-                                    "unitPrice": 90,
-                                    "default": true,
-                                    "priority": 0
-                                },
-                                {
-                                    "dealItemPriceId": -1,
-                                    "originalPrice": 100,
-                                    "unitPrice": 89,
-                                    "default": false,
-                                    "priority": 990,
-                                    "conditions": {
-                                        "quantity": {
-                                            "minimum": "0",
-                                            "maximum": "5"
-                                        }
+                    "dealItemTypes": [{
+                        "id": 6537,
+                        "title": "Adult (All-day)",
+                        "minQuantity": 0,
+                        "maxQuantity": -1,
+                        "prices": [{
+                                "dealItemPriceId": -1,
+                                "originalPrice": 100,
+                                "unitPrice": 90,
+                                "default": true,
+                                "priority": 0
+                            },
+                            {
+                                "dealItemPriceId": -1,
+                                "originalPrice": 100,
+                                "unitPrice": 89,
+                                "default": false,
+                                "priority": 990,
+                                "conditions": {
+                                    "quantity": {
+                                        "minimum": "0",
+                                        "maximum": "5"
                                     }
                                 }
-                            ]
-                        }
-                    ]
+                            }
+                        ]
+                    }]
                 },
                 {
                     "date": "2018-11-14T00:00:00+0800",
-                    "timeslots": [
-                        {
+                    "timeslots": [{
                             "id": 1634,
                             "title": "9AM",
                             "time": "09:00:00"
@@ -142,41 +136,37 @@
                             "time": "22:00:00"
                         }
                     ],
-                    "dealItemTypes": [
-                        {
-                            "id": 6537,
-                            "title": "Adult (All-day)",
-                            "minQuantity": 0,
-                            "maxQuantity": -1,
-                            "prices": [
-                                {
-                                    "dealItemPriceId": -1,
-                                    "originalPrice": 100,
-                                    "unitPrice": 90,
-                                    "default": true,
-                                    "priority": 0
-                                },
-                                {
-                                    "dealItemPriceId": -1,
-                                    "originalPrice": 100,
-                                    "unitPrice": 90,
-                                    "default": false,
-                                    "priority": 990,
-                                    "conditions": {
-                                        "quantity": {
-                                            "minimum": "0",
-                                            "maximum": "5"
-                                        }
+                    "dealItemTypes": [{
+                        "id": 6537,
+                        "title": "Adult (All-day)",
+                        "minQuantity": 0,
+                        "maxQuantity": -1,
+                        "prices": [{
+                                "dealItemPriceId": -1,
+                                "originalPrice": 100,
+                                "unitPrice": 90,
+                                "default": true,
+                                "priority": 0
+                            },
+                            {
+                                "dealItemPriceId": -1,
+                                "originalPrice": 100,
+                                "unitPrice": 90,
+                                "default": false,
+                                "priority": 990,
+                                "conditions": {
+                                    "quantity": {
+                                        "minimum": "0",
+                                        "maximum": "5"
                                     }
                                 }
-                            ]
-                        }
-                    ]
+                            }
+                        ]
+                    }]
                 },
                 {
                     "date": "2018-11-15T00:00:00+0800",
-                    "timeslots": [
-                        {
+                    "timeslots": [{
                             "id": 1634,
                             "title": "9AM",
                             "time": "09:00:00"
@@ -237,41 +227,37 @@
                             "time": "22:00:00"
                         }
                     ],
-                    "dealItemTypes": [
-                        {
-                            "id": 6537,
-                            "title": "Adult (All-day)",
-                            "minQuantity": 0,
-                            "maxQuantity": -1,
-                            "prices": [
-                                {
-                                    "dealItemPriceId": -1,
-                                    "originalPrice": 100,
-                                    "unitPrice": 90,
-                                    "default": true,
-                                    "priority": 0
-                                },
-                                {
-                                    "dealItemPriceId": -1,
-                                    "originalPrice": 100,
-                                    "unitPrice": 90,
-                                    "default": false,
-                                    "priority": 990,
-                                    "conditions": {
-                                        "quantity": {
-                                            "minimum": "0",
-                                            "maximum": "5"
-                                        }
+                    "dealItemTypes": [{
+                        "id": 6537,
+                        "title": "Adult (All-day)",
+                        "minQuantity": 0,
+                        "maxQuantity": -1,
+                        "prices": [{
+                                "dealItemPriceId": -1,
+                                "originalPrice": 100,
+                                "unitPrice": 90,
+                                "default": true,
+                                "priority": 0
+                            },
+                            {
+                                "dealItemPriceId": -1,
+                                "originalPrice": 100,
+                                "unitPrice": 90,
+                                "default": false,
+                                "priority": 990,
+                                "conditions": {
+                                    "quantity": {
+                                        "minimum": "0",
+                                        "maximum": "5"
                                     }
                                 }
-                            ]
-                        }
-                    ]
+                            }
+                        ]
+                    }]
                 },
                 {
                     "date": "2018-11-16T00:00:00+0800",
-                    "timeslots": [
-                        {
+                    "timeslots": [{
                             "id": 1634,
                             "title": "9AM",
                             "time": "09:00:00"
@@ -332,41 +318,37 @@
                             "time": "22:00:00"
                         }
                     ],
-                    "dealItemTypes": [
-                        {
-                            "id": 6537,
-                            "title": "Adult (All-day)",
-                            "minQuantity": 0,
-                            "maxQuantity": -1,
-                            "prices": [
-                                {
-                                    "dealItemPriceId": -1,
-                                    "originalPrice": 100,
-                                    "unitPrice": 90,
-                                    "default": true,
-                                    "priority": 0
-                                },
-                                {
-                                    "dealItemPriceId": -1,
-                                    "originalPrice": 100,
-                                    "unitPrice": 90,
-                                    "default": false,
-                                    "priority": 990,
-                                    "conditions": {
-                                        "quantity": {
-                                            "minimum": "0",
-                                            "maximum": "5"
-                                        }
+                    "dealItemTypes": [{
+                        "id": 6537,
+                        "title": "Adult (All-day)",
+                        "minQuantity": 0,
+                        "maxQuantity": -1,
+                        "prices": [{
+                                "dealItemPriceId": -1,
+                                "originalPrice": 100,
+                                "unitPrice": 90,
+                                "default": true,
+                                "priority": 0
+                            },
+                            {
+                                "dealItemPriceId": -1,
+                                "originalPrice": 100,
+                                "unitPrice": 90,
+                                "default": false,
+                                "priority": 990,
+                                "conditions": {
+                                    "quantity": {
+                                        "minimum": "0",
+                                        "maximum": "5"
                                     }
                                 }
-                            ]
-                        }
-                    ]
+                            }
+                        ]
+                    }]
                 },
                 {
                     "date": "2018-11-17T00:00:00+0800",
-                    "timeslots": [
-                        {
+                    "timeslots": [{
                             "id": 1634,
                             "title": "9AM",
                             "time": "09:00:00"
@@ -427,41 +409,37 @@
                             "time": "22:00:00"
                         }
                     ],
-                    "dealItemTypes": [
-                        {
-                            "id": 6537,
-                            "title": "Adult (All-day)",
-                            "minQuantity": 0,
-                            "maxQuantity": -1,
-                            "prices": [
-                                {
-                                    "dealItemPriceId": -1,
-                                    "originalPrice": 100,
-                                    "unitPrice": 90,
-                                    "default": true,
-                                    "priority": 0
-                                },
-                                {
-                                    "dealItemPriceId": -1,
-                                    "originalPrice": 100,
-                                    "unitPrice": 90,
-                                    "default": false,
-                                    "priority": 990,
-                                    "conditions": {
-                                        "quantity": {
-                                            "minimum": "0",
-                                            "maximum": "5"
-                                        }
+                    "dealItemTypes": [{
+                        "id": 6537,
+                        "title": "Adult (All-day)",
+                        "minQuantity": 0,
+                        "maxQuantity": -1,
+                        "prices": [{
+                                "dealItemPriceId": -1,
+                                "originalPrice": 100,
+                                "unitPrice": 90,
+                                "default": true,
+                                "priority": 0
+                            },
+                            {
+                                "dealItemPriceId": -1,
+                                "originalPrice": 100,
+                                "unitPrice": 90,
+                                "default": false,
+                                "priority": 990,
+                                "conditions": {
+                                    "quantity": {
+                                        "minimum": "0",
+                                        "maximum": "5"
                                     }
                                 }
-                            ]
-                        }
-                    ]
+                            }
+                        ]
+                    }]
                 },
                 {
                     "date": "2018-11-18T00:00:00+0800",
-                    "timeslots": [
-                        {
+                    "timeslots": [{
                             "id": 1634,
                             "title": "9AM",
                             "time": "09:00:00"
@@ -522,41 +500,37 @@
                             "time": "22:00:00"
                         }
                     ],
-                    "dealItemTypes": [
-                        {
-                            "id": 6537,
-                            "title": "Adult (All-day)",
-                            "minQuantity": 0,
-                            "maxQuantity": -1,
-                            "prices": [
-                                {
-                                    "dealItemPriceId": -1,
-                                    "originalPrice": 100,
-                                    "unitPrice": 90,
-                                    "default": true,
-                                    "priority": 0
-                                },
-                                {
-                                    "dealItemPriceId": -1,
-                                    "originalPrice": 100,
-                                    "unitPrice": 90,
-                                    "default": false,
-                                    "priority": 990,
-                                    "conditions": {
-                                        "quantity": {
-                                            "minimum": "0",
-                                            "maximum": "5"
-                                        }
+                    "dealItemTypes": [{
+                        "id": 6537,
+                        "title": "Adult (All-day)",
+                        "minQuantity": 0,
+                        "maxQuantity": -1,
+                        "prices": [{
+                                "dealItemPriceId": -1,
+                                "originalPrice": 100,
+                                "unitPrice": 90,
+                                "default": true,
+                                "priority": 0
+                            },
+                            {
+                                "dealItemPriceId": -1,
+                                "originalPrice": 100,
+                                "unitPrice": 90,
+                                "default": false,
+                                "priority": 990,
+                                "conditions": {
+                                    "quantity": {
+                                        "minimum": "0",
+                                        "maximum": "5"
                                     }
                                 }
-                            ]
-                        }
-                    ]
+                            }
+                        ]
+                    }]
                 },
                 {
                     "date": "2018-11-19T00:00:00+0800",
-                    "timeslots": [
-                        {
+                    "timeslots": [{
                             "id": 1634,
                             "title": "9AM",
                             "time": "09:00:00"
@@ -617,41 +591,37 @@
                             "time": "22:00:00"
                         }
                     ],
-                    "dealItemTypes": [
-                        {
-                            "id": 6537,
-                            "title": "Adult (All-day)",
-                            "minQuantity": 0,
-                            "maxQuantity": -1,
-                            "prices": [
-                                {
-                                    "dealItemPriceId": -1,
-                                    "originalPrice": 100,
-                                    "unitPrice": 90,
-                                    "default": true,
-                                    "priority": 0
-                                },
-                                {
-                                    "dealItemPriceId": -1,
-                                    "originalPrice": 100,
-                                    "unitPrice": 90,
-                                    "default": false,
-                                    "priority": 990,
-                                    "conditions": {
-                                        "quantity": {
-                                            "minimum": "0",
-                                            "maximum": "5"
-                                        }
+                    "dealItemTypes": [{
+                        "id": 6537,
+                        "title": "Adult (All-day)",
+                        "minQuantity": 0,
+                        "maxQuantity": -1,
+                        "prices": [{
+                                "dealItemPriceId": -1,
+                                "originalPrice": 100,
+                                "unitPrice": 90,
+                                "default": true,
+                                "priority": 0
+                            },
+                            {
+                                "dealItemPriceId": -1,
+                                "originalPrice": 100,
+                                "unitPrice": 90,
+                                "default": false,
+                                "priority": 990,
+                                "conditions": {
+                                    "quantity": {
+                                        "minimum": "0",
+                                        "maximum": "5"
                                     }
                                 }
-                            ]
-                        }
-                    ]
+                            }
+                        ]
+                    }]
                 },
                 {
                     "date": "2018-11-20T00:00:00+0800",
-                    "timeslots": [
-                        {
+                    "timeslots": [{
                             "id": 1634,
                             "title": "9AM",
                             "time": "09:00:00"
@@ -712,41 +682,37 @@
                             "time": "22:00:00"
                         }
                     ],
-                    "dealItemTypes": [
-                        {
-                            "id": 6537,
-                            "title": "Adult (All-day)",
-                            "minQuantity": 0,
-                            "maxQuantity": -1,
-                            "prices": [
-                                {
-                                    "dealItemPriceId": -1,
-                                    "originalPrice": 100,
-                                    "unitPrice": 90,
-                                    "default": true,
-                                    "priority": 0
-                                },
-                                {
-                                    "dealItemPriceId": -1,
-                                    "originalPrice": 100,
-                                    "unitPrice": 90,
-                                    "default": false,
-                                    "priority": 990,
-                                    "conditions": {
-                                        "quantity": {
-                                            "minimum": "0",
-                                            "maximum": "5"
-                                        }
+                    "dealItemTypes": [{
+                        "id": 6537,
+                        "title": "Adult (All-day)",
+                        "minQuantity": 0,
+                        "maxQuantity": -1,
+                        "prices": [{
+                                "dealItemPriceId": -1,
+                                "originalPrice": 100,
+                                "unitPrice": 90,
+                                "default": true,
+                                "priority": 0
+                            },
+                            {
+                                "dealItemPriceId": -1,
+                                "originalPrice": 100,
+                                "unitPrice": 90,
+                                "default": false,
+                                "priority": 990,
+                                "conditions": {
+                                    "quantity": {
+                                        "minimum": "0",
+                                        "maximum": "5"
                                     }
                                 }
-                            ]
-                        }
-                    ]
+                            }
+                        ]
+                    }]
                 },
                 {
                     "date": "2018-11-21T00:00:00+0800",
-                    "timeslots": [
-                        {
+                    "timeslots": [{
                             "id": 1634,
                             "title": "9AM",
                             "time": "09:00:00"
@@ -807,41 +773,37 @@
                             "time": "22:00:00"
                         }
                     ],
-                    "dealItemTypes": [
-                        {
-                            "id": 6537,
-                            "title": "Adult (All-day)",
-                            "minQuantity": 0,
-                            "maxQuantity": -1,
-                            "prices": [
-                                {
-                                    "dealItemPriceId": -1,
-                                    "originalPrice": 100,
-                                    "unitPrice": 90,
-                                    "default": true,
-                                    "priority": 0
-                                },
-                                {
-                                    "dealItemPriceId": -1,
-                                    "originalPrice": 100,
-                                    "unitPrice": 90,
-                                    "default": false,
-                                    "priority": 990,
-                                    "conditions": {
-                                        "quantity": {
-                                            "minimum": "0",
-                                            "maximum": "5"
-                                        }
+                    "dealItemTypes": [{
+                        "id": 6537,
+                        "title": "Adult (All-day)",
+                        "minQuantity": 0,
+                        "maxQuantity": -1,
+                        "prices": [{
+                                "dealItemPriceId": -1,
+                                "originalPrice": 100,
+                                "unitPrice": 90,
+                                "default": true,
+                                "priority": 0
+                            },
+                            {
+                                "dealItemPriceId": -1,
+                                "originalPrice": 100,
+                                "unitPrice": 90,
+                                "default": false,
+                                "priority": 990,
+                                "conditions": {
+                                    "quantity": {
+                                        "minimum": "0",
+                                        "maximum": "5"
                                     }
                                 }
-                            ]
-                        }
-                    ]
+                            }
+                        ]
+                    }]
                 },
                 {
                     "date": "2018-11-22T00:00:00+0800",
-                    "timeslots": [
-                        {
+                    "timeslots": [{
                             "id": 1634,
                             "title": "9AM",
                             "time": "09:00:00"
@@ -902,41 +864,37 @@
                             "time": "22:00:00"
                         }
                     ],
-                    "dealItemTypes": [
-                        {
-                            "id": 6537,
-                            "title": "Adult (All-day)",
-                            "minQuantity": 0,
-                            "maxQuantity": -1,
-                            "prices": [
-                                {
-                                    "dealItemPriceId": -1,
-                                    "originalPrice": 100,
-                                    "unitPrice": 90,
-                                    "default": true,
-                                    "priority": 0
-                                },
-                                {
-                                    "dealItemPriceId": -1,
-                                    "originalPrice": 100,
-                                    "unitPrice": 90,
-                                    "default": false,
-                                    "priority": 990,
-                                    "conditions": {
-                                        "quantity": {
-                                            "minimum": "0",
-                                            "maximum": "5"
-                                        }
+                    "dealItemTypes": [{
+                        "id": 6537,
+                        "title": "Adult (All-day)",
+                        "minQuantity": 0,
+                        "maxQuantity": -1,
+                        "prices": [{
+                                "dealItemPriceId": -1,
+                                "originalPrice": 100,
+                                "unitPrice": 90,
+                                "default": true,
+                                "priority": 0
+                            },
+                            {
+                                "dealItemPriceId": -1,
+                                "originalPrice": 100,
+                                "unitPrice": 90,
+                                "default": false,
+                                "priority": 990,
+                                "conditions": {
+                                    "quantity": {
+                                        "minimum": "0",
+                                        "maximum": "5"
                                     }
                                 }
-                            ]
-                        }
-                    ]
+                            }
+                        ]
+                    }]
                 },
                 {
                     "date": "2018-11-23T00:00:00+0800",
-                    "timeslots": [
-                        {
+                    "timeslots": [{
                             "id": 1634,
                             "title": "9AM",
                             "time": "09:00:00"
@@ -997,41 +955,37 @@
                             "time": "22:00:00"
                         }
                     ],
-                    "dealItemTypes": [
-                        {
-                            "id": 6537,
-                            "title": "Adult (All-day)",
-                            "minQuantity": 0,
-                            "maxQuantity": -1,
-                            "prices": [
-                                {
-                                    "dealItemPriceId": -1,
-                                    "originalPrice": 100,
-                                    "unitPrice": 90,
-                                    "default": true,
-                                    "priority": 0
-                                },
-                                {
-                                    "dealItemPriceId": -1,
-                                    "originalPrice": 100,
-                                    "unitPrice": 90,
-                                    "default": false,
-                                    "priority": 990,
-                                    "conditions": {
-                                        "quantity": {
-                                            "minimum": "0",
-                                            "maximum": "5"
-                                        }
+                    "dealItemTypes": [{
+                        "id": 6537,
+                        "title": "Adult (All-day)",
+                        "minQuantity": 0,
+                        "maxQuantity": -1,
+                        "prices": [{
+                                "dealItemPriceId": -1,
+                                "originalPrice": 100,
+                                "unitPrice": 90,
+                                "default": true,
+                                "priority": 0
+                            },
+                            {
+                                "dealItemPriceId": -1,
+                                "originalPrice": 100,
+                                "unitPrice": 90,
+                                "default": false,
+                                "priority": 990,
+                                "conditions": {
+                                    "quantity": {
+                                        "minimum": "0",
+                                        "maximum": "5"
                                     }
                                 }
-                            ]
-                        }
-                    ]
+                            }
+                        ]
+                    }]
                 },
                 {
                     "date": "2018-11-24T00:00:00+0800",
-                    "timeslots": [
-                        {
+                    "timeslots": [{
                             "id": 1634,
                             "title": "9AM",
                             "time": "09:00:00"
@@ -1092,41 +1046,37 @@
                             "time": "22:00:00"
                         }
                     ],
-                    "dealItemTypes": [
-                        {
-                            "id": 6537,
-                            "title": "Adult (All-day)",
-                            "minQuantity": 0,
-                            "maxQuantity": -1,
-                            "prices": [
-                                {
-                                    "dealItemPriceId": -1,
-                                    "originalPrice": 100,
-                                    "unitPrice": 90,
-                                    "default": true,
-                                    "priority": 0
-                                },
-                                {
-                                    "dealItemPriceId": -1,
-                                    "originalPrice": 100,
-                                    "unitPrice": 90,
-                                    "default": false,
-                                    "priority": 990,
-                                    "conditions": {
-                                        "quantity": {
-                                            "minimum": "0",
-                                            "maximum": "5"
-                                        }
+                    "dealItemTypes": [{
+                        "id": 6537,
+                        "title": "Adult (All-day)",
+                        "minQuantity": 0,
+                        "maxQuantity": -1,
+                        "prices": [{
+                                "dealItemPriceId": -1,
+                                "originalPrice": 100,
+                                "unitPrice": 90,
+                                "default": true,
+                                "priority": 0
+                            },
+                            {
+                                "dealItemPriceId": -1,
+                                "originalPrice": 100,
+                                "unitPrice": 90,
+                                "default": false,
+                                "priority": 990,
+                                "conditions": {
+                                    "quantity": {
+                                        "minimum": "0",
+                                        "maximum": "5"
                                     }
                                 }
-                            ]
-                        }
-                    ]
+                            }
+                        ]
+                    }]
                 },
                 {
                     "date": "2018-11-25T00:00:00+0800",
-                    "timeslots": [
-                        {
+                    "timeslots": [{
                             "id": 1634,
                             "title": "9AM",
                             "time": "09:00:00"
@@ -1187,41 +1137,37 @@
                             "time": "22:00:00"
                         }
                     ],
-                    "dealItemTypes": [
-                        {
-                            "id": 6537,
-                            "title": "Adult (All-day)",
-                            "minQuantity": 0,
-                            "maxQuantity": -1,
-                            "prices": [
-                                {
-                                    "dealItemPriceId": -1,
-                                    "originalPrice": 100,
-                                    "unitPrice": 90,
-                                    "default": true,
-                                    "priority": 0
-                                },
-                                {
-                                    "dealItemPriceId": -1,
-                                    "originalPrice": 100,
-                                    "unitPrice": 90,
-                                    "default": false,
-                                    "priority": 990,
-                                    "conditions": {
-                                        "quantity": {
-                                            "minimum": "0",
-                                            "maximum": "5"
-                                        }
+                    "dealItemTypes": [{
+                        "id": 6537,
+                        "title": "Adult (All-day)",
+                        "minQuantity": 0,
+                        "maxQuantity": -1,
+                        "prices": [{
+                                "dealItemPriceId": -1,
+                                "originalPrice": 100,
+                                "unitPrice": 90,
+                                "default": true,
+                                "priority": 0
+                            },
+                            {
+                                "dealItemPriceId": -1,
+                                "originalPrice": 100,
+                                "unitPrice": 90,
+                                "default": false,
+                                "priority": 990,
+                                "conditions": {
+                                    "quantity": {
+                                        "minimum": "0",
+                                        "maximum": "5"
                                     }
                                 }
-                            ]
-                        }
-                    ]
+                            }
+                        ]
+                    }]
                 },
                 {
                     "date": "2018-11-26T00:00:00+0800",
-                    "timeslots": [
-                        {
+                    "timeslots": [{
                             "id": 1634,
                             "title": "9AM",
                             "time": "09:00:00"
@@ -1252,36 +1198,33 @@
                             "time": "14:00:00"
                         }
                     ],
-                    "dealItemTypes": [
-                        {
-                            "id": 6537,
-                            "title": "Adult (All-day)",
-                            "minQuantity": 0,
-                            "maxQuantity": -1,
-                            "prices": [
-                                {
-                                    "dealItemPriceId": -1,
-                                    "originalPrice": 100,
-                                    "unitPrice": 90,
-                                    "default": true,
-                                    "priority": 0
-                                },
-                                {
-                                    "dealItemPriceId": -1,
-                                    "originalPrice": 100,
-                                    "unitPrice": 90,
-                                    "default": false,
-                                    "priority": 990,
-                                    "conditions": {
-                                        "quantity": {
-                                            "minimum": "0",
-                                            "maximum": "5"
-                                        }
+                    "dealItemTypes": [{
+                        "id": 6537,
+                        "title": "Adult (All-day)",
+                        "minQuantity": 0,
+                        "maxQuantity": -1,
+                        "prices": [{
+                                "dealItemPriceId": -1,
+                                "originalPrice": 100,
+                                "unitPrice": 90,
+                                "default": true,
+                                "priority": 0
+                            },
+                            {
+                                "dealItemPriceId": -1,
+                                "originalPrice": 100,
+                                "unitPrice": 90,
+                                "default": false,
+                                "priority": 990,
+                                "conditions": {
+                                    "quantity": {
+                                        "minimum": "0",
+                                        "maximum": "5"
                                     }
                                 }
-                            ]
-                        }
-                    ]
+                            }
+                        ]
+                    }]
                 }
             ],
             "dealItemTypes": []
@@ -1298,300 +1241,38 @@
                 "original": 100
             },
             "dates": [
+               
+            ],
+            "dealItemTypes": [
                 {
-                    "date": "2018-11-17T00:00:00+0800",
-                    "timeslots": [
+                    "id": 6539,
+                    "title": "Adult",
+                    "minQuantity": 0,
+                    "maxQuantity": -1,
+                    "prices": [
                         {
-                            "id": 1634,
-                            "title": "9AM",
-                            "time": "09:00:00"
+                            "dealItemPriceId": -1,
+                            "originalPrice": 300,
+                            "unitPrice": 299,
+                            "default": true,
+                            "priority": 0
                         },
                         {
-                            "id": 1635,
-                            "title": "1PM",
-                            "time": "13:00:00"
-                        }
-                    ],
-                    "dealItemTypes": [
-                        {
-                            "id": 6536,
-                            "title": "Adult (Weekend)",
-                            "minQuantity": 2,
-                            "maxQuantity": -1,
-                            "prices": [
-                                {
-                                    "dealItemPriceId": -1,
-                                    "originalPrice": 100,
-                                    "unitPrice": 100,
-                                    "default": true,
-                                    "priority": 0
-                                },
-                                {
-                                    "dealItemPriceId": -1,
-                                    "originalPrice": 100,
-                                    "unitPrice": 100,
-                                    "default": false,
-                                    "priority": 990,
-                                    "conditions": {
-                                        "quantity": {
-                                            "minimum": "2",
-                                            "maximum": "0"
-                                        }
-                                    }
+                            "dealItemPriceId": -1,
+                            "originalPrice": 300,
+                            "unitPrice": 299,
+                            "default": false,
+                            "priority": 990,
+                            "conditions": {
+                                "quantity": {
+                                    "minimum": "0",
+                                    "maximum": "0"
                                 }
-                            ]
-                        },
-                        {
-                            "id": 6891,
-                            "title": "Child (Weekend)",
-                            "minQuantity": 1,
-                            "maxQuantity": -1,
-                            "prices": [
-                                {
-                                    "dealItemPriceId": -1,
-                                    "originalPrice": 80,
-                                    "unitPrice": 70,
-                                    "default": true,
-                                    "priority": 0
-                                },
-                                {
-                                    "dealItemPriceId": -1,
-                                    "originalPrice": 80,
-                                    "unitPrice": 70,
-                                    "default": false,
-                                    "priority": 990,
-                                    "conditions": {
-                                        "quantity": {
-                                            "minimum": "1",
-                                            "maximum": "0"
-                                        }
-                                    }
-                                }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "date": "2018-11-18T00:00:00+0800",
-                    "timeslots": [
-                        {
-                            "id": 1634,
-                            "title": "9AM",
-                            "time": "09:00:00"
-                        },
-                        {
-                            "id": 1635,
-                            "title": "1PM",
-                            "time": "13:00:00"
-                        }
-                    ],
-                    "dealItemTypes": [
-                        {
-                            "id": 6536,
-                            "title": "Adult (Weekend)",
-                            "minQuantity": 2,
-                            "maxQuantity": -1,
-                            "prices": [
-                                {
-                                    "dealItemPriceId": -1,
-                                    "originalPrice": 100,
-                                    "unitPrice": 100,
-                                    "default": true,
-                                    "priority": 0
-                                },
-                                {
-                                    "dealItemPriceId": -1,
-                                    "originalPrice": 100,
-                                    "unitPrice": 100,
-                                    "default": false,
-                                    "priority": 990,
-                                    "conditions": {
-                                        "quantity": {
-                                            "minimum": "2",
-                                            "maximum": "0"
-                                        }
-                                    }
-                                }
-                            ]
-                        },
-                        {
-                            "id": 6891,
-                            "title": "Child (Weekend)",
-                            "minQuantity": 1,
-                            "maxQuantity": -1,
-                            "prices": [
-                                {
-                                    "dealItemPriceId": -1,
-                                    "originalPrice": 80,
-                                    "unitPrice": 70,
-                                    "default": true,
-                                    "priority": 0
-                                },
-                                {
-                                    "dealItemPriceId": -1,
-                                    "originalPrice": 80,
-                                    "unitPrice": 70,
-                                    "default": false,
-                                    "priority": 990,
-                                    "conditions": {
-                                        "quantity": {
-                                            "minimum": "1",
-                                            "maximum": "0"
-                                        }
-                                    }
-                                }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "date": "2018-11-24T00:00:00+0800",
-                    "timeslots": [
-                        {
-                            "id": 1634,
-                            "title": "9AM",
-                            "time": "09:00:00"
-                        },
-                        {
-                            "id": 1635,
-                            "title": "1PM",
-                            "time": "13:00:00"
-                        }
-                    ],
-                    "dealItemTypes": [
-                        {
-                            "id": 6536,
-                            "title": "Adult (Weekend)",
-                            "minQuantity": 2,
-                            "maxQuantity": -1,
-                            "prices": [
-                                {
-                                    "dealItemPriceId": -1,
-                                    "originalPrice": 100,
-                                    "unitPrice": 100,
-                                    "default": true,
-                                    "priority": 0
-                                },
-                                {
-                                    "dealItemPriceId": -1,
-                                    "originalPrice": 100,
-                                    "unitPrice": 100,
-                                    "default": false,
-                                    "priority": 990,
-                                    "conditions": {
-                                        "quantity": {
-                                            "minimum": "2",
-                                            "maximum": "0"
-                                        }
-                                    }
-                                }
-                            ]
-                        },
-                        {
-                            "id": 6891,
-                            "title": "Child (Weekend)",
-                            "minQuantity": 1,
-                            "maxQuantity": -1,
-                            "prices": [
-                                {
-                                    "dealItemPriceId": -1,
-                                    "originalPrice": 80,
-                                    "unitPrice": 70,
-                                    "default": true,
-                                    "priority": 0
-                                },
-                                {
-                                    "dealItemPriceId": -1,
-                                    "originalPrice": 80,
-                                    "unitPrice": 70,
-                                    "default": false,
-                                    "priority": 990,
-                                    "conditions": {
-                                        "quantity": {
-                                            "minimum": "1",
-                                            "maximum": "0"
-                                        }
-                                    }
-                                }
-                            ]
-                        }
-                    ]
-                },
-                {
-                    "date": "2018-11-25T00:00:00+0800",
-                    "timeslots": [
-                        {
-                            "id": 1634,
-                            "title": "9AM",
-                            "time": "09:00:00"
-                        },
-                        {
-                            "id": 1635,
-                            "title": "1PM",
-                            "time": "13:00:00"
-                        }
-                    ],
-                    "dealItemTypes": [
-                        {
-                            "id": 6536,
-                            "title": "Adult (Weekend)",
-                            "minQuantity": 2,
-                            "maxQuantity": -1,
-                            "prices": [
-                                {
-                                    "dealItemPriceId": -1,
-                                    "originalPrice": 100,
-                                    "unitPrice": 100,
-                                    "default": true,
-                                    "priority": 0
-                                },
-                                {
-                                    "dealItemPriceId": -1,
-                                    "originalPrice": 100,
-                                    "unitPrice": 100,
-                                    "default": false,
-                                    "priority": 990,
-                                    "conditions": {
-                                        "quantity": {
-                                            "minimum": "2",
-                                            "maximum": "0"
-                                        }
-                                    }
-                                }
-                            ]
-                        },
-                        {
-                            "id": 6891,
-                            "title": "Child (Weekend)",
-                            "minQuantity": 1,
-                            "maxQuantity": -1,
-                            "prices": [
-                                {
-                                    "dealItemPriceId": -1,
-                                    "originalPrice": 80,
-                                    "unitPrice": 70,
-                                    "default": true,
-                                    "priority": 0
-                                },
-                                {
-                                    "dealItemPriceId": -1,
-                                    "originalPrice": 80,
-                                    "unitPrice": 70,
-                                    "default": false,
-                                    "priority": 990,
-                                    "conditions": {
-                                        "quantity": {
-                                            "minimum": "1",
-                                            "maximum": "0"
-                                        }
-                                    }
-                                }
-                            ]
+                            }
                         }
                     ]
                 }
-            ],
-            "dealItemTypes": []
+            ]
         },
         {
             "id": "10482",
@@ -1607,8 +1288,7 @@
             "dates": [
                 {
                     "date": "2018-11-15T00:00:00+0800",
-                    "timeslots": [
-                        {
+                    "timeslots": [{
                             "id": 1642,
                             "title": "4PM",
                             "time": "16:00:00"
@@ -1634,14 +1314,12 @@
                             "time": "22:00:00"
                         }
                     ],
-                    "dealItemTypes": [
-                        {
+                    "dealItemTypes": [{
                             "id": 6538,
                             "title": "Child (Time cut-off)",
                             "minQuantity": 0,
                             "maxQuantity": -1,
-                            "prices": [
-                                {
+                            "prices": [{
                                     "dealItemPriceId": -1,
                                     "originalPrice": 88,
                                     "unitPrice": 49,
@@ -1668,8 +1346,7 @@
                             "title": "Adult (Time cut-off)",
                             "minQuantity": 2,
                             "maxQuantity": -1,
-                            "prices": [
-                                {
+                            "prices": [{
                                     "dealItemPriceId": -1,
                                     "originalPrice": 20,
                                     "unitPrice": 10,
@@ -1695,8 +1372,7 @@
                 },
                 {
                     "date": "2018-11-16T00:00:00+0800",
-                    "timeslots": [
-                        {
+                    "timeslots": [{
                             "id": 1634,
                             "title": "9AM",
                             "time": "09:00:00"
@@ -1757,14 +1433,12 @@
                             "time": "22:00:00"
                         }
                     ],
-                    "dealItemTypes": [
-                        {
+                    "dealItemTypes": [{
                             "id": 6538,
                             "title": "Child (Time cut-off)",
                             "minQuantity": 0,
                             "maxQuantity": -1,
-                            "prices": [
-                                {
+                            "prices": [{
                                     "dealItemPriceId": -1,
                                     "originalPrice": 88,
                                     "unitPrice": 49,
@@ -1791,8 +1465,7 @@
                             "title": "Adult (Time cut-off)",
                             "minQuantity": 2,
                             "maxQuantity": -1,
-                            "prices": [
-                                {
+                            "prices": [{
                                     "dealItemPriceId": -1,
                                     "originalPrice": 20,
                                     "unitPrice": 10,
@@ -1818,8 +1491,7 @@
                 },
                 {
                     "date": "2018-11-17T00:00:00+0800",
-                    "timeslots": [
-                        {
+                    "timeslots": [{
                             "id": 1634,
                             "title": "9AM",
                             "time": "09:00:00"
@@ -1880,14 +1552,12 @@
                             "time": "22:00:00"
                         }
                     ],
-                    "dealItemTypes": [
-                        {
+                    "dealItemTypes": [{
                             "id": 6538,
                             "title": "Child (Time cut-off)",
                             "minQuantity": 0,
                             "maxQuantity": -1,
-                            "prices": [
-                                {
+                            "prices": [{
                                     "dealItemPriceId": -1,
                                     "originalPrice": 88,
                                     "unitPrice": 49,
@@ -1914,8 +1584,7 @@
                             "title": "Adult (Time cut-off)",
                             "minQuantity": 2,
                             "maxQuantity": -1,
-                            "prices": [
-                                {
+                            "prices": [{
                                     "dealItemPriceId": -1,
                                     "originalPrice": 20,
                                     "unitPrice": 10,
@@ -1941,8 +1610,7 @@
                 },
                 {
                     "date": "2018-11-18T00:00:00+0800",
-                    "timeslots": [
-                        {
+                    "timeslots": [{
                             "id": 1634,
                             "title": "9AM",
                             "time": "09:00:00"
@@ -2003,14 +1671,12 @@
                             "time": "22:00:00"
                         }
                     ],
-                    "dealItemTypes": [
-                        {
+                    "dealItemTypes": [{
                             "id": 6538,
                             "title": "Child (Time cut-off)",
                             "minQuantity": 0,
                             "maxQuantity": -1,
-                            "prices": [
-                                {
+                            "prices": [{
                                     "dealItemPriceId": -1,
                                     "originalPrice": 88,
                                     "unitPrice": 49,
@@ -2037,8 +1703,7 @@
                             "title": "Adult (Time cut-off)",
                             "minQuantity": 2,
                             "maxQuantity": -1,
-                            "prices": [
-                                {
+                            "prices": [{
                                     "dealItemPriceId": -1,
                                     "originalPrice": 20,
                                     "unitPrice": 10,
@@ -2064,8 +1729,7 @@
                 },
                 {
                     "date": "2018-11-19T00:00:00+0800",
-                    "timeslots": [
-                        {
+                    "timeslots": [{
                             "id": 1634,
                             "title": "9AM",
                             "time": "09:00:00"
@@ -2126,14 +1790,12 @@
                             "time": "22:00:00"
                         }
                     ],
-                    "dealItemTypes": [
-                        {
+                    "dealItemTypes": [{
                             "id": 6538,
                             "title": "Child (Time cut-off)",
                             "minQuantity": 0,
                             "maxQuantity": -1,
-                            "prices": [
-                                {
+                            "prices": [{
                                     "dealItemPriceId": -1,
                                     "originalPrice": 88,
                                     "unitPrice": 49,
@@ -2160,8 +1822,7 @@
                             "title": "Adult (Time cut-off)",
                             "minQuantity": 2,
                             "maxQuantity": -1,
-                            "prices": [
-                                {
+                            "prices": [{
                                     "dealItemPriceId": -1,
                                     "originalPrice": 20,
                                     "unitPrice": 10,
@@ -2187,8 +1848,7 @@
                 },
                 {
                     "date": "2018-11-20T00:00:00+0800",
-                    "timeslots": [
-                        {
+                    "timeslots": [{
                             "id": 1634,
                             "title": "9AM",
                             "time": "09:00:00"
@@ -2249,14 +1909,12 @@
                             "time": "22:00:00"
                         }
                     ],
-                    "dealItemTypes": [
-                        {
+                    "dealItemTypes": [{
                             "id": 6538,
                             "title": "Child (Time cut-off)",
                             "minQuantity": 0,
                             "maxQuantity": -1,
-                            "prices": [
-                                {
+                            "prices": [{
                                     "dealItemPriceId": -1,
                                     "originalPrice": 88,
                                     "unitPrice": 49,
@@ -2299,8 +1957,7 @@
                             "title": "Adult (Time cut-off)",
                             "minQuantity": 2,
                             "maxQuantity": -1,
-                            "prices": [
-                                {
+                            "prices": [{
                                     "dealItemPriceId": -1,
                                     "originalPrice": 20,
                                     "unitPrice": 10,
@@ -2325,7 +1982,7 @@
                     ]
                 },
                 {
-                    "date": "2018-11-30T00:00:00+0800",
+                    "date": "2018-12-03T00:00:00+0800",
                     "timeslots": [
                         {
                             "id": 13,
@@ -2388,14 +2045,12 @@
                             "time": "22:00:00"
                         }
                     ],
-                    "dealItemTypes": [
-                        {
+                    "dealItemTypes": [{
                             "id": 6538,
                             "title": "Child (Time cut-off)",
                             "minQuantity": 0,
                             "maxQuantity": 5,
-                            "prices": [
-                                {
+                            "prices": [{
                                     "dealItemPriceId": -1,
                                     "originalPrice": 88,
                                     "unitPrice": 49,
@@ -2450,8 +2105,7 @@
                             "title": "Adult (Time cut-off)",
                             "minQuantity": 2,
                             "maxQuantity": -1,
-                            "prices": [
-                                {
+                            "prices": [{
                                     "dealItemPriceId": -1,
                                     "originalPrice": 20,
                                     "unitPrice": 10,
@@ -2480,8 +2134,7 @@
                 },
                 {
                     "date": "2018-11-21T00:00:00+0800",
-                    "timeslots": [
-                        {
+                    "timeslots": [{
                             "id": 1634,
                             "title": "9AM",
                             "time": "09:00:00"
@@ -2512,14 +2165,12 @@
                             "time": "14:00:00"
                         }
                     ],
-                    "dealItemTypes": [
-                        {
+                    "dealItemTypes": [{
                             "id": 6538,
                             "title": "Child (Time cut-off)",
                             "minQuantity": 0,
                             "maxQuantity": -1,
-                            "prices": [
-                                {
+                            "prices": [{
                                     "dealItemPriceId": -1,
                                     "originalPrice": 88,
                                     "unitPrice": 49,
@@ -2546,8 +2197,7 @@
                             "title": "Adult (Time cut-off)",
                             "minQuantity": 2,
                             "maxQuantity": -1,
-                            "prices": [
-                                {
+                            "prices": [{
                                     "dealItemPriceId": -1,
                                     "originalPrice": 20,
                                     "unitPrice": 10,
@@ -2575,9 +2225,31 @@
             "dealItemTypes": []
         }
     ],
-    "promotions": [],
-    "paymentOptions": [
-        {
+    "promotions": [{
+        "id": 52,
+        "type": "percentage",
+        "value": 10,
+        "title": "10% OFF UPON $200 OR ABOVE",
+        "message": "Enjoy 10% off upon purchase of $200 or above",
+        "conditions": {
+        "price_total": {
+            "minimum": "200"
+            }
+        }
+    },
+    {
+        "id": 53,
+        "type": "percentage",
+        "value": 11,
+        "title": "30% OFF UPON $200 OR ABOVE",
+        "message": "Enjoy 20% off upon purchase of $200 or above",
+        "conditions": {
+        "price_total": {
+            "minimum": "200"
+            }
+        }
+    }],
+    "paymentOptions": [{
             "type": "custom",
             "value": "payment/hotel_email",
             "isInRoomBilling": false,
@@ -2611,17 +2283,19 @@
             "title": ""
         }
     ],
-    "questions": [
-        {
-            "name": "handy_question_Select a drink",
+    "questions": [{
+            "name": "handy_question_Select a drink111",
             "title": "Please select a drink",
             "type": "dropdown",
             "placeholder": "placeholder",
-            "conditions": null,
+            "conditions": {
+                "timeslot": {
+                    "id": "13"
+                }
+            },
             "required": true,
             "appliedToAll": false,
-            "choices": [
-                {
+            "choices": [{
                     "title": "Coffee",
                     "value": "coffee"
                 },
@@ -2643,9 +2317,34 @@
                 }
             ],
             "default": null
-        },
-        {
-            "name": "handy_question_Text Question",
+        },{
+            "name": "handy_question_Select a drink222",
+            "title": "Please select a food",
+            "type": "dropdown",
+            "placeholder": "placeholder",
+            "conditions": null,
+            "required": true,
+            "appliedToAll": false,
+            "choices": [{
+                    "title": "Cookie",
+                    "value": "cookie"
+                },
+                {
+                    "title": "Cake",
+                    "value": "cake"
+                }
+            ],
+            "default": null
+        },{
+            "name": "handy_question_Text Question333",
+            "title": "Are you want to drink?",
+            "type": "text",
+            "placeholder": "Please list out your favorite drinks here!",
+            "conditions": null,
+            "required": true,
+            "appliedToAll": false
+        },{
+            "name": "handy_question_Text Question444",
             "title": "Are you hungry?",
             "type": "text",
             "placeholder": "Please list out your favorite snacks here!",
@@ -2662,8 +2361,7 @@
     },
     "abandonCart": {
         "enable": true,
-        "options": [
-            {
+        "options": [{
                 "id": "1",
                 "type": "I can find it cheaper"
             },

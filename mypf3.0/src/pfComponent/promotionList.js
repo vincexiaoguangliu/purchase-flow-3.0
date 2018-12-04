@@ -18,7 +18,8 @@ class Promotionlist extends React.Component {
       title: '',
       message: '',
       peopleandprice: {},
-      usediscountedPrice: []
+      usediscountedPrice: [],
+      totalNo: 0
     };
     this.handleApplyorNot = this.handleApplyorNot.bind(this);
   }
@@ -39,27 +40,39 @@ class Promotionlist extends React.Component {
   componentWillReceiveProps(nextProps) {
     this.state.promotionList = nextProps.promotionList;
     if (nextProps.peopleandprice != undefined) {
+      let totalnum = 0;
       this.state.peopleandprice = nextProps.peopleandprice;
       for (let i = 0; i < this.state.peopleandprice.number.length; i++) {
         this.state.usediscountedPrice[i] = false;
+        totalnum += this.state.peopleandprice.number[i] * this.state.peopleandprice.price[i];
       }
+      this.setState({ totalNo: totalnum })
     }
   }
 
-  handleApplyorNot(index, e) {
-    let totalNo = this.state.peopleandprice.number[index] * this.state.peopleandprice.price[index];
-   
-    if (!this.state.promotionList[index].conditions) {
+  //promotionlist 里面只能选择一个折扣价
+  useApplyOnce(index){
+    if (this.state.usediscountedPrice[index] == true) {
       let temp = { ...this.state.usediscountedPrice, [index]: !this.state.usediscountedPrice[index] }
       this.setState({
         usediscountedPrice: temp
       });
-    }else{
-      if(totalNo > this.state.promotionList[index].conditions.price_total.minimum){
-        let temp = { ...this.state.usediscountedPrice, [index]: !this.state.usediscountedPrice[index] }
-        this.setState({
-          usediscountedPrice: temp
-        });
+    } else {
+      for (let j = 0; j < this.state.promotionList.length; j++) {
+        this.state.usediscountedPrice[j] = false;
+      }
+      let temp = { ...this.state.usediscountedPrice, [index]: !this.state.usediscountedPrice[index] }
+      this.setState({
+        usediscountedPrice: temp
+      });
+    }
+  }
+  handleApplyorNot(index, e) {
+    if (!this.state.promotionList[index].conditions) {
+      this.useApplyOnce(index);
+    } else {
+      if (this.state.totalNo > this.state.promotionList[index].conditions.price_total.minimum) {
+        this.useApplyOnce(index);
       }
     }
 
