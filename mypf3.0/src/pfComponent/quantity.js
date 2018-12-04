@@ -36,10 +36,10 @@ class Quantity extends Component {
                        numbermore: [],
                        morediscountprice: [],
                        afterAddDiscount: [], //discountereminder函数需要下下步的折扣价   这里用来存储
-                       peopleandPrice: {
+                       peopleandPrice: {  //供传给promotionList使用
                            number: [],
                            price: []
-                       }
+                       }                
                     };
         this.addQuantity = this.addQuantity.bind(this);
         this.minusQuantity = this.minusQuantity.bind(this);

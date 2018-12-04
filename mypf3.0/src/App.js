@@ -26,11 +26,15 @@ class App extends Component {
     super(props);
     this.state = {
       // peopleandPrice: {}
+      nextstate: false,
+      afterFirstConfirm: false
     };
     this.handlePackageid = this.handlePackageid.bind(this);
     this.handleSelectedDate = this.handleSelectedDate.bind(this);
     this.handleTimeslotId = this.handleTimeslotId.bind(this);
     this.peopleandPrice = this.peopleandPrice.bind(this);
+    this.handleNext = this.handleNext.bind(this);
+    this.handleFirstConfirm = this.handleFirstConfirm.bind(this);
   }
   componentDidMount(){
     fetch('../localData/dealStepTwo.json')
@@ -71,8 +75,21 @@ class App extends Component {
   peopleandPrice(pp){
     console.log(pp);
     // this.state.peopleandPrice = pp;
-    this.setState({peopleandPrice: pp});
+    this.setState({peopleandPrice: pp, quantityContral: pp.number});
     console.log(this.state.peopleandPrice);
+  }
+
+  //接收bottombutton传过来的值 用于显示userinformation questionlist promotion list
+  handleNext(flag){
+    this.setState({
+      nextstate: flag
+    })
+  }
+
+  handleFirstConfirm(flag){
+this.setState({
+  afterFirstConfirm: flag
+})
   }
   render() {
     let that = this;
@@ -117,19 +134,20 @@ class App extends Component {
         <PackageRadio packages={this.state.packages} onChangePackage={this.handlePackageid}/>
         {/* <SelectTime /> */}
         {selectIdPackageDateLength>0 && <DatePicker packages={selectIdPackage} onChangeHandledates={this.handleSelectedDate} onChangeTimeslotId={this.handleTimeslotId}/>}      
-        {quantityDisplay && <Quantity dealitemTypes={dealitemTypes} timeslotId={this.state.timeslotId} handlepeopleandPrice={this.peopleandPrice}/>}
-        <Userdetails />
-        {this.state.questions && this.state.timeslotId && this.state.packageid &&
+        {(quantityDisplay || selectIdPackageDateLength ==0) && <Quantity dealitemTypes={dealitemTypes} timeslotId={this.state.timeslotId} handlepeopleandPrice={this.peopleandPrice}/>}
+        {this.state.nextstate && <Userdetails />}
+       
+        {this.state.nextstate && (this.state.questions && this.state.timeslotId && this.state.packageid &&
           <QuestionList 
             questions={ this.state.questions } 
             timeslotId={ this.state.timeslotId }
             packageId={ this.state.packageid }
             getQuestionListAnswers={this.handleQuestionAnswers}/>
-        }
-        <Promotionlist promotionList={promotionList} peopleandprice={this.state.peopleandPrice}/>
-        <Confirmation />
-        <PaymentMethod />
-        <BottomButton />
+        )}
+        {this.state.nextstate && <Promotionlist promotionList={promotionList} peopleandprice={this.state.peopleandPrice}/>}       
+        {this.state.afterFirstConfirm && <Confirmation />}       
+        {/* <PaymentMethod /> */}
+        <BottomButton quantityContral={this.state.quantityContral} onHandleNext={this.handleNext} onHandleFirstConfirm={this.handleFirstConfirm}/>
       </div>
     );
   }
