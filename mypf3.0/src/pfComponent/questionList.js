@@ -1,14 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import ReactDOM from 'react-dom';
 import { withStyles } from '@material-ui/core/styles';
 import Input from '@material-ui/core/Input';
-import OutlinedInput from '@material-ui/core/OutlinedInput';
-import FilledInput from '@material-ui/core/FilledInput';
 import InputLabel from '@material-ui/core/InputLabel';
-import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
 import NativeSelect from '@material-ui/core/NativeSelect';
 
 import '../App.css';
@@ -139,7 +134,7 @@ class QuestionList extends React.Component {
         return (
             <div className={classes.root}>
                 {this.state.dropDownQuestions.map((question, index) => (
-                    <FormControl className={classes.formControl} style={questionlWidth}>
+                    <FormControl className={classes.formControl} style={questionlWidth} key={index}>
                         <InputLabel style={questionlWidth} shrink htmlFor="age-native-label-placeholder">
                             {question.title}
                         </InputLabel>
@@ -149,13 +144,13 @@ class QuestionList extends React.Component {
                             input={<Input name={question.name} id="age-native-label-placeholder" />}
                         >
                             {question.choices.map(item => (
-                                <option value={item.value}>{item.title}</option>
+                                <option value={item.value} key={item.title}>{item.title}</option>
                             ))}
                         </NativeSelect>
                     </FormControl>
                 ))}
                 {this.state.textQuestions.map((question, index) => (
-                    <div className={classes.container} style={questionlWidth}>
+                    <div className={classes.container} style={questionlWidth} key={index}>
                         <FormControl className={classes.formControl} style={questionlWidth}>
                             <InputLabel htmlFor="component-simple">{question.title}</InputLabel>
                             <Input id="component-simple" value={this.state.textQuestionValue[index]} placeholder={question.placeholder} onChange={this.handleChange(question, index, 'text')}/>

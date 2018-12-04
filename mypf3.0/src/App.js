@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import 'whatwg-fetch';
-import logo from './logo.svg';
 import './App.css';
 
 import Quantity from './pfComponent/quantity'
@@ -14,7 +12,6 @@ import BottomButton from './pfComponent/bottomButton'
 // import SelectPackage from './pfComponent/package'
 import PackageRadio from './pfComponent/packageRadio'
 import DatePicker from './pfComponent/datePicker'
-import SelectTime from './pfComponent/selectTime'
 
 // import {get} from './api/serverapi'
 
@@ -36,11 +33,16 @@ class App extends Component {
   componentDidMount(){
     fetch('../localData/dealStepTwo.json')
     .then(res => res.json())
-    .then( data => {this.setState({
-      packages: data.packages,
-      questions: data.questions,
-      promotionList: data.promotions,
-    })})
+    .then( data => {
+      this.setState({
+        packages: data.packages,
+        questions: data.questions,
+        promotionList: data.promotions,
+        confirmInfo: {
+          optIn: data.optIn,
+        }
+      })}
+    )
   }
 
   handlePackageid(packageid){
@@ -79,8 +81,56 @@ class App extends Component {
   }
 
   testConfirm = () => {
+    const tmpPromotionItem = {
+      "id": 53,
+      "type": "percentage",
+      "value": 11,
+      "title": "30% OFF UPON $200 OR ABOVE",
+      "message": "Enjoy 20% off upon purchase of $200 or above",
+      "conditions": {
+        "price_total": {
+          "minimum": "200"
+        }
+      }
+    }
     this.setState({
       isShowConfirmation: true
+    })
+    tmpPromotionItem.ratio = tmpPromotionItem.title.slice(0, tmpPromotionItem.title.indexOf('%'))
+    const tmpConfirmInfo = this.state.confirmInfo
+    tmpConfirmInfo.promotionItem = tmpPromotionItem
+    tmpConfirmInfo.priceInfo = {
+      currency: "HKD",
+      dealItems: [
+        {
+          title: 'adult',
+          price: 50,
+          count: 5,
+        },
+        {
+          title: 'child/senior',
+          price: 40,
+          count: 3,
+        }
+      ]
+    }
+    tmpConfirmInfo.priceInfo = {
+      currency: "HKD",
+      dealItems: [
+        {
+          title: 'adult',
+          price: 50,
+          count: 5,
+        },
+        {
+          title: 'child/senior',
+          price: 40,
+          count: 3,
+        }
+      ]
+    }
+    this.setState({
+      confirmInfo: tmpConfirmInfo,
     })
   }
   render() {
@@ -96,15 +146,15 @@ class App extends Component {
     }
     // console.log(this.state.timeslotId);
     //父组件传select quantity子组件 dealitemTypes属性；
-    if(this.state.packages != undefined){  
+    if(this.state.packages !== undefined){  
        selectIdPackage = this.state.packages.find(function(ele){
-        return ele.id == that.state.packageid;
+        return ele.id === that.state.packageid;
       })
-      if(selectIdPackage != undefined){
+      if(selectIdPackage !== undefined){
         if(selectIdPackage.dates.length>0){
           selectIdPackageDateLength = selectIdPackage.dates.length;      
           for(let i =0; i<selectIdPackage.dates.length; i++){
-            if(this.state.selectedDate == selectIdPackage.dates[i].date.substring(8,10)){
+            if(this.state.selectedDate === selectIdPackage.dates[i].date.substring(8,10)){
               console.log(selectIdPackage.dates[i].dealItemTypes);
               dealitemTypes = selectIdPackage.dates[i].dealItemTypes;
             }
@@ -116,7 +166,7 @@ class App extends Component {
       }     
     }
     
-    if(this.state.promotionList != undefined){
+    if(this.state.promotionList !== undefined){
       promotionList = this.state.promotionList;
     }
     
@@ -128,7 +178,7 @@ class App extends Component {
         {selectIdPackageDateLength>0 && <DatePicker packages={selectIdPackage} onChangeHandledates={this.handleSelectedDate} onChangeTimeslotId={this.handleTimeslotId}/>}
         {quantityDisplay && <Quantity dealitemTypes={dealitemTypes} timeslotId={this.state.timeslotId} handlepeopleandPrice={this.peopleandPrice}/>}
         <Userdetails getUserInfo={this.handleConfirmInfo}/>
-        {this.state.questions && this.state.timeslotId && this.state.packageid &&
+        {this.state.questions &&
           <QuestionList
             questions={ this.state.questions }
             timeslotId={ this.state.timeslotId }
