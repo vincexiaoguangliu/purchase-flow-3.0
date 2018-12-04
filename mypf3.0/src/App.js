@@ -23,7 +23,8 @@ class App extends Component {
     super(props);
     this.state = {
       confirmInfo: {},
-      // peopleandPrice: {}
+      peopleandPriceandTitle: [], //给confirmation用 有 count price title
+      peopleandTitle: {}, //给confirmation用
       nextstate: false,
       afterFirstConfirm: false
     };
@@ -71,8 +72,7 @@ class App extends Component {
     const tmpConfirmInfo = this.state.confirmInfo
     tmpConfirmInfo[key] = value
     this.setState({
-      confirmInfo: tmpConfirmInfo,
-      isShowConfirmation: false
+      confirmInfo: tmpConfirmInfo
     })
   }
 
@@ -80,8 +80,15 @@ class App extends Component {
   peopleandPrice(pp){
     console.log(pp);
     // this.state.peopleandPrice = pp;
-    this.setState({peopleandPrice: pp, quantityContral: pp.number});
-    console.log(this.state.peopleandPrice);
+    this.setState({peopleandPrice: pp, quantityContral: pp.number},function(){
+      for(let i = 0; i<this.state.peopleandPrice.number.length; i++){
+        this.state.peopleandTitle.count = this.state.peopleandPrice.number[i];
+        this.state.peopleandTitle.price = this.state.peopleandPrice.price[i];
+        this.state.peopleandTitle.title = this.state.peopleandPrice.title[i];
+        this.state.peopleandPriceandTitle[i] = this.state.peopleandTitle;
+      }
+      console.log(this.state.peopleandPriceandTitle);
+    });
   }
 
   testConfirm = () => {
@@ -97,9 +104,7 @@ class App extends Component {
         }
       }
     }
-    this.setState({
-      isShowConfirmation: true
-    })
+
     tmpPromotionItem.ratio = tmpPromotionItem.title.slice(0, tmpPromotionItem.title.indexOf('%'))
     const tmpConfirmInfo = this.state.confirmInfo
     tmpConfirmInfo.promotionItem = tmpPromotionItem
@@ -139,6 +144,7 @@ class App extends Component {
   }
   //接收bottombutton传过来的值 用于显示userinformation questionlist promotion list
   handleNext(flag){
+    this.testConfirm();
     this.setState({
       nextstate: flag
     })
@@ -202,8 +208,7 @@ class App extends Component {
             getQuestionListAnswers={this.handleConfirmInfo}/>
         }
         {this.state.nextstate && <Promotionlist promotionList={promotionList} peopleandprice={this.state.peopleandPrice}/>}
-        <button onClick={this.testConfirm}>test confirm</button>
-        {this.state.isShowConfirmation && this.state.afterFirstConfirm && <Confirmation confirmInfo={this.state.confirmInfo}/>}
+        {this.state.afterFirstConfirm && <Confirmation confirmInfo={this.state.confirmInfo}/>}
         {/* <PaymentMethod /> */}
         <BottomButton quantityContral={this.state.quantityContral} onHandleNext={this.handleNext} onHandleFirstConfirm={this.handleFirstConfirm}/>
       </div>
