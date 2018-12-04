@@ -26,7 +26,8 @@ class App extends Component {
       peopleandPriceandTitle: [], //给confirmation用 有 count price title
       peopleandTitle: {}, //给confirmation用
       nextstate: false,
-      afterFirstConfirm: false
+      afterFirstConfirm: false,
+      promotionTitle: ''
     };
     this.handlePackageid = this.handlePackageid.bind(this);
     this.handleSelectedDate = this.handleSelectedDate.bind(this);
@@ -34,6 +35,7 @@ class App extends Component {
     this.peopleandPrice = this.peopleandPrice.bind(this);
     this.handleNext = this.handleNext.bind(this);
     this.handleFirstConfirm = this.handleFirstConfirm.bind(this);
+    this.handlePromotionTitle = this.handlePromotionTitle.bind(this);
   }
   componentDidMount(){
     fetch('../localData/dealStepTwo.json')
@@ -88,6 +90,13 @@ class App extends Component {
         this.state.peopleandPriceandTitle[i] = this.state.peopleandTitle;
       }
       console.log(this.state.peopleandPriceandTitle);
+    });
+  }
+
+  //接收promotion里的title
+  handlePromotionTitle(promotionTitle){
+    this.setState({promotionTitle: promotionTitle},function(){
+      console.log(this.state.promotionTitle);
     });
   }
 
@@ -207,7 +216,7 @@ class App extends Component {
             packageId={ this.state.packageid }
             getQuestionListAnswers={this.handleConfirmInfo}/>
         }
-        {this.state.nextstate && <Promotionlist promotionList={promotionList} peopleandprice={this.state.peopleandPrice}/>}
+        {this.state.nextstate && <Promotionlist promotionList={promotionList} peopleandprice={this.state.peopleandPrice} onHandlePromotionTitle={this.handlePromotionTitle}/>}
         {this.state.afterFirstConfirm && <Confirmation confirmInfo={this.state.confirmInfo}/>}
         {/* <PaymentMethod /> */}
         <BottomButton quantityContral={this.state.quantityContral} onHandleNext={this.handleNext} onHandleFirstConfirm={this.handleFirstConfirm}/>
