@@ -24,6 +24,7 @@ class Userdetails extends Component {
         this.handleChange1 = this.handleChange1.bind(this);
         this.handleChange2 = this.handleChange2.bind(this);
         this.handleChange3 = this.handleChange3.bind(this);
+        this.userInfo = {}
     }
 
     handleChange1(e){
@@ -33,6 +34,8 @@ class Userdetails extends Component {
         }else{
             document.getElementById('1').style.border = 'none';
         }       
+        this.userInfo.firstName = e.target.value
+        this.sendUserInfoToParent(this.userInfo)
     }
 
     handleChange2(e){
@@ -41,10 +44,11 @@ class Userdetails extends Component {
             document.getElementById('2').style.border = '1px solid #ff8400';
         }else{
             document.getElementById('2').style.border = 'none';
-        }       
+        }  
+        this.userInfo.lastName = e.target.value
+        this.sendUserInfoToParent(this.userInfo)     
     }
     handleChange3(e){
-        
         this.setState({value3: e.target.value});
         let reg = /^([a-zA-Z]|[0-9])(\w|\-)+@[a-zA-Z0-9]+\.([a-zA-Z]{1,4})$/;
         if(!reg.test(e.target.value)){
@@ -52,6 +56,12 @@ class Userdetails extends Component {
         }else{
             document.getElementById('3').style.border = 'none';
         }
+        this.userInfo.email = e.target.value
+        this.sendUserInfoToParent(this.userInfo) 
+    }
+
+    sendUserInfoToParent(userInfo) {
+      this.props.getUserInfo('userInfo', userInfo)
     }
     render(){
         const { classes } = this.props;

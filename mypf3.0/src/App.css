@@ -144,8 +144,8 @@
   position:relative;
 }
 .confirmationTotalHeader{
-  padding-left: 4%;
-  padding-top:12px;
+  /* padding-left: 4%; */
+  padding: 10px 0 10px 4%;
 }
 .confirmationTotalHeaderRight{
   float: right;

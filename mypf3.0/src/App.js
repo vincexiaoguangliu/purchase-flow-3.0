@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
 import 'whatwg-fetch';
-import logo from './logo.svg';
 import './App.css';
 
 import Quantity from './pfComponent/quantity'
@@ -14,7 +12,6 @@ import BottomButton from './pfComponent/bottomButton'
 // import SelectPackage from './pfComponent/package'
 import PackageRadio from './pfComponent/packageRadio'
 import DatePicker from './pfComponent/datePicker'
-import SelectTime from './pfComponent/selectTime'
 
 // import {get} from './api/serverapi'
 
@@ -25,7 +22,9 @@ class App extends Component {
   constructor(props){
     super(props);
     this.state = {
-      // peopleandPrice: {}
+      confirmInfo: {},
+      peopleandPriceandTitle: [], //给confirmation用 有 count price title
+      peopleandTitle: {}, //给confirmation用
       nextstate: false,
       afterFirstConfirm: false
     };
@@ -39,11 +38,16 @@ class App extends Component {
   componentDidMount(){
     fetch('../localData/dealStepTwo.json')
     .then(res => res.json())
-    .then( data => {this.setState({
-      packages: data.packages,
-      questions: data.questions,
-      promotionList: data.promotions,
-    })})
+    .then( data => {
+      this.setState({
+        packages: data.packages,
+        questions: data.questions,
+        promotionList: data.promotions,
+        confirmInfo: {
+          optIn: data.optIn,
+        }
+      })}
+    )
   }
 
   handlePackageid(packageid){
@@ -64,32 +68,92 @@ class App extends Component {
   }
 
   // 获取 questionList answers
-  handleQuestionAnswers = (answers) => {
+  handleConfirmInfo = (key, value) => {
+    const tmpConfirmInfo = this.state.confirmInfo
+    tmpConfirmInfo[key] = value
     this.setState({
-      answers: answers
+      confirmInfo: tmpConfirmInfo
     })
-    console.log(answers, 25555555555)
   }
 
   //接收子传父的peopleandprice
   peopleandPrice(pp){
     console.log(pp);
     // this.state.peopleandPrice = pp;
-    this.setState({peopleandPrice: pp, quantityContral: pp.number});
-    console.log(this.state.peopleandPrice);
+    this.setState({peopleandPrice: pp, quantityContral: pp.number},function(){
+      for(let i = 0; i<this.state.peopleandPrice.number.length; i++){
+        this.state.peopleandTitle.count = this.state.peopleandPrice.number[i];
+        this.state.peopleandTitle.price = this.state.peopleandPrice.price[i];
+        this.state.peopleandTitle.title = this.state.peopleandPrice.title[i];
+        this.state.peopleandPriceandTitle[i] = this.state.peopleandTitle;
+      }
+      console.log(this.state.peopleandPriceandTitle);
+    });
   }
 
+  testConfirm = () => {
+    const tmpPromotionItem = {
+      "id": 53,
+      "type": "percentage",
+      "value": 11,
+      "title": "30% OFF UPON $200 OR ABOVE",
+      "message": "Enjoy 20% off upon purchase of $200 or above",
+      "conditions": {
+        "price_total": {
+          "minimum": "200"
+        }
+      }
+    }
+
+    tmpPromotionItem.ratio = tmpPromotionItem.title.slice(0, tmpPromotionItem.title.indexOf('%'))
+    const tmpConfirmInfo = this.state.confirmInfo
+    tmpConfirmInfo.promotionItem = tmpPromotionItem
+    tmpConfirmInfo.priceInfo = {
+      currency: "HKD",
+      dealItems: [
+        {
+          title: 'adult',
+          price: 50,
+          count: 5,
+        },
+        {
+          title: 'child/senior',
+          price: 40,
+          count: 3,
+        }
+      ]
+    }
+    tmpConfirmInfo.priceInfo = {
+      currency: "HKD",
+      dealItems: [
+        {
+          title: 'adult',
+          price: 50,
+          count: 5,
+        },
+        {
+          title: 'child/senior',
+          price: 40,
+          count: 3,
+        }
+      ]
+    }
+    this.setState({
+      confirmInfo: tmpConfirmInfo,
+    })
+  }
   //接收bottombutton传过来的值 用于显示userinformation questionlist promotion list
   handleNext(flag){
+    this.testConfirm();
     this.setState({
       nextstate: flag
     })
   }
 
   handleFirstConfirm(flag){
-this.setState({
-  afterFirstConfirm: flag
-})
+    this.setState({
+      afterFirstConfirm: flag
+    })
   }
   render() {
     let that = this;
@@ -104,15 +168,15 @@ this.setState({
     }
     // console.log(this.state.timeslotId);
     //父组件传select quantity子组件 dealitemTypes属性；
-    if(this.state.packages != undefined){  
+    if(this.state.packages !== undefined){  
        selectIdPackage = this.state.packages.find(function(ele){
-        return ele.id == that.state.packageid;
+        return ele.id === that.state.packageid;
       })
-      if(selectIdPackage != undefined){
+      if(selectIdPackage !== undefined){
         if(selectIdPackage.dates.length>0){
           selectIdPackageDateLength = selectIdPackage.dates.length;      
           for(let i =0; i<selectIdPackage.dates.length; i++){
-            if(this.state.selectedDate == selectIdPackage.dates[i].date.substring(8,10)){
+            if(this.state.selectedDate === selectIdPackage.dates[i].date.substring(8,10)){
               console.log(selectIdPackage.dates[i].dealItemTypes);
               dealitemTypes = selectIdPackage.dates[i].dealItemTypes;
             }
@@ -124,7 +188,7 @@ this.setState({
       }     
     }
     
-    if(this.state.promotionList != undefined){
+    if(this.state.promotionList !== undefined){
       promotionList = this.state.promotionList;
     }
     
@@ -135,17 +199,16 @@ this.setState({
         {/* <SelectTime /> */}
         {selectIdPackageDateLength>0 && <DatePicker packages={selectIdPackage} onChangeHandledates={this.handleSelectedDate} onChangeTimeslotId={this.handleTimeslotId}/>}      
         {(quantityDisplay || selectIdPackageDateLength ==0) && <Quantity dealitemTypes={dealitemTypes} timeslotId={this.state.timeslotId} handlepeopleandPrice={this.peopleandPrice}/>}
-        {this.state.nextstate && <Userdetails />}
-       
-        {this.state.nextstate && (this.state.questions && this.state.timeslotId && this.state.packageid &&
-          <QuestionList 
-            questions={ this.state.questions } 
+        {this.state.nextstate && <Userdetails getUserInfo={this.handleConfirmInfo}/>}
+        {this.state.nextstate && this.state.questions &&
+          <QuestionList
+            questions={ this.state.questions }
             timeslotId={ this.state.timeslotId }
             packageId={ this.state.packageid }
-            getQuestionListAnswers={this.handleQuestionAnswers}/>
-        )}
-        {this.state.nextstate && <Promotionlist promotionList={promotionList} peopleandprice={this.state.peopleandPrice}/>}       
-        {this.state.afterFirstConfirm && <Confirmation />}       
+            getQuestionListAnswers={this.handleConfirmInfo}/>
+        }
+        {this.state.nextstate && <Promotionlist promotionList={promotionList} peopleandprice={this.state.peopleandPrice}/>}
+        {this.state.afterFirstConfirm && <Confirmation confirmInfo={this.state.confirmInfo}/>}
         {/* <PaymentMethod /> */}
         <BottomButton quantityContral={this.state.quantityContral} onHandleNext={this.handleNext} onHandleFirstConfirm={this.handleFirstConfirm}/>
       </div>
