@@ -19,7 +19,8 @@ class Promotionlist extends React.Component {
       message: '',
       peopleandprice: {},
       usediscountedPrice: [],
-      totalNo: 0
+      totalNo: 0,
+      promotionTitle: ''
     };
     this.handleApplyorNot = this.handleApplyorNot.bind(this);
   }
@@ -57,6 +58,7 @@ class Promotionlist extends React.Component {
       this.setState({
         usediscountedPrice: temp
       });
+      this.state.promotionTitle = '';  //改状态下传空值
     } else {
       for (let j = 0; j < this.state.promotionList.length; j++) {
         this.state.usediscountedPrice[j] = false;
@@ -65,14 +67,17 @@ class Promotionlist extends React.Component {
       this.setState({
         usediscountedPrice: temp
       });
+      this.state.promotionTitle = this.state.promotionList[index].title;
     }
   }
   handleApplyorNot(index, e) {
     if (!this.state.promotionList[index].conditions) {
       this.useApplyOnce(index);
+      this.props.onHandlePromotionTitle(this.state.promotionTitle);
     } else {
       if (this.state.totalNo > this.state.promotionList[index].conditions.price_total.minimum) {
         this.useApplyOnce(index);
+        this.props.onHandlePromotionTitle(this.state.promotionTitle);
       }
     }
 

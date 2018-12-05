@@ -38,7 +38,8 @@ class Quantity extends Component {
                        afterAddDiscount: [], //discountereminder函数需要下下步的折扣价   这里用来存储
                        peopleandPrice: {  //供传给promotionList使用
                            number: [],
-                           price: []
+                           price: [],
+                           title: []
                        }                
                     };
         this.addQuantity = this.addQuantity.bind(this);
@@ -48,6 +49,7 @@ class Quantity extends Component {
    
     componentWillMount(){
         for(let i = 0; i<this.state.dealitemTypes.length; i++){
+            this.state.peopleandPrice.title[i] = this.state.dealitemTypes[i].title;
             //判断购买上限
             if(this.state.dealitemTypes[i].maxQuantity != -1){
                 this.state.maxQuantity[i] = this.state.dealitemTypes[i].maxQuantity;
