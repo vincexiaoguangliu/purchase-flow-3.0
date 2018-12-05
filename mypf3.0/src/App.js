@@ -118,21 +118,6 @@ class App extends Component {
         }
       ]
     }
-    tmpConfirmInfo.priceInfo = {
-      currency: "HKD",
-      dealItems: [
-        {
-          title: 'adult',
-          price: 50,
-          count: 5,
-        },
-        {
-          title: 'child/senior',
-          price: 40,
-          count: 3,
-        }
-      ]
-    }
     this.setState({
       confirmInfo: tmpConfirmInfo,
     })
@@ -145,6 +130,7 @@ class App extends Component {
   }
 
   handleFirstConfirm(flag){
+    this.testConfirm()
     this.setState({
       afterFirstConfirm: flag
     })
@@ -202,7 +188,6 @@ class App extends Component {
             getQuestionListAnswers={this.handleConfirmInfo}/>
         }
         {this.state.nextstate && <Promotionlist promotionList={promotionList} peopleandprice={this.state.peopleandPrice}/>}
-        <button onClick={this.testConfirm}>test confirm</button>
         {this.state.isShowConfirmation && this.state.afterFirstConfirm && <Confirmation confirmInfo={this.state.confirmInfo}/>}
         {/* <PaymentMethod /> */}
         <BottomButton quantityContral={this.state.quantityContral} onHandleNext={this.handleNext} onHandleFirstConfirm={this.handleFirstConfirm}/>
