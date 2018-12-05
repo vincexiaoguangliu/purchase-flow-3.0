@@ -175,7 +175,7 @@ class App extends Component {
         }
         {this.state.nextstate && <Promotionlist promotionList={promotionList} peopleandprice={this.state.peopleandPrice} onHandlePromotionTitle={this.handleConfirmInfo}/>}
         {this.state.afterFirstConfirm && <Confirmation confirmInfo={this.state.confirmInfo} getCheckedInfo={this.handleConfirmInfo}/>}
-        <BottomButton quantityContral={this.state.quantityContral} onHandleNext={this.handleNext} onHandleFirstConfirm={this.handleFirstConfirm}/>
+        <BottomButton quantityContral={this.state.quantityContral} onHandleNext={this.handleNext} onHandleFirstConfirm={this.handleFirstConfirm} verifyUserInf={this.state.confirmInfo}/>
       </div>
     );
   }
