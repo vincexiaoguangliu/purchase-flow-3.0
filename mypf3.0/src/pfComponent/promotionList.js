@@ -23,6 +23,7 @@ class Promotionlist extends React.Component {
       promotionTitle: ''
     };
     this.handleApplyorNot = this.handleApplyorNot.bind(this);
+    this.promotionItem = {}
   }
 
 
@@ -68,16 +69,19 @@ class Promotionlist extends React.Component {
         usediscountedPrice: temp
       });
       this.state.promotionTitle = this.state.promotionList[index].title;
+      this.promotionItem.id = this.state.promotionList[index].id;
+      this.promotionItem.title = this.state.promotionList[index].title;
+      this.promotionItem.ratio = this.promotionItem.title.slice(0, this.promotionItem.title.indexOf('%'));
     }
   }
   handleApplyorNot(index, e) {
     if (!this.state.promotionList[index].conditions) {
       this.useApplyOnce(index);
-      this.props.onHandlePromotionTitle(this.state.promotionTitle);
+      this.props.onHandlePromotionTitle('promotionItem', this.promotionItem);
     } else {
       if (this.state.totalNo > this.state.promotionList[index].conditions.price_total.minimum) {
         this.useApplyOnce(index);
-        this.props.onHandlePromotionTitle(this.state.promotionTitle);
+        this.props.onHandlePromotionTitle('promotionItem', this.promotionItem);
       }
     }
 

@@ -37,9 +37,13 @@ class PackageRadio extends React.Component {
         this.radioChange = this.radioChange.bind(this);
     }
   
-    radioChange(event){
-        // console.log(event.target.id);
-        this.props.onChangePackage(event.target.id);
+    radioChange(displayPrice, event){
+        console.log(displayPrice, event.target.id, 2333);
+        const packageInfo = {
+            id: event.target.id,
+            currency: displayPrice.currency,
+        }
+        this.props.getPackageInfo('packageInfo', packageInfo);
         this.setState({ value: event.target.value });
     }
     // handleChange = event => {
@@ -103,7 +107,7 @@ class PackageRadio extends React.Component {
                             <FormControlLabel
                                 key={number.id}
                                 value={number.title}
-                                control={<Radio id={number.id} onChange={this.radioChange} className='packageRadio' color="primary" />}                               
+                                control={<Radio id={number.id} onChange={this.radioChange.bind(this, number.displayPrice)} className='packageRadio' color="primary" />}                               
                                 label={<div className='packageRadioLabel'>
                                     <div className='packageRadioLabelHead'>{number.title}</div>
                                     {number.description.length > 0 && <AlertDialog description={number.description}/>}

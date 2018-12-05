@@ -48,6 +48,7 @@ class App extends Component {
         // confirmation info 需要的数据都在 confirmInfo 对象中
         confirmInfo: {
           optIn: data.optIn,
+          currency: data.packages[0].displayPrice.currency,
         }
       })}
     )
@@ -77,76 +78,45 @@ class App extends Component {
     this.setState({
       confirmInfo: tmpConfirmInfo
     })
+    if (key === 'packageInfo') {
+      this.setState({
+        packageid: value.id
+      })
+    }
   }
 
   //接收子传父的peopleandprice
   peopleandPrice(pp){
-    console.log(pp);
     // this.state.peopleandPrice = pp;
-    this.setState({peopleandPrice: pp, quantityContral: pp.number},function(){
-      for(let i = 0; i<this.state.peopleandPrice.number.length; i++){
-        this.state.peopleandTitle.count = this.state.peopleandPrice.number[i];
-        this.state.peopleandTitle.price = this.state.peopleandPrice.price[i];
-        this.state.peopleandTitle.title = this.state.peopleandPrice.title[i];
-        this.state.peopleandPriceandTitle[i] = this.state.peopleandTitle;
+    this.setState({peopleandPrice: pp, quantityContral: pp.number});
+    let peopleAndPrice = []
+    setTimeout(() => {
+      for (let i = 0; i < pp.number.length; i++) {
+        peopleAndPrice.push({
+          title: pp.title[i],
+          price: pp.price[i],
+          count: pp.number[i],
+        })
       }
-      console.log(this.state.peopleandPriceandTitle);
-    });
+      this.handleConfirmInfo('priceInfo', peopleAndPrice)
+    }, 0)
   }
 
   //接收promotion里的title
   handlePromotionTitle(promotionTitle){
     this.setState({promotionTitle: promotionTitle},function(){
-      console.log(this.state.promotionTitle);
+      console.log(this.state.promotionTitle, 233333);
     });
   }
 
-  showConfirmation = () => {
-    const tmpPromotionItem = {
-      "id": 53,
-      "type": "percentage",
-      "value": 11,
-      "title": "30% OFF UPON $200 OR ABOVE",
-      "message": "Enjoy 20% off upon purchase of $200 or above",
-      "conditions": {
-        "price_total": {
-          "minimum": "200"
-        }
-      }
-    }
-
-    tmpPromotionItem.ratio = tmpPromotionItem.title.slice(0, tmpPromotionItem.title.indexOf('%'))
-    const tmpConfirmInfo = this.state.confirmInfo
-    tmpConfirmInfo.promotionItem = tmpPromotionItem
-    tmpConfirmInfo.priceInfo = {
-      currency: "HKD",
-      dealItems: [
-        {
-          title: 'adult',
-          price: 50,
-          count: 5,
-        },
-        {
-          title: 'child/senior',
-          price: 40,
-          count: 3,
-        }
-      ]
-    }
-    this.setState({
-      confirmInfo: tmpConfirmInfo,
-    })
-  }
   //接收bottombutton传过来的值 用于显示userinformation questionlist promotion list
   handleNext(flag){
-    this.showConfirmation();
     this.setState({
       nextstate: flag
     })
   }
 
   handleFirstConfirm(flag){
-    this.showConfirmation()
     this.setState({
       afterFirstConfirm: flag
     })
@@ -191,7 +161,7 @@ class App extends Component {
     return (
       <div>
         {/* <SelectPackage /> */}
-        <PackageRadio packages={this.state.packages} onChangePackage={this.handlePackageid}/>
+        <PackageRadio packages={this.state.packages} getPackageInfo={this.handleConfirmInfo}/>
         {/* <SelectTime /> */}
         {selectIdPackageDateLength>0 && <DatePicker packages={selectIdPackage} onChangeHandledates={this.handleSelectedDate} onChangeTimeslotId={this.handleTimeslotId}/>}      
         {(quantityDisplay || selectIdPackageDateLength ==0) && <Quantity dealitemTypes={dealitemTypes} timeslotId={this.state.timeslotId} handlepeopleandPrice={this.peopleandPrice}/>}
@@ -203,8 +173,8 @@ class App extends Component {
             packageId={ this.state.packageid }
             getQuestionListAnswers={this.handleConfirmInfo}/>
         }
-        {this.state.nextstate && <Promotionlist promotionList={promotionList} peopleandprice={this.state.peopleandPrice} onHandlePromotionTitle={this.handlePromotionTitle}/>}
-        {this.state.afterFirstConfirm && <Confirmation confirmInfo={this.state.confirmInfo}/>}
+        {this.state.nextstate && <Promotionlist promotionList={promotionList} peopleandprice={this.state.peopleandPrice} onHandlePromotionTitle={this.handleConfirmInfo}/>}
+        {this.state.afterFirstConfirm && <Confirmation confirmInfo={this.state.confirmInfo} getCheckedInfo={this.handleConfirmInfo}/>}
         <BottomButton quantityContral={this.state.quantityContral} onHandleNext={this.handleNext} onHandleFirstConfirm={this.handleFirstConfirm}/>
       </div>
     );

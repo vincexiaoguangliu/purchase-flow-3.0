@@ -17,7 +17,6 @@ import Slide from '@material-ui/core/Slide';
 
 // import ConfirmationTotal from './confirmationTotal'
 
-
 const styles = theme => ({
     root: {
       width: '100%',
@@ -75,6 +74,17 @@ const styles = theme => ({
       this.setState({
         checked: newChecked,
       });
+
+      const checkedInfo = {}
+      newChecked.forEach(item => {
+        if (item === 0) {
+          checkedInfo.optIn = true
+        } else if (item === 1) {
+          checkedInfo.terms = true
+        }
+      })
+
+      this.props.getCheckedInfo('checkedInfo', checkedInfo)
     };
   
     handleListItemClick = (event, index) => {
@@ -104,12 +114,15 @@ const styles = theme => ({
   
     render() {
       const { classes } = this.props;
-      const currency = this.props.confirmInfo.priceInfo.currency
+      const currency = this.props.confirmInfo.packageInfo.currency
       let totalPrice = 0
-      this.props.confirmInfo.priceInfo.dealItems.forEach(item => {
+      this.props.confirmInfo.priceInfo.forEach(item => {
         totalPrice += item.count * item.price
       })
-      const discountPrice = (totalPrice * this.props.confirmInfo.promotionItem.ratio / 100).toFixed(2)
+      let discountPrice = 0
+      if (this.props.confirmInfo.promotionItem !== undefined) {
+        discountPrice = (totalPrice * this.props.confirmInfo.promotionItem.ratio / 100).toFixed(2)
+      }
       const actualPayment = (totalPrice - discountPrice).toFixed(2)
   
       return (
@@ -132,17 +145,17 @@ const styles = theme => ({
             <Divider style={{marginTop: 10}}/>
             <div className='confirmationPackage'>Package</div>
             <div className='confirmationPackageList'>
-              {this.props.confirmInfo.priceInfo.dealItems.map(item => (
+              {this.props.confirmInfo.priceInfo.map(item => (
                 <div key={item.title}>
                   <span>{item.count} × {item.title}</span><span className='confirmationPackageListRight'>{currency} {item.count * item.price}</span>
                 </div>
               ))}
             </div>
-            <div className='confirmationPackageList'>
+            {this.props.confirmInfo.promotionItem && <div className='confirmationPackageList'>
               <span className={classes.promotionInfo}>
                 Regression QA-{this.props.confirmInfo.promotionItem.ratio}%</span>
               <span className={classes.promotionInfoRight}>-{currency} {discountPrice}</span>
-            </div>
+            </div>}
           </List>
           <Divider />
           <List component="nav">
