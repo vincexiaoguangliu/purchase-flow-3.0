@@ -219,7 +219,7 @@ class App extends Component {
         {this.state.nextstate && <Promotionlist promotionList={promotionList} peopleandprice={this.state.peopleandPrice} onHandlePromotionTitle={this.handlePromotionTitle}/>}
         {this.state.afterFirstConfirm && <Confirmation confirmInfo={this.state.confirmInfo}/>}
         {/* <PaymentMethod /> */}
-        <BottomButton quantityContral={this.state.quantityContral} onHandleNext={this.handleNext} onHandleFirstConfirm={this.handleFirstConfirm}/>
+        <BottomButton quantityContral={this.state.quantityContral} onHandleNext={this.handleNext} onHandleFirstConfirm={this.handleFirstConfirm} verifyUserInf={this.state.confirmInfo}/>
       </div>
     );
   }
