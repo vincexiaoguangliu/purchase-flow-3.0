@@ -100,7 +100,7 @@ class App extends Component {
     });
   }
 
-  testConfirm = () => {
+  showConfirmation = () => {
     const tmpPromotionItem = {
       "id": 53,
       "type": "percentage",
@@ -132,34 +132,20 @@ class App extends Component {
         }
       ]
     }
-    tmpConfirmInfo.priceInfo = {
-      currency: "HKD",
-      dealItems: [
-        {
-          title: 'adult',
-          price: 50,
-          count: 5,
-        },
-        {
-          title: 'child/senior',
-          price: 40,
-          count: 3,
-        }
-      ]
-    }
     this.setState({
       confirmInfo: tmpConfirmInfo,
     })
   }
   //接收bottombutton传过来的值 用于显示userinformation questionlist promotion list
   handleNext(flag){
-    this.testConfirm();
+    this.showConfirmation();
     this.setState({
       nextstate: flag
     })
   }
 
   handleFirstConfirm(flag){
+    this.showConfirmation()
     this.setState({
       afterFirstConfirm: flag
     })
