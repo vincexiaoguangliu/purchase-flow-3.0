@@ -116,6 +116,20 @@ const styles = theme => ({
         <div className={classes.root} style={{maxWidth:'100%'}}>
         <div className='sectionHeader'>YOUR BOOKING ORDER</div>
           <List component="nav">
+            <div className='confirmName'>
+              {this.props.confirmInfo.userInfo.firstName} {this.props.confirmInfo.userInfo.lastName}
+            </div>
+            <div className='confirmationMail'>
+              {this.props.confirmInfo.userInfo.email}
+            </div>
+            {
+              this.state.questionList.map(question => (
+                <div className='confirmationQuestion1'>
+                  {question.title}: {question.description}
+                </div>
+              ))
+            }
+            <Divider style={{marginTop: 10}}/>
             <div className='confirmationPackage'>Package</div>
             <div className='confirmationPackageList'>
               {this.props.confirmInfo.priceInfo.dealItems.map(item => (

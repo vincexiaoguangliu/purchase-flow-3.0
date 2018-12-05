@@ -45,6 +45,7 @@ class App extends Component {
         packages: data.packages,
         questions: data.questions,
         promotionList: data.promotions,
+        // confirmation info 需要的数据都在 confirmInfo 对象中
         confirmInfo: {
           optIn: data.optIn,
         }
