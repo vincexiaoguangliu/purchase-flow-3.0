@@ -48,7 +48,6 @@ class App extends Component {
         // confirmation info 需要的数据都在 confirmInfo 对象中
         confirmInfo: {
           optIn: data.optIn,
-          currency: data.packages[0].displayPrice.currency,
         }
       })}
     )
