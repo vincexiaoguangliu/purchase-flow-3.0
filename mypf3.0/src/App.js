@@ -17,6 +17,8 @@ import DatePicker from './pfComponent/datePicker'
 
 import PropTypes from 'prop-types';
 
+// request
+import request from './api/request';
 
 class App extends Component {
   constructor(props){
@@ -37,7 +39,25 @@ class App extends Component {
     this.handleFirstConfirm = this.handleFirstConfirm.bind(this);
     this.handlePromotionTitle = this.handlePromotionTitle.bind(this);
   }
+  async getDealStepInfo() {
+    try {
+      const urlPar = {
+        notice_type: 1,
+        limit: 8,
+        page: 1,
+      };
+      const todayOnHistoryInfo = await request.test(urlPar);
+      console.log(todayOnHistoryInfo, 23333)
+
+      // const result = await request.getDealStepInfo({}, 1024)
+      // console.log(result, 23333)
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
   componentDidMount(){
+    console.log(88888888)
     fetch('../localData/dealStepTwo.json')
     .then(res => res.json())
     .then( data => {
@@ -51,6 +71,24 @@ class App extends Component {
         }
       })}
     )
+
+    // fetch('https://staging.handy.travel/v2/deals/1024/dealstep')
+    // .then(res => res.json())
+    // .then( data => {
+    //   // this.setState({
+    //   //   packages: data.packages,
+    //   //   questions: data.questions,
+    //   //   promotionList: data.promotions,
+    //   //   // confirmation info 需要的数据都在 confirmInfo 对象中
+    //   //   confirmInfo: {
+    //   //     optIn: data.optIn,
+    //   //   }
+    //   // })}
+    //   console.log(data, 26666)
+    // }
+    // )
+
+    this.getDealStepInfo()
   }
 
   handlePackageid(packageid){
