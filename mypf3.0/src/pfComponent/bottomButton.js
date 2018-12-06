@@ -31,6 +31,16 @@ class BottomButton extends React.Component{
     componentWillReceiveProps(nextProps){
         console.log(nextProps);
         this.setState({userInf: nextProps.verifyUserInf});
+        console.log(this.state.userInf.checkedInfo);
+        //判断是否打钩协议
+        if(this.state.userInf.checkedInfo){
+            if(this.state.userInf.checkedInfo.terms){
+                this.setState({bottonButtonText : 'PAY NOW'})
+            }else{
+                this.setState({bottonButtonText : 'CONFIRM',sum: 0});
+            }
+            
+        }
         if(nextProps.quantityContral != undefined){
             for(let i = 0; i<nextProps.quantityContral.length; i++){
                 this.state.sum += nextProps.quantityContral[i];
