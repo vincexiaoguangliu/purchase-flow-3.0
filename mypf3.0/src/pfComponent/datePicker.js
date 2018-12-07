@@ -30,7 +30,10 @@ class Calendar extends React.Component {
         });
         this.props.onHandleDate(event.currentTarget.getAttribute('value'));
         
-       
+       //再次点击date 显示隐藏quantity下的模块
+       if((this.props.belowFlagOne && this.props.belowFlagTwo) || this.props.belowFlagOne || this.props.belowFlagTwo){
+        this.props.onHandleDownFlag(false,false,'buttonText');
+        }
     }
     
     render() {
@@ -58,6 +61,12 @@ class DatePicker extends React.Component {
         this.state = {};
         this.handleDate = this.handleDate.bind(this);
         this.handleTimaslotId = this.handleTimaslotId.bind(this);
+        this.handleDownFlag = this.handleDownFlag.bind(this);
+    }
+
+    componentWillReceiveProps(nextProps){
+        //接收标志用于判断是否显示quantity下面的模块
+        this.setState({nextstate: nextProps.belowFlagOne, afterFirstConfirm: nextProps.belowFlagTwo})
     }
     handleDate(date){
         this.setState({
@@ -67,7 +76,16 @@ class DatePicker extends React.Component {
         
     }
     handleTimaslotId(event){
-        this.props.onChangeTimeslotId(event.currentTarget.getAttribute('value'))
+        this.props.onChangeTimeslotId(event.currentTarget.getAttribute('value'));
+        //再次点击timaslotid 显示隐藏quantity下的模块
+        if((this.props.belowFlagOne && this.props.belowFlagTwo) || this.props.belowFlagOne || this.props.belowFlagTwo){
+            this.props.onHandleBelowFlag(false,false,'buttonText');
+            }
+    }
+
+    //接收calenda子组件传来的数据  并将其传给父组件app.js
+    handleDownFlag(flagone,flagtwo,index){
+        this.props.onHandleBelowFlag(flagone,flagtwo,index);
     }
     render() {
         console.log(this.state.selectDate);
@@ -99,7 +117,7 @@ class DatePicker extends React.Component {
                     <div className='datePickerHead'>{Month[month]} {year}</div>
                     <div className="calendar">
                         <ul className="list">
-                            <Calendar  onHandleDate={this.handleDate}/>
+                            <Calendar  onHandleDate={this.handleDate} onHandleDownFlag={this.handleDownFlag} belowFlagOne={this.state.nextstate} belowFlagTwo={this.state.afterFirstConfirm}/>
                         </ul>
                     </div>
                 </div>
