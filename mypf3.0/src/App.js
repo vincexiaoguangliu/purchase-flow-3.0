@@ -38,19 +38,21 @@ class App extends Component {
     this.handleNext = this.handleNext.bind(this);
     this.handleFirstConfirm = this.handleFirstConfirm.bind(this);
     this.handlePromotionTitle = this.handlePromotionTitle.bind(this);
+    this.dealStepData = {};
   }
   async getDealStepInfo() {
     try {
-      const urlPar = {
-        notice_type: 1,
-        limit: 8,
-        page: 1,
-      };
-      const todayOnHistoryInfo = await request.test(urlPar);
-      console.log(todayOnHistoryInfo, 23333)
+      // const urlPar = {
+      //   notice_type: 1,
+      //   limit: 8,
+      //   page: 1,
+      // };
+      // const todayOnHistoryInfo = await request.test(urlPar);
+      // console.log(todayOnHistoryInfo, 23333)
 
-      // const result = await request.getDealStepInfo({}, 1024)
-      // console.log(result, 23333)
+      this.dealStepData = await request.getDealStepInfo({}, 1051)
+      
+      console.log(this.dealStepData, 23333)
     } catch (e) {
       console.log(e)
     }
@@ -58,19 +60,29 @@ class App extends Component {
 
   componentDidMount(){
     console.log(88888888)
-    fetch('../localData/dealStepTwo.json')
-    .then(res => res.json())
-    .then( data => {
-      this.setState({
-        packages: data.packages,
-        questions: data.questions,
-        promotionList: data.promotions,
-        // confirmation info 需要的数据都在 confirmInfo 对象中
-        confirmInfo: {
-          optIn: data.optIn,
-        }
-      })}
-    )
+    // fetch('../localData/dealStepTwo.json')
+    // .then(res => res.json())
+    // .then( data => {
+    //   this.setState({
+    //     packages: data.packages,
+    //     questions: data.questions,
+    //     promotionList: data.promotions,
+    //     // confirmation info 需要的数据都在 confirmInfo 对象中
+    //     confirmInfo: {
+    //       optIn: data.optIn,
+    //     }
+    //   })}
+    // )
+
+    this.setState({
+      packages: this.dealStepData.packages,
+      questions: this.dealStepData.questions,
+      promotionList: this.dealStepData.promotions,
+      // confirmation info 需要的数据都在 confirmInfo 对象中
+      confirmInfo: {
+        optIn: this.dealStepData.optIn,
+      }
+    })
 
     // fetch('https://staging.handy.travel/v2/deals/1024/dealstep')
     // .then(res => res.json())

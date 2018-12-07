@@ -1,8 +1,7 @@
 // 请求服务器host
-// const host = 'https://staging.handy.travel';
 import { Base64 } from 'js-base64';
-
-const host = 'https://www.lansheng8.com'
+const host = 'https://staging.handy.travel';
+// const host = 'https://www.lansheng8.com'
 
 // webview 获取当前 handy 设备信息
 // const handyInfo = window.Android.getGlobalProperties()
