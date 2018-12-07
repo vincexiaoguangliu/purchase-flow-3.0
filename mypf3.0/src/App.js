@@ -19,6 +19,7 @@ import PropTypes from 'prop-types';
 
 // request
 import request from './api/request';
+import utils from './utils';
 
 class App extends Component {
   constructor(props){
@@ -42,24 +43,26 @@ class App extends Component {
   }
   async getDealStepInfo() {
     try {
-      // const urlPar = {
-      //   notice_type: 1,
-      //   limit: 8,
-      //   page: 1,
-      // };
-      // const todayOnHistoryInfo = await request.test(urlPar);
-      // console.log(todayOnHistoryInfo, 23333)
+      const dealID = utils.getQueryVariable('deal_id')
 
-      this.dealStepData = await request.getDealStepInfo({}, 1051)
-      
-      console.log(this.dealStepData, 23333)
+      this.dealStepData = await request.getDealStepInfo({}, dealID)
+
+      // 线上数据
+      this.setState({
+        packages: this.dealStepData.packages,
+        questions: this.dealStepData.questions,
+        promotionList: this.dealStepData.promotions,
+        // confirmation info 需要的数据都在 confirmInfo 对象中
+        confirmInfo: {
+          optIn: this.dealStepData.optIn,
+        }
+      })
     } catch (e) {
       console.log(e)
     }
   }
 
   componentDidMount(){
-    console.log(88888888)
     // 本地数据
     // fetch('../localData/dealStepTwo.json')
     // .then(res => res.json())
@@ -73,33 +76,6 @@ class App extends Component {
     //       optIn: data.optIn,
     //     }
     //   })}
-    // )
-
-    // 线上数据
-    this.setState({
-      packages: this.dealStepData.packages,
-      questions: this.dealStepData.questions,
-      promotionList: this.dealStepData.promotions,
-      // confirmation info 需要的数据都在 confirmInfo 对象中
-      confirmInfo: {
-        optIn: this.dealStepData.optIn,
-      }
-    })
-
-    // fetch('https://staging.handy.travel/v2/deals/1024/dealstep')
-    // .then(res => res.json())
-    // .then( data => {
-    //   // this.setState({
-    //   //   packages: data.packages,
-    //   //   questions: data.questions,
-    //   //   promotionList: data.promotions,
-    //   //   // confirmation info 需要的数据都在 confirmInfo 对象中
-    //   //   confirmInfo: {
-    //   //     optIn: data.optIn,
-    //   //   }
-    //   // })}
-    //   console.log(data, 26666)
-    // }
     // )
 
     this.getDealStepInfo()
@@ -194,7 +170,6 @@ class App extends Component {
           selectIdPackageDateLength = selectIdPackage.dates.length;      
           for(let i =0; i<selectIdPackage.dates.length; i++){
             if(this.state.selectedDate === selectIdPackage.dates[i].date.substring(8,10)){
-              console.log(selectIdPackage.dates[i].dealItemTypes);
               dealitemTypes = selectIdPackage.dates[i].dealItemTypes;
             }
           }
