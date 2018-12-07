@@ -78,10 +78,18 @@ class Promotionlist extends React.Component {
     if (!this.state.promotionList[index].conditions) {
       this.useApplyOnce(index);
       this.props.onHandlePromotionTitle('promotionItem', this.promotionItem);
+       //点击apply remove时 通过判断confirmation 是否为true 来隐藏它
+       if(this.props.confirmAppear){
+        this.props.onHandleConfirmAppear('buttonText',false);
+      }
     } else {
       if (this.state.totalNo > this.state.promotionList[index].conditions.price_total.minimum) {
         this.useApplyOnce(index);
         this.props.onHandlePromotionTitle('promotionItem', this.promotionItem);
+        //点击apply remove时 通过判断confirmation 是否为true 来隐藏它
+        if(this.props.confirmAppear){
+          this.props.onHandleConfirmAppear('buttonText',false);
+        }
       }
     }
 

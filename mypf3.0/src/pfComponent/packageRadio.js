@@ -45,10 +45,10 @@ class PackageRadio extends React.Component {
         }
         this.props.getPackageInfo('packageInfo', packageInfo);
         this.setState({ value: event.target.value });
+        if(this.props.belowFlagOne || this.props.belowFlagTwo || this.props.selectIdPackageDateLengthTwo == 0 || this.props.quantityDisplay){
+            this.props.onChangeAllFlag(false,1,'buttonText')
+        }
     }
-    // handleChange = event => {
-    //     this.setState({ value: event.target.value });
-    // };
     
     render() {
         const { classes } = this.props;

@@ -25,9 +25,11 @@ class App extends Component {
       confirmInfo: {},
       peopleandPriceandTitle: [], //给confirmation用 有 count price title
       peopleandTitle: {}, //给confirmation用
-      nextstate: false,
-      afterFirstConfirm: false,
-      promotionTitle: ''
+      nextstate: false, //显示your details; questionlist ,promotionlist 的标志
+      afterFirstConfirm: false, //显示confirmation的标志
+      promotionTitle: '',
+      quantityDisplay: false,
+      selectIdPackageDateLengthTwo: 1,
     };
     this.handlePackageid = this.handlePackageid.bind(this);
     this.handleSelectedDate = this.handleSelectedDate.bind(this);
@@ -36,6 +38,8 @@ class App extends Component {
     this.handleNext = this.handleNext.bind(this);
     this.handleFirstConfirm = this.handleFirstConfirm.bind(this);
     this.handlePromotionTitle = this.handlePromotionTitle.bind(this);
+    this.handleBelowFlag = this.handleBelowFlag.bind(this);
+    this.changeAllFlag = this.changeAllFlag.bind(this);
   }
   componentDidMount(){
     fetch('../localData/dealStepTwo.json')
@@ -115,21 +119,55 @@ class App extends Component {
     })
   }
 
-  handleFirstConfirm(flag){
+  handleFirstConfirm(index,flag){
     this.setState({
       afterFirstConfirm: flag
+    });
+    //接收点击apply remove 传过来的false
+    if(flag == false){
+      console.log(this.state.confirmInfo);
+      const tmpConfirmInfo = this.state.confirmInfo;
+      tmpConfirmInfo[index]= 'buttonTextone';
+      this.setState({
+        confirmInfo: tmpConfirmInfo
+      })
+    }
+  }
+  //日期和quantity 控制下面模块显示（两者共用）
+  handleBelowFlag(flagone, flagtwo,index){
+    // this.setState({nextstate: one, afterFirstConfirm: two})
+    const tmpConfirmInfo = this.state.confirmInfo;
+      tmpConfirmInfo[index]= 'buttonTexttwo';
+      this.setState({
+        confirmInfo: tmpConfirmInfo,
+        nextstate: flagone,
+        afterFirstConfirm: flagtwo
+      })
+  }
+
+  changeAllFlag(bool,num,index){
+    const tmpConfirmInfo = this.state.confirmInfo;
+    tmpConfirmInfo[index]= 'buttonTextthree';
+    this.setState({
+      confirmInfo: tmpConfirmInfo,
+      nextstate: bool,
+      afterFirstConfirm: bool,
+      quantityDisplay: bool,
+      selectIdPackageDateLengthTwo: num
     })
   }
   render() {
     let that = this;
     let selectIdPackage;
     let dealitemTypes;
-    let quantityDisplay;
+    // let quantityDisplay;
     let selectIdPackageDateLength; //通过判断date.length判断日期的显示
+    // let selectIdPackageDateLengthTwo; //通过判断date.length判断日期的显示
     let promotionList = [];
     //判断quantity显现
     if(this.state.timeslotId){ 
-      quantityDisplay = true;
+      this.state.quantityDisplay = true;
+      this.state.timeslotId = false;  //防止再点击package的时候显示quantity
     }
     // console.log(this.state.timeslotId);
     //父组件传select quantity子组件 dealitemTypes属性；
@@ -139,7 +177,8 @@ class App extends Component {
       })
       if(selectIdPackage !== undefined){
         if(selectIdPackage.dates.length>0){
-          selectIdPackageDateLength = selectIdPackage.dates.length;      
+          selectIdPackageDateLength = selectIdPackage.dates.length;
+          this.state.selectIdPackageDateLengthTwo = selectIdPackage.dates.length;      
           for(let i =0; i<selectIdPackage.dates.length; i++){
             if(this.state.selectedDate === selectIdPackage.dates[i].date.substring(8,10)){
               console.log(selectIdPackage.dates[i].dealItemTypes);
@@ -148,6 +187,7 @@ class App extends Component {
           }
         }else{
           selectIdPackageDateLength = 0;
+          this.state.selectIdPackageDateLengthTwo = 0;
           dealitemTypes = selectIdPackage.dealItemTypes;
         }  
       }     
@@ -160,10 +200,10 @@ class App extends Component {
     return (
       <div>
         {/* <SelectPackage /> */}
-        <PackageRadio packages={this.state.packages} getPackageInfo={this.handleConfirmInfo}/>
+        <PackageRadio packages={this.state.packages} getPackageInfo={this.handleConfirmInfo} onChangeAllFlag={this.changeAllFlag} belowFlagOne={this.state.nextstate} belowFlagTwo={this.state.afterFirstConfirm} selectIdPackageDateLengthTwo={this.state.selectIdPackageDateLengthTwo} quantityDisplay={this.state.quantityDisplay}/>
         {/* <SelectTime /> */}
-        {selectIdPackageDateLength>0 && <DatePicker packages={selectIdPackage} onChangeHandledates={this.handleSelectedDate} onChangeTimeslotId={this.handleTimeslotId}/>}      
-        {(quantityDisplay || selectIdPackageDateLength ==0) && <Quantity dealitemTypes={dealitemTypes} timeslotId={this.state.timeslotId} handlepeopleandPrice={this.peopleandPrice}/>}
+        {selectIdPackageDateLength>0 && <DatePicker packages={selectIdPackage} onChangeHandledates={this.handleSelectedDate} onChangeTimeslotId={this.handleTimeslotId} onHandleBelowFlag={this.handleBelowFlag} belowFlagOne={this.state.nextstate} belowFlagTwo={this.state.afterFirstConfirm}/>}      
+        {(this.state.quantityDisplay || this.state.selectIdPackageDateLengthTwo ==0) && <Quantity dealitemTypes={dealitemTypes} timeslotId={this.state.timeslotId} handlepeopleandPrice={this.peopleandPrice} onHandleBelowFlag={this.handleBelowFlag} belowFlagOne={this.state.nextstate} belowFlagTwo={this.state.afterFirstConfirm}/>}
         {this.state.nextstate && <Userdetails getUserInfo={this.handleConfirmInfo}/>}
         {this.state.nextstate && this.state.questions &&
           <QuestionList
@@ -172,7 +212,7 @@ class App extends Component {
             packageId={ this.state.packageid }
             getQuestionListAnswers={this.handleConfirmInfo}/>
         }
-        {this.state.nextstate && <Promotionlist promotionList={promotionList} peopleandprice={this.state.peopleandPrice} onHandlePromotionTitle={this.handleConfirmInfo}/>}
+        {this.state.nextstate && <Promotionlist promotionList={promotionList} peopleandprice={this.state.peopleandPrice} onHandlePromotionTitle={this.handleConfirmInfo} onHandleConfirmAppear={this.handleFirstConfirm} confirmAppear={this.state.afterFirstConfirm}/>}
         {this.state.afterFirstConfirm && <Confirmation confirmInfo={this.state.confirmInfo} getCheckedInfo={this.handleConfirmInfo}/>}
         <BottomButton quantityContral={this.state.quantityContral} onHandleNext={this.handleNext} onHandleFirstConfirm={this.handleFirstConfirm} verifyUserInf={this.state.confirmInfo}/>
       </div>

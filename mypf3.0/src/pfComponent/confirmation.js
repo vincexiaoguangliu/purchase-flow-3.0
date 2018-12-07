@@ -81,6 +81,8 @@ const styles = theme => ({
           checkedInfo.optIn = true
         } else if (item === 1) {
           checkedInfo.terms = true
+        }else{
+          checkedInfo.terms = false;
         }
       })
 

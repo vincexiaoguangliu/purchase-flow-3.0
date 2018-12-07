@@ -17,7 +17,7 @@ class BottomButton extends React.Component{
     constructor(props){
         super(props);
         this.state={
-            bottonButtonText: 'Next',
+            bottonButtonText: 'NEXT',
             sum: 0, //总数量>0  button就高亮
             userInf: {},
             email: '',
@@ -31,20 +31,41 @@ class BottomButton extends React.Component{
     componentWillReceiveProps(nextProps){
         console.log(nextProps);
         this.setState({userInf: nextProps.verifyUserInf});
-        console.log(this.state.userInf.checkedInfo);
+        console.log(this.state.userInf.buttonText);
+        //接收父组件buttonText重新点击apply remove 来显示下面模块
+        if(this.state.userInf.buttonText == 'buttonTextone'){
+            this.setState({bottonButtonText : 'CONFIRM',sum: 1});
+            this.state.sum = 0;
+        };
+        if(this.state.userInf.buttonText == 'buttonTexttwo'){      //接收父组件的buttonText重新点击quantity 来显示下面模块
+            this.setState({bottonButtonText : 'NEXT',sum: 1});
+            this.state.userInf.buttonText = ''; //清空， 防止其他点击时 又执行这一步；  巨坑
+            this.state.sum = 0;
+        }
+
+        if(this.state.userInf.buttonText == 'buttonTextthree'){      //接收父组件的buttonText重新点击quantity 来显示下面模块
+            this.setState({bottonButtonText : 'NEXT',sum: 0});
+            this.state.userInf.buttonText = ''; //清空， 防止其他点击时 又执行这一步；  巨坑
+        }
+        
         //判断是否打钩协议
         if(this.state.userInf.checkedInfo){
             if(this.state.userInf.checkedInfo.terms){
                 this.setState({bottonButtonText : 'PAY NOW'})
+                this.state.userInf.checkedInfo = undefined; //防止将上面的点击apply remove时的buttontext覆盖；
             }else{
-                this.setState({bottonButtonText : 'CONFIRM',sum: 0});
+                this.setState({bottonButtonText : 'CONFIRM',sum: 0}); 
+                // this.state.userInf.checkedInfo.terms = false;
+                this.state.userInf.checkedInfo = undefined; //防止将上面的点击apply remove时的buttontext覆盖；
             }
             
         }
         if(nextProps.quantityContral != undefined){
+            let total = 0;;
             for(let i = 0; i<nextProps.quantityContral.length; i++){
-                this.state.sum += nextProps.quantityContral[i];
+                total += nextProps.quantityContral[i];
             }
+            this.setState({sum: total});
         }     
     }
 
@@ -56,7 +77,7 @@ class BottomButton extends React.Component{
         this.setState({ open: false });
       };
     handleBottomButton(e){ 
-        if(e.currentTarget.getAttribute('buttontext') == 'Next'){
+        if(e.currentTarget.getAttribute('buttontext') == 'NEXT'){
             this.props.onHandleNext(true);
             this.setState({bottonButtonText: 'CONFIRM'})
         }else if(e.currentTarget.getAttribute('buttontext') == 'CONFIRM'){
@@ -81,11 +102,11 @@ class BottomButton extends React.Component{
             }
            //所有验证通过显示confirmation information
             if(questionFlag && emailFlag && this.state.userInf.userInfo.firstName && this.state.userInf.userInfo.lastName){
-                this.props.onHandleFirstConfirm(true);
+                this.props.onHandleFirstConfirm('',true);
                 this.setState({sum: 0});
             }else{
                 this.handleClick();
-                this.props.onHandleFirstConfirm(false);
+                this.props.onHandleFirstConfirm('',false);
                 this.setState({sum: 1});
             }
             
