@@ -60,6 +60,7 @@ class App extends Component {
 
   componentDidMount(){
     console.log(88888888)
+    // 本地数据
     // fetch('../localData/dealStepTwo.json')
     // .then(res => res.json())
     // .then( data => {
@@ -74,6 +75,7 @@ class App extends Component {
     //   })}
     // )
 
+    // 线上数据
     this.setState({
       packages: this.dealStepData.packages,
       questions: this.dealStepData.questions,
