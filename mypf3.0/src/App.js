@@ -25,7 +25,9 @@ class App extends Component {
   constructor(props){
     super(props);
     this.state = {
-      confirmInfo: {},
+      confirmInfo: {
+        timeslotId: ''
+      },
       peopleandPriceandTitle: [], //给confirmation用 有 count price title
       peopleandTitle: {}, //给confirmation用
       nextstate: false, //显示your details; questionlist ,promotionlist 的标志
@@ -57,10 +59,12 @@ class App extends Component {
         questions: this.dealStepData.questions,
         promotionList: this.dealStepData.promotions,
         // confirmation info 需要的数据都在 confirmInfo 对象中
-        confirmInfo: {
-          optIn: this.dealStepData.optIn,
-        }
+        // confirmInfo: {
+        //   optIn: this.dealStepData.optIn,
+        // }
       })
+      this.handleConfirmInfo('optIn', this.dealStepData.optIn)
+      this.handleConfirmInfo('dealId', this.dealStepData.dealId)
     } catch (e) {
       console.log(e)
     }
@@ -100,6 +104,11 @@ class App extends Component {
     this.setState({
       timeslotId: id
     })
+    const tmpConfirmInfo = this.state.confirmInfo
+    tmpConfirmInfo.timeslotId = id
+    this.setState({
+      confirmInfo: tmpConfirmInfo
+    })
   }
 
   // 获取 questionList answers
@@ -127,6 +136,7 @@ class App extends Component {
           title: pp.title[i],
           price: pp.price[i],
           count: pp.number[i],
+          id: pp.id[i],
         })
       }
       this.handleConfirmInfo('priceInfo', peopleAndPrice)

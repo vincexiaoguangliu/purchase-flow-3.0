@@ -39,7 +39,8 @@ class Quantity extends Component {
                        peopleandPrice: {  //供传给promotionList使用
                            number: [],
                            price: [],
-                           title: []
+                           title: [],
+                           id: []
                        }                
                     };
         this.addQuantity = this.addQuantity.bind(this);
@@ -50,6 +51,7 @@ class Quantity extends Component {
     componentWillMount(){
         for(let i = 0; i<this.state.dealitemTypes.length; i++){
             this.state.peopleandPrice.title[i] = this.state.dealitemTypes[i].title;
+            this.state.peopleandPrice.id[i] = this.state.dealitemTypes[i].id;
             //判断购买上限
             if(this.state.dealitemTypes[i].maxQuantity != -1){
                 this.state.maxQuantity[i] = this.state.dealitemTypes[i].maxQuantity;
@@ -88,7 +90,7 @@ class Quantity extends Component {
             this.displayDiscountedpriceReminder(this.state.quantity[i]+1, i, this.state.unitPrice[i]);
             
         }
-        console.log(this.state.peopleandPrice);
+        console.log(this.state.peopleandPrice, 299999);
         this.props.handlepeopleandPrice(this.state.peopleandPrice); //子传父传peopleandprice
     }
     //加1过程判断是否显示discountedpriceReminder
