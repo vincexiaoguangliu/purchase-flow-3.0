@@ -11,7 +11,7 @@ let handyInfo = {},
 if (window.Global) {
   console.log('from native')
   handyInfo = window.Global.getGlobalProperties()
-  ticketInfo = window.Ticketing.getTitketingProperties()
+  ticketInfo = window.Ticketing.getTicketingProperties()
 } else {
   console.log('from web')
   handyInfo = {

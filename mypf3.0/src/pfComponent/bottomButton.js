@@ -57,7 +57,7 @@ class BottomButton extends React.Component{
                 this.setState({bottonButtonText : 'PAY NOW'})
                 
                 this.confirmBodyPar.optIn = this.props.verifyUserInf.optIn.isRender
-                this.iLink = `deal_payment_options:${JSON.stringify(this.confirmBodyPar)}`
+                this.iLink = `dealpaymentoption:${JSON.stringify(this.confirmBodyPar)}`
                 this.state.userInf.checkedInfo = undefined; //防止将上面的点击apply remove时的buttontext覆盖；
             }else{
                 this.setState({bottonButtonText : 'CONFIRM',sum: 0}); 
