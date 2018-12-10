@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Snackbar from '@material-ui/core/Snackbar';
+import request from '../api/request';
 
 const styles = theme => ({
     button: {
@@ -24,12 +25,14 @@ class BottomButton extends React.Component{
             open: false,
             vertical: 'top',
             horizontal: 'center',
+            confirmInfo: ''
         }
         this.handleBottomButton = this.handleBottomButton.bind(this);
+        this.confirmBodyPar = {}
     }
     
     componentWillReceiveProps(nextProps){
-        console.log(nextProps);
+        console.log(nextProps, 2333333);
         this.setState({userInf: nextProps.verifyUserInf});
         console.log(this.state.userInf.buttonText);
         //接收父组件buttonText重新点击apply remove 来显示下面模块
@@ -52,6 +55,9 @@ class BottomButton extends React.Component{
         if(this.state.userInf.checkedInfo){
             if(this.state.userInf.checkedInfo.terms){
                 this.setState({bottonButtonText : 'PAY NOW'})
+                
+                this.confirmBodyPar.optIn = this.props.verifyUserInf.optIn.isRender
+                this.iLink = `deal_payment_options:${JSON.stringify(this.confirmBodyPar)}`
                 this.state.userInf.checkedInfo = undefined; //防止将上面的点击apply remove时的buttontext覆盖；
             }else{
                 this.setState({bottonButtonText : 'CONFIRM',sum: 0}); 
@@ -76,7 +82,7 @@ class BottomButton extends React.Component{
     handleClose = () => {
         this.setState({ open: false });
       };
-    handleBottomButton(e){ 
+    async handleBottomButton(e){ 
         if(e.currentTarget.getAttribute('buttontext') == 'NEXT'){
             this.props.onHandleNext(true);
             this.setState({bottonButtonText: 'CONFIRM'})
@@ -100,16 +106,46 @@ class BottomButton extends React.Component{
                     }
                 }
             }
-           //所有验证通过显示confirmation information
-            if(questionFlag && emailFlag && this.state.userInf.userInfo.firstName && this.state.userInf.userInfo.lastName){
-                this.props.onHandleFirstConfirm('',true);
-                this.setState({sum: 0});
-            }else{
-                this.handleClick();
-                this.props.onHandleFirstConfirm('',false);
-                this.setState({sum: 1});
+            // 验证通过发给后台校验
+            const quantities = {}
+            this.props.verifyUserInf.priceInfo.forEach(item => {
+                quantities[item.id] = item.count
+            })
+            this.confirmBodyPar = {
+                "answers": this.props.verifyUserInf.packageInfo.answers,
+                "date": "Jul 4, 2018 00:00:00",
+                "dealId": this.props.verifyUserInf.dealId,
+                "packageId": this.props.verifyUserInf.packageInfo.id,
+                "promotionId": this.props.verifyUserInf.promotionItem ? this.props.verifyUserInf.promotionItem.id : '',
+                "quantities": quantities,
+                "timeslotId": this.props.verifyUserInf.timeslotId,
+                "userInfo": {
+                    "firstName": this.props.verifyUserInf.userInfo.firstName,
+                    "lastName": this.props.verifyUserInf.userInfo.lastName,
+                    "email": this.props.verifyUserInf.userInfo.email,
+                }
             }
-            
+            try {
+                //所有验证通过向后台发送数据
+                if(questionFlag && emailFlag && this.state.userInf.userInfo.firstName && this.state.userInf.userInfo.lastName){
+                    let result = await request.confirmDealInfo(this.confirmBodyPar)
+                    console.log(result, 23333334567)
+                    if (result.success) {
+                        this.props.onHandleFirstConfirm('',true);
+                        this.setState({sum: 0});
+                    } else {
+                        this.setState({
+                            confirmInfo: result.message
+                        })
+                    }
+                } else {
+                    this.handleClick();
+                    this.props.onHandleFirstConfirm('',false);
+                    this.setState({sum: 1});
+                }
+            } catch (e) {
+                console.log(e)
+            }
         }
         
     }
@@ -122,6 +158,8 @@ class BottomButton extends React.Component{
                 <Button id='bottomButton' variant="contained" buttontext={this.state.bottonButtonText} color="secondary" onClick={this.handleBottomButton} disabled={this.state.sum>0? false: true}  className={classes.button}>
                     {this.state.bottonButtonText}
                 </Button>
+                <p>{this.state.confirmInfo}</p>
+                <a href={this.iLink}>{ this.iLink ? 'iLink' : ''}</a>
                 <Snackbar
                     anchorOrigin={{ vertical, horizontal }}
                     open={open}
