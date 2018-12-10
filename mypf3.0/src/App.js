@@ -33,6 +33,7 @@ class App extends Component {
       promotionTitle: '',
       quantityDisplay: false,
       selectIdPackageDateLengthTwo: 1,
+      controlQuantity: true
     };
     this.handlePackageid = this.handlePackageid.bind(this);
     this.handleSelectedDate = this.handleSelectedDate.bind(this);
@@ -181,7 +182,8 @@ class App extends Component {
       nextstate: bool,
       afterFirstConfirm: bool,
       quantityDisplay: bool,
-      selectIdPackageDateLengthTwo: num
+      selectIdPackageDateLengthTwo: num,
+      controlQuantity: false
     })
   }
   render() {
@@ -230,7 +232,7 @@ class App extends Component {
         <PackageRadio packages={this.state.packages} getPackageInfo={this.handleConfirmInfo} onChangeAllFlag={this.changeAllFlag} belowFlagOne={this.state.nextstate} belowFlagTwo={this.state.afterFirstConfirm} selectIdPackageDateLengthTwo={this.state.selectIdPackageDateLengthTwo} quantityDisplay={this.state.quantityDisplay}/>
         {/* <SelectTime /> */}
         {selectIdPackageDateLength>0 && <DatePicker packages={selectIdPackage} onChangeHandledates={this.handleSelectedDate} onChangeTimeslotId={this.handleTimeslotId} onHandleBelowFlag={this.handleBelowFlag} belowFlagOne={this.state.nextstate} belowFlagTwo={this.state.afterFirstConfirm}/>}      
-        {(this.state.quantityDisplay || this.state.selectIdPackageDateLengthTwo ==0) && <Quantity dealitemTypes={dealitemTypes} timeslotId={this.state.timeslotId} handlepeopleandPrice={this.peopleandPrice} onHandleBelowFlag={this.handleBelowFlag} belowFlagOne={this.state.nextstate} belowFlagTwo={this.state.afterFirstConfirm}/>}
+        {(this.state.quantityDisplay || (this.state.selectIdPackageDateLengthTwo ==0 && this.state.controlQuantity)) && <Quantity dealitemTypes={dealitemTypes} timeslotId={this.state.timeslotId} handlepeopleandPrice={this.peopleandPrice} onHandleBelowFlag={this.handleBelowFlag} belowFlagOne={this.state.nextstate} belowFlagTwo={this.state.afterFirstConfirm}/>}
         {this.state.nextstate && <Userdetails getUserInfo={this.handleConfirmInfo}/>}
         {this.state.nextstate && this.state.questions &&
           <QuestionList
