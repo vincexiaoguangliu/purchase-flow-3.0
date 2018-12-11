@@ -12,6 +12,22 @@ const styles = theme => ({
     input: {
         display: 'none',
     },
+    payNowBtn: {
+        display: 'inline-flex',
+        backgroundColor: '#ff8400',
+        width: '100%',
+        color: '#fff',
+        boxShadow: 'none',
+        borderRadius: '4px',
+        textTransform: 'uppercase',
+        alignItems: 'center',
+        verticalAlign: 'middle',
+        justifyContent: 'center',
+        margin: '8px',
+        textDecoration: 'none',
+        minHeight: '36px',
+        boxShadow: '0px 1px 5px 0px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 3px 1px -2px rgba(0, 0, 0, 0.12)',
+    }
 });
 
 class BottomButton extends React.Component{
@@ -155,11 +171,11 @@ class BottomButton extends React.Component{
         const { vertical, horizontal, open } = this.state;
         return (
             <div style={{paddingRight:20,paddingLeft:20}}>
-                <Button id='bottomButton' variant="contained" buttontext={this.state.bottonButtonText} color="secondary" onClick={this.handleBottomButton} disabled={this.state.sum>0? false: true}  className={classes.button}>
+                {this.state.bottonButtonText === 'PAY NOW' && <a className={classes.payNowBtn} href={this.iLink}>PAY NOW</a>}
+                {this.state.bottonButtonText !== 'PAY NOW' && <Button id='bottomButton' variant="contained" buttontext={this.state.bottonButtonText} color="secondary" onClick={this.handleBottomButton} disabled={this.state.sum>0? false: true}  className={classes.button}>
                     {this.state.bottonButtonText}
-                </Button>
+                </Button>}
                 <p>{this.state.confirmInfo}</p>
-                <a href={this.iLink}>{ this.iLink ? 'iLink' : ''}</a>
                 <Snackbar
                     anchorOrigin={{ vertical, horizontal }}
                     open={open}
