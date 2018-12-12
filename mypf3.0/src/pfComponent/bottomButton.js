@@ -113,28 +113,29 @@ class BottomButton extends React.Component{
                     }
                 }
             }
-            // 验证通过发给后台校验
-            const quantities = {}
-            this.props.verifyUserInf.priceInfo.forEach(item => {
-                quantities[item.id] = item.count
-            })
-            this.confirmBodyPar = {
-                "answers": this.props.verifyUserInf.packageInfo.answers,
-                "date": "Jul 4, 2018 00:00:00",
-                "dealId": this.props.verifyUserInf.dealId,
-                "packageId": this.props.verifyUserInf.packageInfo.id,
-                "promotionId": this.props.verifyUserInf.promotionItem ? this.props.verifyUserInf.promotionItem.id : '',
-                "quantities": quantities,
-                "timeslotId": this.props.verifyUserInf.timeslotId,
-                "userInfo": {
-                    "firstName": this.props.verifyUserInf.userInfo.firstName,
-                    "lastName": this.props.verifyUserInf.userInfo.lastName,
-                    "email": this.props.verifyUserInf.userInfo.email,
-                }
-            }
+            
             try {
                 //所有验证通过向后台发送数据
                 if(questionFlag && emailFlag && this.state.userInf.userInfo.firstName && this.state.userInf.userInfo.lastName){
+                    // 验证通过发给后台校验
+                const quantities = {}
+                this.props.verifyUserInf.priceInfo.forEach(item => {
+                    quantities[item.id] = item.count
+                })
+                this.confirmBodyPar = {
+                    "answers": this.props.verifyUserInf.packageInfo.answers,
+                    "date": "Jul 4, 2018 00:00:00",
+                    "dealId": this.props.verifyUserInf.dealId,
+                    "packageId": this.props.verifyUserInf.packageInfo.id,
+                    "promotionId": this.props.verifyUserInf.promotionItem ? this.props.verifyUserInf.promotionItem.id : '',
+                    "quantities": quantities,
+                    "timeslotId": this.props.verifyUserInf.timeslotId,
+                    "userInfo": {
+                        "firstName": this.props.verifyUserInf.userInfo.firstName,
+                        "lastName": this.props.verifyUserInf.userInfo.lastName,
+                        "email": this.props.verifyUserInf.userInfo.email,
+                    }
+                }
                     // let result = await request.confirmDealInfo(this.confirmBodyPar)
                     // console.log(result, 23333334567)
                     const result = {

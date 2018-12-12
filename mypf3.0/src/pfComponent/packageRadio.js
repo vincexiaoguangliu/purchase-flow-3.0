@@ -16,6 +16,8 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Avatar from '@material-ui/core/Avatar';
 import Paper from '@material-ui/core/Paper';
 
+import renderHTML from 'react-render-html';
+
 const styles = theme => ({
     root: {
         display: 'flex',
@@ -110,7 +112,7 @@ class PackageRadio extends React.Component {
                                 control={<Radio id={number.id} onChange={this.radioChange.bind(this, number.displayPrice)} className='packageRadio' color="primary" />}                               
                                 label={<div className='packageRadioLabel'>
                                     <div className='packageRadioLabelHead'>{number.title}</div>
-                                    {number.description.length > 0 && <AlertDialog description={number.description}/>}
+                                    {number.description.length > 0 && <AlertDialog description={renderHTML(number.description)}/>}
                                     
                                     <div className='packageRadioLabelHeadBody'>
                                         <span>

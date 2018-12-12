@@ -99,13 +99,17 @@ class App extends Component {
       packageid: packageid
     })
   }
-  handleSelectedDate(date){
+
+  //接收子組件傳來的年月日
+  handleSelectedDate(date,passtime){
     this.setState({
       selectedDate: date
-    })
+    });
+    this.handleConfirmInfo('passtime', passtime)
   }
-  //子(datepicker)传父获取timeslotId
-  handleTimeslotId(id){
+  //子(datepicker)传父获取timeslotId 同時也接收子組件傳來的時分秒
+  handleTimeslotId(id, time){
+    this.handleConfirmInfo('passtime', time);
     this.setState({
       timeslotId: id
     })
