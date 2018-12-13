@@ -42,6 +42,7 @@ class BottomButton extends React.Component{
             vertical: 'top',
             horizontal: 'center',
             confirmInfo: ''
+          
         }
         this.handleBottomButton = this.handleBottomButton.bind(this);
         this.confirmBodyPar = {}
@@ -54,18 +55,20 @@ class BottomButton extends React.Component{
         //接收父组件buttonText重新点击apply remove 来显示下面模块
         if(this.state.userInf.buttonText == 'buttonTextone'){
             this.setState({bottonButtonText : 'CONFIRM',sum: 1});
-            this.state.sum = 0;
+            // this.state.sum = 0;
         };
         if(this.state.userInf.buttonText == 'buttonTexttwo'){      //接收父组件的buttonText重新点击quantity 来显示下面模块
             this.setState({bottonButtonText : 'NEXT',sum: 1});
             this.state.userInf.buttonText = ''; //清空， 防止其他点击时 又执行这一步；  巨坑
-            this.state.sum = 0;
+            // this.state.sum = 0;
         }
-
-        if(this.state.userInf.buttonText == 'buttonTextthree'){      //接收父组件的buttonText重新点击quantity 来显示下面模块
-            this.setState({bottonButtonText : 'NEXT',sum: 0});
+        if(this.state.userInf.buttonText == 'buttonTextthree'){      //接收父组件的buttonText重新点击select quantity 来显示下面模块
+            this.setState({bottonButtonText : 'NEXT', sum: 0});
+            console.log(222);
             this.state.userInf.buttonText = ''; //清空， 防止其他点击时 又执行这一步；  巨坑
+            document.getElementById('bottomButton').setAttribute('disabled', 'true')
         }
+        
         
         //判断是否打钩协议
         if(this.state.userInf.checkedInfo){
@@ -83,12 +86,16 @@ class BottomButton extends React.Component{
             
         }
         if(nextProps.quantityContral != undefined){
+            console.log(333);
             let total = 0;;
             for(let i = 0; i<nextProps.quantityContral.length; i++){
                 total += nextProps.quantityContral[i];
             }
             this.setState({sum: total});
-        }     
+        };
+        
+        
+        
     }
 
     handleClick(){
@@ -122,30 +129,34 @@ class BottomButton extends React.Component{
                     }
                 }
             }
-            // 验证通过发给后台校验
-            const quantities = {}
-            this.props.verifyUserInf.priceInfo.forEach(item => {
-                quantities[item.id] = item.count
-            })
-            this.confirmBodyPar = {
-                "answers": this.props.verifyUserInf.packageInfo.answers,
-                "date": "Jul 4, 2018 00:00:00",
-                "dealId": this.props.verifyUserInf.dealId,
-                "packageId": this.props.verifyUserInf.packageInfo.id,
-                "promotionId": this.props.verifyUserInf.promotionItem ? this.props.verifyUserInf.promotionItem.id : '',
-                "quantities": quantities,
-                "timeslotId": this.props.verifyUserInf.timeslotId,
-                "userInfo": {
-                    "firstName": this.props.verifyUserInf.userInfo.firstName,
-                    "lastName": this.props.verifyUserInf.userInfo.lastName,
-                    "email": this.props.verifyUserInf.userInfo.email,
-                }
-            }
+            
             try {
                 //所有验证通过向后台发送数据
                 if(questionFlag && emailFlag && this.state.userInf.userInfo.firstName && this.state.userInf.userInfo.lastName){
-                    let result = await request.confirmDealInfo(this.confirmBodyPar)
-                    console.log(result, 23333334567)
+                    // 验证通过发给后台校验
+                const quantities = {}
+                this.props.verifyUserInf.priceInfo.forEach(item => {
+                    quantities[item.id] = item.count
+                })
+                this.confirmBodyPar = {
+                    "answers": this.props.verifyUserInf.packageInfo.answers,
+                    "date": "Jul 4, 2018 00:00:00",
+                    "dealId": this.props.verifyUserInf.dealId,
+                    "packageId": this.props.verifyUserInf.packageInfo.id,
+                    "promotionId": this.props.verifyUserInf.promotionItem ? this.props.verifyUserInf.promotionItem.id : '',
+                    "quantities": quantities,
+                    "timeslotId": this.props.verifyUserInf.timeslotId,
+                    "userInfo": {
+                        "firstName": this.props.verifyUserInf.userInfo.firstName,
+                        "lastName": this.props.verifyUserInf.userInfo.lastName,
+                        "email": this.props.verifyUserInf.userInfo.email,
+                    }
+                }
+                    // let result = await request.confirmDealInfo(this.confirmBodyPar)
+                    // console.log(result, 23333334567)
+                    const result = {
+                        success: true
+                    }
                     if (result.success) {
                         this.props.onHandleFirstConfirm('',true);
                         this.setState({sum: 0});
