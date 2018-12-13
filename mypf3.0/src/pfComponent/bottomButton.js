@@ -4,6 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Snackbar from '@material-ui/core/Snackbar';
 import request from '../api/request';
+import { monthDict } from '../dict/bottomButton'
 
 const styles = theme => ({
     button: {
@@ -45,13 +46,12 @@ class BottomButton extends React.Component{
           
         }
         this.handleBottomButton = this.handleBottomButton.bind(this);
-        this.confirmBodyPar = {}
+        this.confirmBodyPar = {};
+        this.chooseDate = '';
     }
     
     componentWillReceiveProps(nextProps){
-        console.log(nextProps, 2333333);
         this.setState({userInf: nextProps.verifyUserInf});
-        console.log(this.state.userInf.buttonText);
         //接收父组件buttonText重新点击apply remove 来显示下面模块
         if(this.state.userInf.buttonText == 'buttonTextone'){
             this.setState({bottonButtonText : 'CONFIRM',sum: 1});
@@ -64,7 +64,6 @@ class BottomButton extends React.Component{
         }
         if(this.state.userInf.buttonText == 'buttonTextthree'){      //接收父组件的buttonText重新点击select quantity 来显示下面模块
             this.setState({bottonButtonText : 'NEXT', sum: 0});
-            console.log(222);
             this.state.userInf.buttonText = ''; //清空， 防止其他点击时 又执行这一步；  巨坑
             document.getElementById('bottomButton').setAttribute('disabled', 'true')
         }
@@ -86,8 +85,7 @@ class BottomButton extends React.Component{
             
         }
         if(nextProps.quantityContral != undefined){
-            console.log(333);
-            let total = 0;;
+            let total = 0;
             for(let i = 0; i<nextProps.quantityContral.length; i++){
                 total += nextProps.quantityContral[i];
             }
@@ -138,9 +136,15 @@ class BottomButton extends React.Component{
                 this.props.verifyUserInf.priceInfo.forEach(item => {
                     quantities[item.id] = item.count
                 })
+                if (this.props.verifyUserInf.passtime) {
+                    const chooseMonth = monthDict.filter(item => {
+                        return item.value === this.props.verifyUserInf.passtime.month
+                    })
+                    this.chooseDate = `${chooseMonth[0].label} ${this.props.verifyUserInf.passtime.date}, ${this.props.verifyUserInf.passtime.year} ${this.props.verifyUserInf.passtime.shifenmiao}`
+                }
                 this.confirmBodyPar = {
                     "answers": this.props.verifyUserInf.packageInfo.answers,
-                    "date": "Jul 4, 2018 00:00:00",
+                    "date": this.chooseDate,
                     "dealId": this.props.verifyUserInf.dealId,
                     "packageId": this.props.verifyUserInf.packageInfo.id,
                     "promotionId": this.props.verifyUserInf.promotionItem ? this.props.verifyUserInf.promotionItem.id : '',
@@ -152,19 +156,18 @@ class BottomButton extends React.Component{
                         "email": this.props.verifyUserInf.userInfo.email,
                     }
                 }
-                    // let result = await request.confirmDealInfo(this.confirmBodyPar)
-                    // console.log(result, 23333334567)
-                    const result = {
-                        success: true
-                    }
-                    if (result.success) {
-                        this.props.onHandleFirstConfirm('',true);
-                        this.setState({sum: 0});
-                    } else {
-                        this.setState({
-                            confirmInfo: result.message
-                        })
-                    }
+                let result = await request.confirmDealInfo(this.confirmBodyPar)
+                // const result = {
+                //     success: true
+                // }
+                if (result.success) {
+                    this.props.onHandleFirstConfirm('',true);
+                    this.setState({sum: 0});
+                } else {
+                    this.setState({
+                        confirmInfo: result.message
+                    })
+                }
                 } else {
                     this.handleClick();
                     this.props.onHandleFirstConfirm('',false);
@@ -177,7 +180,6 @@ class BottomButton extends React.Component{
         
     }
     render(){
-        console.log(this.state);
         const { classes } = this.props;
         const { vertical, horizontal, open } = this.state;
         return (
