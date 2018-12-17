@@ -34,4 +34,18 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
         
       # run tests!
-      - run: npm test
+      # - run: npm test
+  test:
+    docker:
+ 
+      - image: circleci/node:7.10
+
+    working_directory: ~/repo
+
+    steps:
+      - checkout
+        
+      # run tests!
+      - run:
+          name: Test
+          command: npm test
