@@ -75,7 +75,14 @@ class BottomButton extends React.Component{
                 this.setState({bottonButtonText : 'PAY NOW'})
                 
                 this.confirmBodyPar.optIn = this.props.verifyUserInf.optIn.isRender
-                this.iLink = `dealpaymentoption:${JSON.stringify(this.confirmBodyPar)}`
+                console.log(this.confirmBodyPar)
+                Object.keys(this.confirmBodyPar).forEach(key => {
+                    if (!this.confirmBodyPar[key]) {
+                        delete this.confirmBodyPar[key]
+                    }
+                })
+                console.log(this.confirmBodyPar)
+                this.iLink = `dealpaymentoptions:${JSON.stringify(this.confirmBodyPar)}`
                 this.state.userInf.checkedInfo = undefined; //防止将上面的点击apply remove时的buttontext覆盖；
             }else{
                 this.setState({bottonButtonText : 'CONFIRM',sum: 0}); 
@@ -143,7 +150,7 @@ class BottomButton extends React.Component{
                     this.chooseDate = `${chooseMonth[0].label} ${this.props.verifyUserInf.passtime.date}, ${this.props.verifyUserInf.passtime.year} ${this.props.verifyUserInf.passtime.shifenmiao}`
                 }
                 this.confirmBodyPar = {
-                    "answers": this.props.verifyUserInf.packageInfo.answers,
+                    "answers": this.props.verifyUserInf.packageInfo.answers || {},
                     "date": this.chooseDate,
                     "dealId": this.props.verifyUserInf.dealId,
                     "packageId": this.props.verifyUserInf.packageInfo.id,
