@@ -19,9 +19,11 @@ class Promotionlist extends React.Component {
       message: '',
       peopleandprice: {},
       usediscountedPrice: [],
-      totalNo: 0
+      totalNo: 0,
+      promotionTitle: ''
     };
     this.handleApplyorNot = this.handleApplyorNot.bind(this);
+    this.promotionItem = {}
   }
 
 
@@ -57,6 +59,7 @@ class Promotionlist extends React.Component {
       this.setState({
         usediscountedPrice: temp
       });
+      this.state.promotionTitle = '';  //改状态下传空值
     } else {
       for (let j = 0; j < this.state.promotionList.length; j++) {
         this.state.usediscountedPrice[j] = false;
@@ -65,14 +68,28 @@ class Promotionlist extends React.Component {
       this.setState({
         usediscountedPrice: temp
       });
+      this.state.promotionTitle = this.state.promotionList[index].title;
+      this.promotionItem.id = this.state.promotionList[index].id;
+      this.promotionItem.title = this.state.promotionList[index].title;
+      this.promotionItem.ratio = this.promotionItem.title.slice(0, this.promotionItem.title.indexOf('%'));
     }
   }
   handleApplyorNot(index, e) {
     if (!this.state.promotionList[index].conditions) {
       this.useApplyOnce(index);
+      this.props.onHandlePromotionTitle('promotionItem', this.promotionItem);
+       //点击apply remove时 通过判断confirmation 是否为true 来隐藏它
+       if(this.props.confirmAppear){
+        this.props.onHandleConfirmAppear('buttonText',false);
+      }
     } else {
       if (this.state.totalNo > this.state.promotionList[index].conditions.price_total.minimum) {
         this.useApplyOnce(index);
+        this.props.onHandlePromotionTitle('promotionItem', this.promotionItem);
+        //点击apply remove时 通过判断confirmation 是否为true 来隐藏它
+        if(this.props.confirmAppear){
+          this.props.onHandleConfirmAppear('buttonText',false);
+        }
       }
     }
 

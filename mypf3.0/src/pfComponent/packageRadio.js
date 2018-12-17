@@ -16,6 +16,8 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Avatar from '@material-ui/core/Avatar';
 import Paper from '@material-ui/core/Paper';
 
+import renderHTML from 'react-render-html';
+
 const styles = theme => ({
     root: {
         display: 'flex',
@@ -37,14 +39,18 @@ class PackageRadio extends React.Component {
         this.radioChange = this.radioChange.bind(this);
     }
   
-    radioChange(event){
-        // console.log(event.target.id);
-        this.props.onChangePackage(event.target.id);
+    radioChange(displayPrice, event){
+        console.log(displayPrice, event.target.id, 2333);
+        const packageInfo = {
+            id: event.target.id,
+            currency: displayPrice.currency,
+        }
+        this.props.getPackageInfo('packageInfo', packageInfo);
         this.setState({ value: event.target.value });
+        if(this.props.belowFlagOne || this.props.belowFlagTwo || this.props.selectIdPackageDateLengthTwo == 0 || this.props.quantityDisplay){
+            this.props.onChangeAllFlag(false,1,'buttonText')
+        }
     }
-    // handleChange = event => {
-    //     this.setState({ value: event.target.value });
-    // };
     
     render() {
         const { classes } = this.props;
@@ -103,10 +109,10 @@ class PackageRadio extends React.Component {
                             <FormControlLabel
                                 key={number.id}
                                 value={number.title}
-                                control={<Radio id={number.id} onChange={this.radioChange} className='packageRadio' color="primary" />}                               
+                                control={<Radio id={number.id} onChange={this.radioChange.bind(this, number.displayPrice)} className='packageRadio' color="primary" />}                               
                                 label={<div className='packageRadioLabel'>
                                     <div className='packageRadioLabelHead'>{number.title}</div>
-                                    {number.description.length > 0 && <AlertDialog description={number.description}/>}
+                                    {number.description.length > 0 && <AlertDialog description={renderHTML(number.description)}/>}
                                     
                                     <div className='packageRadioLabelHeadBody'>
                                         <span>
