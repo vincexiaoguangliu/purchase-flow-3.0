@@ -28,7 +28,7 @@ jobs:
 
       - run: npm cache clean --force
       - run: rm -rf node_modules
-      - run: npm install
+      - run: npm i -f
       # - save_cache:
       #     paths:
       #       - node_modules
