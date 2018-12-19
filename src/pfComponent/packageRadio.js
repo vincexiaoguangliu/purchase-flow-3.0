@@ -16,6 +16,8 @@ import Checkbox from '@material-ui/core/Checkbox';
 import Avatar from '@material-ui/core/Avatar';
 import Paper from '@material-ui/core/Paper';
 
+import renderHTML from 'react-render-html';
+
 const styles = theme => ({
     root: {
         display: 'flex',
@@ -37,13 +39,18 @@ class PackageRadio extends React.Component {
         this.radioChange = this.radioChange.bind(this);
     }
   
-    radioChange(event){
-        // console.log(event.target.id);
-        this.props.onChangePackage(event.target.id);
-    }
-    handleChange = event => {
+    radioChange(displayPrice, event){
+        console.log(displayPrice, event.target.id, 2333);
+        const packageInfo = {
+            id: event.target.id,
+            currency: displayPrice.currency,
+        }
+        this.props.getPackageInfo('packageInfo', packageInfo);
         this.setState({ value: event.target.value });
-    };
+        if(this.props.belowFlagOne || this.props.belowFlagTwo || this.props.selectIdPackageDateLengthTwo == 0 || this.props.quantityDisplay){
+            this.props.onChangeAllFlag(false,1,'buttonText')
+        }
+    }
     
     render() {
         const { classes } = this.props;
@@ -96,15 +103,16 @@ class PackageRadio extends React.Component {
                             name="gender2"
                             className={classes.group}
                             value={this.state.value}
-                            onChange={this.handleChange}
+                            
                         >
                         {packageList.map((number) => (
                             <FormControlLabel
                                 key={number.id}
-                                value={number.title}                               
+                                value={number.title}
+                                control={<Radio id={number.id} onChange={this.radioChange.bind(this, number.displayPrice)} className='packageRadio' color="primary" />}                               
                                 label={<div className='packageRadioLabel'>
                                     <div className='packageRadioLabelHead'>{number.title}</div>
-                                    {number.description.length > 0 && <AlertDialog description={number.description}/>}
+                                    {number.description.length > 0 && <AlertDialog description={renderHTML(number.description)}/>}
                                     
                                     <div className='packageRadioLabelHeadBody'>
                                         <span>
@@ -117,8 +125,7 @@ class PackageRadio extends React.Component {
                                         </span>
                                     </div>
                                     {number.showExtral ? <div className='extraDiscount'>Buy more for extra discount</div> : ''}
-                                </div>}
-                                control={<Radio id={number.id} onChange={this.radioChange} className='packageRadio' color="primary" />}
+                                </div>}                  
                                 labelPlacement="start"
                                 style={{ position: 'relative',height:'90px'}}
                             />

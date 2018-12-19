@@ -20,7 +20,6 @@ const styles = theme => ({
 class Quantity extends Component {
     constructor(props) {
         super(props);
-        console.log(this.props.dealitemTypes);
         this.state = { number: 0 ,
                        discountprice: [], //新的折扣价
                        dealitemTypes: this.props.dealitemTypes,
@@ -32,7 +31,17 @@ class Quantity extends Component {
                        transferTimaslotId: this.props.timeslotId,
                        dealItemPrice: [], //初始default:true的price 不要写成对象形式
                        maxQuantity: [], //数量最大值
-                       minQuantity: [] //数量最小值
+                       minQuantity: [], //数量最小值
+                       isdiscountReminderDisplay: [],
+                       numbermore: [],
+                       morediscountprice: [],
+                       afterAddDiscount: [], //discountereminder函数需要下下步的折扣价   这里用来存储
+                       peopleandPrice: {  //供传给promotionList使用
+                           number: [],
+                           price: [],
+                           title: [],
+                           id: []
+                       }                
                     };
         this.addQuantity = this.addQuantity.bind(this);
         this.minusQuantity = this.minusQuantity.bind(this);
@@ -41,6 +50,8 @@ class Quantity extends Component {
    
     componentWillMount(){
         for(let i = 0; i<this.state.dealitemTypes.length; i++){
+            this.state.peopleandPrice.title[i] = this.state.dealitemTypes[i].title;
+            this.state.peopleandPrice.id[i] = this.state.dealitemTypes[i].id;
             //判断购买上限
             if(this.state.dealitemTypes[i].maxQuantity != -1){
                 this.state.maxQuantity[i] = this.state.dealitemTypes[i].maxQuantity;
@@ -51,18 +62,21 @@ class Quantity extends Component {
             if(this.state.dealitemTypes[i].minQuantity > 0){
                 this.state.quantity[i] = this.state.dealitemTypes[i].minQuantity;
                 this.state.minQuantity[i] = this.state.dealitemTypes[i].minQuantity;
+                this.state.peopleandPrice.number[i] = this.state.dealitemTypes[i].minQuantity; //初始渲染时需要传到外面的票数 没有点击
             }else{
                 this.state.quantity[i] = 0;
                 this.state.minQuantity[i] = 0;
+                this.state.peopleandPrice.number[i] = 0; //初始渲染时需要传到外面的票数 没有点击
             }
 
             //查找default=true的price
             let dealItemPrice = this.state.dealitemTypes[i].prices.find(function(ele){
                 return ele.default == true;
             });
-            // this.setState({dealItemPrice: dealItemPrice});
+            // 这里的两个dealitemprice需要注意。
             this.state.dealItemPrice.push(dealItemPrice.unitPrice);
             this.state.unitPrice[i] = dealItemPrice.unitPrice;
+            this.state.peopleandPrice.price[i] = dealItemPrice.unitPrice; //初始渲染时需要传到外面的折扣价 没有点击
             this.state.originalPrice[i] = dealItemPrice.originalPrice;
 
             //查找default=false的price
@@ -70,10 +84,53 @@ class Quantity extends Component {
                 return ele.default != true;
             });              
             this.state.dealItemPriceFalseArray[i] = dealItemPriceFalse;
+
+            //buy more reminder的初始状态 与初始化过滤计算
+            this.state.isdiscountReminderDisplay[i] = false;
+            this.displayDiscountedpriceReminder(this.state.quantity[i]+1, i, this.state.unitPrice[i]);
+            
+        }
+        console.log(this.state.peopleandPrice, 299999);
+        this.props.handlepeopleandPrice(this.state.peopleandPrice); //子传父传peopleandprice
+    }
+    //加1过程判断是否显示discountedpriceReminder
+    displayDiscountedpriceReminder(currentQuantity, index, currentdiscountPrice){
+        console.log(currentdiscountPrice);
+        //每次需要清空操作
+        this.state.meetConditionPrices = [];
+        for(let j=0; j<this.state.dealItemPriceFalseArray[index].length; j++){
+            if(this.state.dealItemPriceFalseArray[index][j].conditions.quantity && this.state.dealItemPriceFalseArray[index][j].conditions.timeslot){
+                if(((currentQuantity>=this.state.dealItemPriceFalseArray[index][j].conditions.quantity.minimum) && (currentQuantity<=this.state.dealItemPriceFalseArray[index][j].conditions.quantity.maximum)) && (this.state.transferTimaslotId == this.state.dealItemPriceFalseArray[index][j].conditions.timeslot.id)){
+                    this.state.meetConditionPrices.push(this.state.dealItemPriceFalseArray[index][j]);
+                }
+            }else if(this.state.dealItemPriceFalseArray[index][j].conditions.quantity){
+                if((currentQuantity>=this.state.dealItemPriceFalseArray[index][j].conditions.quantity.minimum) && (currentQuantity<=this.state.dealItemPriceFalseArray[index][j].conditions.quantity.maximum)){
+                    this.state.meetConditionPrices.push(this.state.dealItemPriceFalseArray[index][j]);
+                }
+            }
+        }
+        this.state.meetConditionPrices.sort(function(a,b){
+            return a.priority - b.priority;
+        })
+        if(this.state.meetConditionPrices.length>0){
+            if(this.state.meetConditionPrices[this.state.meetConditionPrices.length-1].unitPrice < currentdiscountPrice){ 
+                    this.state.numbermore[index] =  this.state.meetConditionPrices[this.state.meetConditionPrices.length-1].conditions.quantity.minimum;                                         
+                    let newdiscountprice = this.state.meetConditionPrices[this.state.meetConditionPrices.length-1].unitPrice; 
+                    this.state.morediscountprice[index] = this.state.numbermore[index]*(currentdiscountPrice - newdiscountprice); 
+                    this.state.isdiscountReminderDisplay[index] = true;                             
+            }else{
+                this.state.isdiscountReminderDisplay[index] = false;
+            }
+        }else{
+            this.state.isdiscountReminderDisplay[index] = false;
         }
     }
+
+    //减1过程判断是否显示discountedpriceReminder
+
     //数量加1操作中获取满足condition要求的price  并按priority排序 覆盖旧的unitprice 的封装
     getMeetConditionPricesByAdd(currentQuantity, index, currentdiscountPrice){
+        this.state.meetConditionPrices = [];
         for(let j=0; j<this.state.dealItemPriceFalseArray[index].length; j++){
             if(this.state.dealItemPriceFalseArray[index][j].conditions.quantity && this.state.dealItemPriceFalseArray[index][j].conditions.timeslot){
                 if(((currentQuantity+1>=this.state.dealItemPriceFalseArray[index][j].conditions.quantity.minimum) && (currentQuantity+1<=this.state.dealItemPriceFalseArray[index][j].conditions.quantity.maximum)) && (this.state.transferTimaslotId == this.state.dealItemPriceFalseArray[index][j].conditions.timeslot.id)){
@@ -96,15 +153,23 @@ class Quantity extends Component {
             if(this.state.meetConditionPrices[this.state.meetConditionPrices.length-1].unitPrice < currentdiscountPrice){
                 console.log(this.state.meetConditionPrices[this.state.meetConditionPrices.length-1].unitPrice);                             
                     let newdiscountprice = this.state.meetConditionPrices[this.state.meetConditionPrices.length-1].unitPrice;
+                    this.state.peopleandPrice.price[index] = newdiscountprice; //加操作后的新的折扣价存储起来传给父组件
+                    console.log(this.state.peopleandPrice);
+                    this.state.afterAddDiscount[index] = newdiscountprice; //这里赋值传给discountreminder函数
                     let temp1 = {...this.state.discountprice, [index]:newdiscountprice};
                     //新的折扣季覆盖旧的uniteprice             
                     this.setState({discountprice: temp1});              
+            }else{
+                this.state.afterAddDiscount[index] = currentdiscountPrice; //加操作后的新的折扣价存储起来传给父组件 只是没有满足条件的折扣价
             }
+        }else{
+            this.state.afterAddDiscount[index] = currentdiscountPrice; //加操作后的新的折扣价存储起来传给父组件 筛选条件都没有
         }
     }
 
     //数量减1操作中获取满足condition要求的price  并按priority排序 覆盖旧的unitprice 的封装
     getMeetConditionPricesByMinus(currentQuantity, index, currentdiscountPrice){
+        this.state.meetConditionPrices = [];
         if(currentQuantity-1 > this.state.minQuantity[index]){
             for(let j=0; j<this.state.dealItemPriceFalseArray[index].length; j++){
                 if(this.state.dealItemPriceFalseArray[index][j].conditions.quantity && this.state.dealItemPriceFalseArray[index][j].conditions.timeslot){
@@ -126,58 +191,81 @@ class Quantity extends Component {
             })
             if(this.state.meetConditionPrices.length>0){
                 if(this.state.meetConditionPrices[this.state.meetConditionPrices.length-1].unitPrice < currentdiscountPrice){
-                    console.log(this.state.meetConditionPrices[this.state.meetConditionPrices.length-1].unitPrice);                             
+                    console.log(this.state.meetConditionPrices[this.state.meetConditionPrices.length-1].unitPrice);
+                    this.state.afterAddDiscount[index] = newdiscountprice;   //这里赋值传给discountreminder函数                          
                         let newdiscountprice = this.state.meetConditionPrices[this.state.meetConditionPrices.length-1].unitPrice;
+                        this.state.peopleandPrice.price[index] = newdiscountprice; //减操作后的新的折扣价存储起来传给父组件
+                        console.log(this.state.peopleandPrice);
                         let temp1 = {...this.state.discountprice, [index]:newdiscountprice};
                         //新的折扣季覆盖旧的uniteprice             
                         this.setState({discountprice: temp1});              
+                }else{
+                    this.state.peopleandPrice.price[index] = currentdiscountPrice; //减操作后的新的折扣价存储起来传给父组件
+                    console.log(this.state.peopleandPrice);
                 }
             }else{
                 //无过滤的conditions放default 为true的折扣价
                 // let newdiscountprice = this.state.dealItemPrice.unitPrice;
                 // let temp2 = {...this.state.discountprice, [index]:newdiscountprice};
                 // this.setState({discountprice: temp2});  
+                this.state.peopleandPrice.price[index] = currentdiscountPrice; //减操作后的新的折扣价存储起来传给父组件
+                console.log(this.state.peopleandPrice);
             }
         }else{
-            let newdiscountprice = this.state.dealItemPrice[index].unitPrice;
+            //减一操作到最小时还原成最小quantity时的折扣价。
+            let newdiscountprice = this.state.dealItemPrice[index];
+            this.state.peopleandPrice.price[index] = newdiscountprice; //减操作后的新的折扣价存储起来传给父组件
+            console.log(this.state.peopleandPrice);
+            this.state.afterAddDiscount[index] = newdiscountprice; //这里赋值传给discountreminder函数
             let temp3 = {...this.state.discountprice, [index]:newdiscountprice};
             this.setState({discountprice: temp3});
         }
         
     }
     addQuantity(currentQuantity,index,e){
-        console.log(e.currentTarget.getAttribute('currentdiscountPrice')); //这里要用e获取当前的折扣价。
-        this.getMeetConditionPricesByAdd(currentQuantity,index,e.currentTarget.getAttribute('currentdiscountPrice'));
+        // console.log(e.currentTarget.getAttribute('currentdiscountprice')); //这里要用e获取当前的折扣价。
+        this.getMeetConditionPricesByAdd(currentQuantity,index,e.currentTarget.getAttribute('currentdiscountprice'));
         console.log(this.state.meetConditionPrices);
         console.log(this.state.unitPrice[index]);
-      
+        this.displayDiscountedpriceReminder(currentQuantity+2,index,this.state.afterAddDiscount[index]);
         //数量加一操作
         if(currentQuantity < this.state.maxQuantity[index]){
             let temp2 = {...this.state.quantity, [index]:currentQuantity+1};
-            this.setState({quantity: temp2});
+            this.setState({quantity: temp2}, function(){
+                this.state.peopleandPrice.number[index] = this.state.quantity[index]; //加操作后的新的票数存储起来传给父组件
+            });          
+            console.log(this.state.peopleandPrice);
         }else{
             return false;
         }
-            
-        
-        
-        this.state.meetConditionPrices = [];
+        this.props.handlepeopleandPrice(this.state.peopleandPrice); //子传父传peopleandprice
+       //重新点击加按钮时隐藏下面所有模块
+       if((this.props.belowFlagOne && this.props.belowFlagTwo) || this.props.belowFlagOne || this.props.belowFlagTwo){
+           this.props.onHandleBelowFlag(false,false,'buttonText');
+       }
         
     }
     minusQuantity(currentQuantity,index,e) {
-        this.getMeetConditionPricesByMinus(currentQuantity,index,e.currentTarget.getAttribute('currentdiscountPrice'));
+        this.getMeetConditionPricesByMinus(currentQuantity,index,e.currentTarget.getAttribute('currentdiscountprice'));
         console.log(this.state.meetConditionPrices);
-        console.log(this.state.unitPrice[index]);      
+        console.log(this.state.unitPrice[index]);
+             
         //数量减一操作
         if(currentQuantity > this.state.minQuantity[index]){
             let temp3 = {...this.state.quantity, [index]:currentQuantity-1};
-            this.setState({quantity: temp3});
+            this.setState({quantity: temp3}, function(){
+                this.state.peopleandPrice.number[index] = this.state.quantity[index]; //减操作后的新的票数存储起来传给父组件
+            });
+            console.log(this.state.peopleandPrice);
         }else{
             return false;
         }
-            
-        this.state.meetConditionPrices = [];
-        
+        this.displayDiscountedpriceReminder(currentQuantity,index,this.state.afterAddDiscount[index]);    
+        this.props.handlepeopleandPrice(this.state.peopleandPrice); //子传父传peopleandprice
+         //重新点击减按钮时隐藏下面所有模块
+       if((this.props.belowFlagOne && this.props.belowFlagTwo) || this.props.belowFlagOne || this.props.belowFlagTwo){
+        this.props.onHandleBelowFlag(false,false,'buttonText');
+        }
     }
     
     //覆盖旧的折扣价 unitprice
@@ -199,15 +287,16 @@ class Quantity extends Component {
                                         <span className='quantityInitialPrice'>HKD {that.state.unitPrice[index]> that.state.discountprice[index] ? that.state.discountprice[index] : that.state.unitPrice[index]}</span>
                                         <span className='midDelete'>HKD {that.state.originalPrice[index]}</span>
                                     </div>
-                                    <div style={{ textAlign: 'left' }}>Buy 1 more to save HKD 58.00</div>
+                                    {that.state.isdiscountReminderDisplay[index] && <div style={{ textAlign: 'left' }}>Buy {that.state.numbermore[index]} more to save HKD {that.state.morediscountprice[index]}</div>}
+                                    
                                 </div>
                             </Grid>
                             <Grid item xs={5}>
                                 <div id='quantityRight' className={classes.paper}>
                                     <span className='quantityNo'>{that.state.quantity[index]}</span>
                                     <div className='quantityjiajian'>
-                                    <span className='sumbmitStyle' currentdiscountPrice={that.state.unitPrice[index]> that.state.discountprice[index] ? that.state.discountprice[index] : that.state.unitPrice[index]} onClick={that.minusQuantity.bind(this,that.state.quantity[index],index)}>-</span>
-                                    <span className='addStyle' currentdiscountPrice={that.state.unitPrice[index]> that.state.discountprice[index] ? that.state.discountprice[index] : that.state.unitPrice[index]} onClick={that.addQuantity.bind(this,that.state.quantity[index],index)}>+</span>                
+                                    <span className='sumbmitStyle' currentdiscountprice={that.state.unitPrice[index]> that.state.discountprice[index] ? that.state.discountprice[index] : that.state.unitPrice[index]} onClick={that.minusQuantity.bind(this,that.state.quantity[index],index)}>-</span>
+                                    <span className='addStyle' currentdiscountprice={that.state.unitPrice[index]> that.state.discountprice[index] ? that.state.discountprice[index] : that.state.unitPrice[index]} onClick={that.addQuantity.bind(this,that.state.quantity[index],index)}>+</span>                
                                     </div>
                                 </div>
                             </Grid>

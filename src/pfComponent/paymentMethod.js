@@ -73,7 +73,6 @@ class PaymentMethod extends React.Component {
                             style={{position:'relative'}}
                         />
                     </RadioGroup>
-
                 </FormControl>
             </div>
         );
