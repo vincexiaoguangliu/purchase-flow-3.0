@@ -17,5 +17,5 @@ jobs:
 
       # Download and cache dependencies
 
-      - run: npm install
+      - run: echo "hello world"
       
