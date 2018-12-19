@@ -26,7 +26,7 @@ jobs:
           # fallback to using the latest cache if no exact match is found
           - v1-dependencies-
 
-      - run: yarn install
+      - run: npm install
       - save_cache:
           paths:
             - node_modules
@@ -39,4 +39,4 @@ jobs:
       - run: sudo pip install awscli --upgrade
       - run: aws --version
       - run: aws s3 ls s3://handy-purchase-flow
-      - run: yarn run deploy
+      - run: npm run deploy
